@@ -1,0 +1,18 @@
+.navbar {
+    font-family:"Montserrat";
+    color:aliceblue;
+    float:"right";
+}
+
+#navbarelements {
+    float:"right";
+    display:"block";
+    padding:15;
+}
+
+#navbarelements:hover {
+    float:"right";
+    color:darkblue;
+    display:"block";
+    padding:15;
+}
