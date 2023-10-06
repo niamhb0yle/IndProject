@@ -2,16 +2,17 @@ import Image from 'next/image';
 import "@fontsource/montserrat";
 import Link from "next/link";
 import "./components/style.css";
-import "./about.js"
+import "./pages/login.js"
+import "./pages/signup.js"
 
 export default function Home() {
   return (
-    <body classname='body'>
+    <body className='body'>
       <div>
           <h1 id='logo'>terra</h1>
           <ul className='navbar'>
             <li id='navbarelements'>
-              <Link href="/about">
+              <Link href="/signup">
                 <p>Sign up</p>
               </Link>
             </li>

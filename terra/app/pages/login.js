@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import "@fontsource/montserrat";
 import Link from "next/link";
-import "./components/style.css";
+import "../components/style.css";
 
 export default function About() {
   return (
