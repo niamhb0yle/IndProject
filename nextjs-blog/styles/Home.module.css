@@ -5,6 +5,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-image: url('../public/startscreen.png');
+  background-size: cover;
 }
 
 .title a {
@@ -89,4 +91,8 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.startScreen {
+  background-image: url('../public/startscreen.png');
 }
