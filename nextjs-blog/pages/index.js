@@ -1,44 +1,38 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
+import "@fontsource/montserrat"; 
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Curo</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1 className={styles.title}>
-          Read <Link href='/posts/first-post'>this page!</Link>
+      <main className={styles.container}>
+        <h1 id={styles.logo}>
+          Curo.
         </h1>
 
-        <ul>
+        <ul className={styles.startScreenList}>
           <li>
-            <Link href='/posts/first-post'>Log in</Link>
+            <Link href='/login'>Log in</Link>
           </li>
           <li>
-            <Link href='/posts/first-post'>Sign up</Link>
+            <Link href='/signup'>Sign up</Link>
           </li>
         </ul>
 
         
       </main>
 
-      <footer>
-        <p>footer placeholder</p>
-      </footer>
-
       <style jsx>{`
         main {
           padding: 5rem 0;
           flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
+          display: block;
         }
         footer {
           width: 100%;
