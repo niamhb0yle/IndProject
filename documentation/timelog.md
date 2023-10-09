@@ -73,3 +73,13 @@
 * *0.5 hours* meeting with peggy
 * *1 hour* github maintenance/organising notes from this week
 * *2 hours* reading paper
+
+#### 08/10/2023
+
+* *2 hours* starting to read new paper
+
+#### 09/10/2023
+
+* *1 hour* finishing reading paper and making notes
+* *1 hour* creating user stories
+* *2 hours* deleting old react app as issues with navigation - creating new one and following next.js docs
