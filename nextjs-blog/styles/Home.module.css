@@ -1,13 +1,7 @@
 .container {
   min-height: 100vh;
-  background-image: url('../public/startscreen.png');
-  text-align: left;
+  background-image: url('../public/start_bg.png');
   background-size: cover;
-  background-position: left top;
-}
-
-.startScreen {
-  background-image: url('../public/startscreen.png');
 }
 
 #logo {
@@ -20,17 +14,29 @@
   display:block;
   font-weight: 1000;
   letter-spacing: 4.5px;
+  margin-bottom: 15px;
 }
 
-.startScreenList {
-  list-style-type: none;
-  display: block;
-  color: #0051CB;
-  font-size: 50px;
-  text-align: left;
-  margin-left: 100px;
-  font-family: 'Montserrat';
-  display:block;
-  font-weight: 500;
-  letter-spacing: 4.5px;
+.navbar {
+  font-family:"Montserrat";
+  color:aliceblue;
+  text-decoration: none;
+  margin-left: 75px;
 }
+
+#navbarelements {
+  list-style-type: none;
+  text-decoration: none;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 30px;
+  color: #0051CB;
+  display:"block";
+  margin-top: 8px;
+}
+
+#navbarelements:hover {
+  color:darkblue;
+}
+
