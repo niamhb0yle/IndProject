@@ -83,3 +83,7 @@
 * *1 hour* finishing reading paper and making notes
 * *1 hour* creating user stories
 * *2 hours* deleting old react app as issues with navigation - creating new one and following next.js docs
+
+#### 11/10/2023
+* *2 hours* reading new paper
+* *1 hour* gathering new papers to add to library and read later
