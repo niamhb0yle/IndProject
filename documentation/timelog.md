@@ -85,5 +85,23 @@
 * *2 hours* deleting old react app as issues with navigation - creating new one and following next.js docs
 
 #### 11/10/2023
+
 * *2 hours* reading new paper
 * *1 hour* gathering new papers to add to library and read later
+
+#### 12/20/2023
+
+* *2 hours* writing up comprehensive introduction and abstract for project
+
+#### 13/20/2023
+
+* *1 hour* planning meeting with peggy
+* *0.5 hrs* meeting with peggy
+
+#### 16/10/2023
+
+* *1.5 hour* writing up meeting notes, updating moodle & repo
+
+#### 17/10/2023
+
+* *4 hours* first big comprehensive draft of the questions I will include in my app across the 5 dimensions
