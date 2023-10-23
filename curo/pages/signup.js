@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import Button from '../components/button.js'
+import signupImage from '../public/images/developer.png'
 
 
 export default function SignUp() {
@@ -21,19 +22,21 @@ export default function SignUp() {
         <div id={styles.signupInputContainer}>
           <div id={styles.signupHeader}>Create Account</div>
 
-          <div className={styles.signupInputText}>Email Address</div>
-          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
-          <div className={styles.signupInputText}>Display Name</div>
-          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
-          <div className={styles.signupInputText}>Password</div>
-          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div className={styles.inputText}>Email Address</div>
+          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable'}} type='email'></input>
+          <div className={styles.inputText}>Display Name</div>
+          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable'}} type='text'></input>
+          <div className={styles.inputText}>Password</div>
+          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable'}} type='password'></input>
      
           <p className={styles.signupInstructions}>Please select your role: </p>
           <Button text='Developer'></Button>
           <Button text='Scrum Master'></Button>
           <Button text='Product Owner'></Button>
 
-          <div className={styles.continue}>Continue &rarr;</div>
+          <div style={{textAlign: 'right', marginTop:'50px'}}>
+            <Link href='/signupScrum' className={styles.continue}>Continue &rarr;</Link> 
+          </div>
         </div>     
       </main>
 

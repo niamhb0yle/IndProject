@@ -61,7 +61,7 @@
   width: 600px;
 }
 
-.signupInputText{
+.inputText{
   margin-top: 20px;
   width: 106;
   height: 21;
@@ -79,6 +79,7 @@
   display: block;
   border-radius: 8;
   border: '1px #CDCDCD solid';
+  background: #DBE9FF;
 }
 
 .signupInstructions{
@@ -95,7 +96,7 @@
 
 .signupButton{
   width: fit-content;;
-  padding:10px;
+  padding:15px;
   margin-inline-end: 10px;
   flex-shrink: 0;
   border-radius: 30px;
@@ -103,10 +104,16 @@
   border:none;
   color: #033988;
   font-family: 'Karla Variable';
-  font-size: 23px;
+  font-size: 20px;
   font-style: normal;
   font-weight: 500;
   display:inline-block;
+  cursor:pointer;
+}
+
+.signupButton:hover {
+  background: #CEDCFA;
+  color: #001463;
 }
 
 .continue{
@@ -119,4 +126,12 @@
   letter-spacing: 0.87px;
   text-align: right;
   margin-top: 50px;
+  cursor:pointer;
+  background: none;
+  border:none;
+  text-decoration: none
+}
+
+.continue:hover{
+  color:#001463;
 }
