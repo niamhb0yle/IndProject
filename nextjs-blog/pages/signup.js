@@ -2,7 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
-import "@fontsource/montserrat"; 
+import "@fontsource/montserrat";
+import '@fontsource-variable/karla';
 
 
 export default function SignUp() {
@@ -19,42 +20,18 @@ export default function SignUp() {
         <div id={styles.signupInputContainer}>
           <div id={styles.signupHeader}>Create Account</div>
 
-          <label htmlFor="#name">Email address</label>
-            <input className={`${styles.input}`}
-              placeholder="Email address"
-              type={"text"}
-              id="email"
-              name="email"
-            />
-
-        <label htmlFor="#name">Display name</label>
-            <input className={`${styles.input}`}
-              placeholder="Display name"
-              type={"text"}
-              id="name"
-              name="name"
-            />
-
-
-        <label htmlFor="#address">Password</label>
-        <input className={`${styles.input}`}
-          placeholder="Password"
-          type={"text"}
-          id="password" 
-          name="password"
-        />
-
-        <label htmlFor="#address">Confirm Password</label>
-        <input className={`${styles.input}`}
-          placeholder="Confirm Password"
-          type={"text"}
-          id="password2"
-          name="password2"
-        />
-
-        </div>
-
-        
+          <div className={styles.signupInputText}>Email Address</div>
+          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div className={styles.signupInputText}>Display Name</div>
+          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div className={styles.signupInputText}>Password</div>
+          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+     
+          <p className={styles.signupInstructions}>Please select your role: </p>
+          <div className={styles.signupButton}>
+            <p>Developer</p>
+          </div>
+        </div>     
       </main>
 
       <style jsx>{`

@@ -56,6 +56,56 @@
 }
 
 #signupInputContainer{
-  margin-top:200px;
+  margin-top:160px;
   margin-left:800px;
+}
+
+.signupInputText{
+  margin-top: 20px;
+  width: 106;
+  height: 21;
+  position: 'absolute';
+  color: 'rgba(0, 0, 0, 0.40)';
+  font-size: 16px;
+  font-family: 'Karla Variable';
+  font-weight: 400;
+  word-wrap: 'break-word';
+}
+
+.signupInputBox{
+  width: 319;
+  height: 48;
+  display: block;
+  border-radius: 8;
+  border: '1px #CDCDCD solid';
+}
+
+.signupInstructions{
+  margin-top: 20px;
+  width: 106;
+  height: 21;
+  position: 'absolute';
+  color: 'rgba(0, 0, 0, 0.40)';
+  font-size: 20px;
+  font-family: 'Karla Variable';
+  font-weight: 600;
+  word-wrap: 'break-word';
+}
+
+.signupButton{
+  width: 158px;
+  height: 47px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #DBE9FF;
+}
+
+.signupButton p{
+  color: #033988;
+  font-family: 'Karla Variable';
+  font-size: 23px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
 }
