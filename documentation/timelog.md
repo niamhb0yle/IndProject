@@ -43,7 +43,6 @@
 * *1 hour* planning meeting with peggy for friday
 * *2 hours* did a bit of market research into what other tools are on the market
 
-## Week 3
 
 #### 29/09/2023
 
@@ -59,6 +58,8 @@
 #### 01/10/2023
 
 * *0.5 hours* github maintenance
+
+## Week 3
 
 #### 03/10/2023
 * *4 hours* comprehensive research and notetaking on papers
@@ -78,6 +79,8 @@
 
 * *2 hours* starting to read new paper
 
+## Week 4
+
 #### 09/10/2023
 
 * *1 hour* finishing reading paper and making notes
@@ -85,5 +88,25 @@
 * *2 hours* deleting old react app as issues with navigation - creating new one and following next.js docs
 
 #### 11/10/2023
+
 * *2 hours* reading new paper
 * *1 hour* gathering new papers to add to library and read later
+
+#### 12/20/2023
+
+* *2 hours* writing up comprehensive introduction and abstract for project
+
+#### 13/20/2023
+
+* *1 hour* planning meeting with peggy
+* *0.5 hrs* meeting with peggy
+
+## Week 5
+
+#### 16/10/2023
+
+* *1.5 hour* writing up meeting notes, updating moodle & repo
+
+#### 17/10/2023
+
+* *4 hours* first big comprehensive draft of the questions I will include in my app across the 5 dimensions
