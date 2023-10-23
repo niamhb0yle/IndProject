@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@fontsource-variable/karla": "^5.0.16",
     "@fontsource/montserrat": "^5.0.13",
     "next": "latest",
     "react": "18.2.0",
