@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-image: url('../public/start_bg.png');
+  background-image: url('../public/images/start_bg.png');
   background-size: cover;
 }
 
@@ -39,3 +39,23 @@
   color:darkblue;
 }
 
+.signupContainer{
+  min-height: 100vh;
+  background: url(../public/images/signupbg.png);
+  background-size: cover;
+}
+
+#signupHeader{
+  color: #0051CB;
+  font-family: Montserrat;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 1.8px;
+}
+
+#signupInputContainer{
+  margin-top:200px;
+  margin-left:800px;
+}

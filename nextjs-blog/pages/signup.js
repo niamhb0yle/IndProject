@@ -6,15 +6,6 @@ import "@fontsource/montserrat";
 
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    secondPword: ""
-  });
-
-  function handleSubmit(e){
-    e.preventDefaullt()
-   }
 
   return (
     <div>
@@ -23,9 +14,12 @@ export default function SignUp() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.container}>
+      <main className={styles.signupContainer}>
 
-        <label htmlFor="#name">Email address</label>
+        <div id={styles.signupInputContainer}>
+          <div id={styles.signupHeader}>Create Account</div>
+
+          <label htmlFor="#name">Email address</label>
             <input className={`${styles.input}`}
               placeholder="Email address"
               type={"text"}
@@ -57,6 +51,8 @@ export default function SignUp() {
           id="password2"
           name="password2"
         />
+
+        </div>
 
         
       </main>
