@@ -58,6 +58,7 @@
 #signupInputContainer{
   margin-top:160px;
   margin-left:800px;
+  width: 600px;
 }
 
 .signupInputText{
@@ -73,7 +74,7 @@
 }
 
 .signupInputBox{
-  width: 319;
+  width: 300;
   height: 48;
   display: block;
   border-radius: 8;
@@ -93,19 +94,29 @@
 }
 
 .signupButton{
-  width: 158px;
-  height: 47px;
+  width: fit-content;;
+  padding:10px;
+  margin-inline-end: 10px;
   flex-shrink: 0;
   border-radius: 30px;
   background: #DBE9FF;
-}
-
-.signupButton p{
+  border:none;
   color: #033988;
   font-family: 'Karla Variable';
   font-size: 23px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
+  display:inline-block;
+}
+
+.continue{
+  color: #0051CB;
+  font-family: Montserrat;
+  font-size: 29px;
+  font-style: normal;
+  font-weight: 600;
   line-height: normal;
-  text-align: center;
+  letter-spacing: 0.87px;
+  text-align: right;
+  margin-top: 50px;
 }

@@ -4,6 +4,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
+import Button from '../components/button.js'
 
 
 export default function SignUp() {
@@ -21,16 +22,18 @@ export default function SignUp() {
           <div id={styles.signupHeader}>Create Account</div>
 
           <div className={styles.signupInputText}>Email Address</div>
-          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
           <div className={styles.signupInputText}>Display Name</div>
-          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
           <div className={styles.signupInputText}>Password</div>
-          <div style={{width: 500, height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
+          <div style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5}}></div>
      
           <p className={styles.signupInstructions}>Please select your role: </p>
-          <div className={styles.signupButton}>
-            <p>Developer</p>
-          </div>
+          <Button text='Developer'></Button>
+          <Button text='Scrum Master'></Button>
+          <Button text='Product Owner'></Button>
+
+          <div className={styles.continue}>Continue &rarr;</div>
         </div>     
       </main>
 

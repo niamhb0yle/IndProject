@@ -13,7 +13,7 @@ export default function Home() {
 
       <main className={styles.container}>
         <h1 id={styles.logo}>
-          Curo.
+          Curo
         </h1>
 
         <ul className={styles.navbar}>
