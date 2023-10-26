@@ -13,9 +13,9 @@ export default function Homepage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{background:'#DBE9FF', minHeight: '100vh', backgroundSize: 'cover'}}>
+      <body style={{background:'#DBE9FF', backgroundSize: 'cover', marginTop:0}}>
         <div className={styles.sidebar}></div>    
-      </main>
+      </body>
 
       <style jsx>{`
         main {
