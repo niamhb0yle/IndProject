@@ -136,10 +136,43 @@
   color:#001463;
 }
 
-.sidebar {
-  background-color:#033988;
-  width:500px;
+.sidebarContainer {
+  background: linear-gradient(180deg, #4F85D6 40.05%, #9DC1F8 98.28%);
+  width:300px;
   min-height: 100vh;
-  display:block;
   margin:0;
+  padding-top: 40px;
+  padding-left: 45px;
 }
+
+#sidebarLogo{
+  color: #E8F1FF;
+  font-family: Montserrat;
+  font-size: 75px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 2.25px;
+}
+
+#sidebarNavElements {
+  color: #E8F1FF;
+  font-family: Manrope;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor:pointer;
+  background: none;
+  border:none;
+  text-decoration: none;
+  display: 'block';
+  margin-top: 20px;
+  list-style-type: none;
+  display:block;
+}
+
+.sidebarNav {
+  margin-top: 5px;
+}
+
