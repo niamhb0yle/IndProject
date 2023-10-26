@@ -58,7 +58,7 @@
 #signupInputContainer{
   margin-top:160px;
   margin-left:800px;
-  width: 600px;
+  width: 500px;
 }
 
 .inputText{
@@ -134,4 +134,11 @@
 
 .continue:hover{
   color:#001463;
+}
+
+.sidebar {
+  background-color:#033988;
+  width:500px;
+  min-height: 100%;
+  display:block;
 }

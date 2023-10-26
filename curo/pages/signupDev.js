@@ -17,7 +17,20 @@ export default function signupDev() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.container}>
+      <main className={styles.signupContainer}>
+      <div id={styles.signupInputContainer}>
+          <div id={styles.signupHeader}>Join a Team</div>
+
+          <p className={styles.signupInstructions}>Join your squad by entering their unique ID - we’ll then ask your scrum member to verify: </p>
+
+          <div className={styles.inputText}>Team ID</div>
+          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'></input>
+
+
+          <div style={{textAlign: 'right', marginTop:'50px'}}>
+            <Link href='/signupDev2' className={styles.continue}>Continue &rarr;</Link> 
+          </div>
+        </div>     
         
       </main>
 

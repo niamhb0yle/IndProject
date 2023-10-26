@@ -3,9 +3,13 @@ import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
+import '@fontsource-variable/karla';
 
+export default function signupDev() {
+  function handleSubmit(e){
+    e.preventDefaullt()
+   }
 
-export default function Homepage() {
   return (
     <div>
       <Head>
@@ -13,8 +17,17 @@ export default function Homepage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{background:'#DBE9FF', minHeight: '100vh', backgroundSize: 'cover'}}>
-        <div className={styles.sidebar}></div>    
+      <main className={styles.signupContainer}>
+      <div id={styles.signupInputContainer}>
+          <div id={styles.signupHeader}>Sit tight...</div>
+
+          <p className={styles.signupInstructions}>Thank you for registering! We've notified your scrum master, when they verify your identity you will be added to the team, which will appear in your dashboard.</p>
+
+          <div style={{textAlign: 'right', marginTop:'50px'}}>
+            <Link href='/homepage' className={styles.continue}>Continue to Dashboard &rarr;</Link> 
+          </div>
+        </div>     
+        
       </main>
 
       <style jsx>{`

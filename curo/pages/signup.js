@@ -4,7 +4,6 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
-import Button from '../components/button.js'
 import signupImage from '../public/images/developer.png'
 import { useState } from 'react';
 
@@ -65,7 +64,7 @@ export default function SignUp() {
           >Product Owner</button>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue} aria-disabled={continueDisabled}>Continue &rarr;</Link> 
+            <Link href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>
           </div>
         </div>     
       </main>

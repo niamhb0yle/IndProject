@@ -33,16 +33,11 @@ export default function SignUp() {
       <main className={styles.signupContainer}>
 
         <div id={styles.signupInputContainer}>
-          <div id={styles.signupHeader}>Create Team</div>
-          <p className={styles.signupInstructions}>Create your team in just a few clicks...</p>
+          <div id={styles.signupHeader}>Welcome!</div>
+          <p className={styles.signupInstructions}>Congrats! Your team and account has been created. Click continue to visit your homepage, where you can get started.</p>
 
-          <div className={styles.inputText}>Team name</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'></input>
-          <div className={styles.inputText}>Organisation</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='text'></input>
-          
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link href='/signupScrum2' className={styles.continue}>Continue &rarr;</Link> 
+            <Link href='/homepage' className={styles.continue}>Continue to homepage &rarr;</Link> 
           </div>
         </div>     
       </main>
