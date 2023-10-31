@@ -13,7 +13,7 @@ import { collection, addDoc } from 'firebase/firestore';
 export default function SignUp() {
   const [role, setRole] = useState('');
   const [continueDisabled, setContinueDisabled] = useState(true);
-  const [userProfile, setUserProfile] = useState({email:'', username:'', password:''})
+  const [userProfile, setUserProfile] = useState({email:'', username:'', password:'', confirmPassword:''})
 
   // Add email addr to database
   const addItem = async (e) => {
@@ -26,8 +26,23 @@ export default function SignUp() {
   };
 
   async function handleContinue() {
-    console.log(userProfile)
+    console.log(userProfile);
+
   }
+
+  const onSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      if (error) setError("");
+      if (userProfile.password !== userProfile.confirmPassword) {
+        return setError("Passwords do not match");
+      }
+      createUserWithEmailAndPassword(userProfile.email, userProfile.password);
+
+    } catch (error) {
+      console.log("Error", error.msg);
+    }
+  };
 
 
   return (
@@ -48,7 +63,9 @@ export default function SignUp() {
           <input value={userProfile.username} onChange={(e) => setUserProfile({...userProfile, username:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='text'></input>
           <div className={styles.inputText}>Password</div>
           <input value={userProfile.password} onChange={(e) => setUserProfile({...userProfile, password:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='password'></input>
-     
+          <div className={styles.inputText}>Confirm Password</div>
+          <input value={userProfile.confirmPassword} onChange={(e) => setUserProfile({...userProfile, confirmPassword:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='password'></input>
+
           <p className={styles.signupInstructions}>Please select your role: </p>
 
           <button
