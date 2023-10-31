@@ -5,9 +5,13 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
+import { collection, addDoc } from 'firebase/firestore';
 
 
 export default function Homepage() {
+  // add data
+
+
   return (
     <div>
       <Head>
@@ -25,6 +29,9 @@ export default function Homepage() {
             <Link id={styles.sidebarNavElements} href='/homepage'>Goals</Link>
             <Link id={styles.sidebarNavElements} href='/homepage'>Settings</Link>
           </div>
+        </div>
+        <div style={{display:'inline-block'}}>
+          Hello!
         </div>
       </main>
 

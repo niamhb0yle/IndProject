@@ -6,22 +6,29 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import signupImage from '../public/images/developer.png'
 import { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
+
 
 
 export default function SignUp() {
   const [role, setRole] = useState('');
   const [continueDisabled, setContinueDisabled] = useState(true);
+  const [userProfile, setUserProfile] = useState({email:'', username:'', password:''})
+
+  // Add email addr to database
+  const addItem = async (e) => {
+    e.preventDefault();
+  }
   
   // Function to set the role and background color
   const handleRoleClick = (selectedRole) => {
     setRole(selectedRole);
   };
 
-  function validate(){
-    if (role==''){
-      return 'invalid'
-    }
+  async function handleContinue() {
+    console.log(userProfile)
   }
+
 
   return (
     <div>
@@ -36,11 +43,11 @@ export default function SignUp() {
           <div id={styles.signupHeader}>Create Account</div>
 
           <div className={styles.inputText}>Email Address</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'></input>
+          <input value={userProfile.email} onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'></input>
           <div className={styles.inputText}>Display Name</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='text'></input>
+          <input value={userProfile.username} onChange={(e) => setUserProfile({...userProfile, username:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='text'></input>
           <div className={styles.inputText}>Password</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='password'></input>
+          <input value={userProfile.password} onChange={(e) => setUserProfile({...userProfile, password:e.target.value})} style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='password'></input>
      
           <p className={styles.signupInstructions}>Please select your role: </p>
 
@@ -64,7 +71,7 @@ export default function SignUp() {
           >Product Owner</button>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>
+            <Link onClick={handleContinue()} href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>
           </div>
         </div>     
       </main>

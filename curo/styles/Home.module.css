@@ -143,6 +143,7 @@
   margin:0;
   padding-top: 40px;
   padding-left: 45px;
+  display:inline-block;
 }
 
 #sidebarLogo{
@@ -161,18 +162,20 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
+  letter-spacing: 1px;
   line-height: normal;
   cursor:pointer;
   background: none;
   border:none;
   text-decoration: none;
   display: 'block';
-  margin-top: 20px;
+  margin-top: 23px;
   list-style-type: none;
   display:block;
 }
 
 .sidebarNav {
   margin-top: 5px;
+  display:inline-block;
 }
 
