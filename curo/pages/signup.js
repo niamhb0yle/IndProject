@@ -13,11 +13,7 @@ export default function SignUp() {
   const [role, setRole] = useState('');
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [userProfile, setUserProfile] = useState({email:'', username:'', password:'', confirmPassword:''})
-
-  // Add email addr to database
-  const addItem = async (e) => {
-    e.preventDefault();
-  }
+  const [error, setError] = useState('');
   
   // Function to set the role and background color
   const handleRoleClick = (selectedRole) => {
@@ -28,17 +24,12 @@ export default function SignUp() {
     console.log(userProfile);
   }
 
-  const onSubmit = (event) => {
-    try {
-      event.preventDefault();
-      if (error) setError("");
-      if (userProfile.password !== userProfile.confirmPassword) {
-        return setError("Passwords do not match");
-      }
-      createUserWithEmailAndPassword(userProfile.email, userProfile.password);
-
-    } catch (error) {
-      console.log("Error", error.msg);
+  const onSubmit = () => {
+    if (userProfile.password !== userProfile.confirmPassword) {
+      setError("Passwords do not match");
+    } else {
+      // Perform any other necessary actions here
+      console.log(userProfile);
     }
   };
 
@@ -86,7 +77,7 @@ export default function SignUp() {
           >Product Owner</button>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link onClick={handleContinue()} href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>
+            <Link onClick={onSubmit} href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>
           </div>
         </div>     
       </main>
