@@ -6,9 +6,10 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import signupImage from '../public/images/developer.png'
 import { useState } from 'react';
+import { auth } from "../firebase";
 
 
-export default function SignUp() {
+export default function SignUpScrum() {
   const [role, setRole] = useState('');
   const [continueDisabled, setContinueDisabled] = useState(true);
   
@@ -17,11 +18,8 @@ export default function SignUp() {
     setRole(selectedRole);
   };
 
-  function validate(){
-    if (role==''){
-      return 'invalid'
-    }
-  }
+  console.log("signup scrum " + auth.currentUser.uid);
+
 
   return (
     <div>

@@ -31,14 +31,6 @@ export default function SignUp() {
         if (role === 'dev'){
           // firebase auth
           createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password);
-            /*
-            .then((userCredential) => {
-              const user = userCredential.user;
-            }).catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-            });
-            */
 
           // firestore
           const docRef = await addDoc(collection(db, "developers"), {
@@ -50,27 +42,17 @@ export default function SignUp() {
           console.log("Document written with ID: ", docRef.id);
 
         } else if (role === 'sm') {
-          if (role === 'dev'){
-            // firebase auth
-            createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password);
-            /*
-            .then((userCredential) => {
-              const user = userCredential.user;
-            }).catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-            });
-            */
-  
-            // firestore
-            const docRef = await addDoc(collection(db, "developers"), {
-              email: userProfile.email,
-              username: userProfile.username,
-            });
-            
-            // console output
-            console.log("Document written with ID: ", docRef.id);  
-          }
+          // firebase auth
+          createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password);
+
+          // firestore
+          const docRef = await addDoc(collection(db, "developers"), {
+            email: userProfile.email,
+            username: userProfile.username,
+          });
+          
+          // console output
+          console.log("Document written with ID: ", docRef.id);  
         }
       } catch (e) {
         console.error("Error adding document: ", e);
