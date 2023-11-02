@@ -106,7 +106,58 @@
 #### 16/10/2023
 
 * *1.5 hour* writing up meeting notes, updating moodle & repo
+* *3 hours* making much better wireframes to start new development
 
 #### 17/10/2023
 
 * *4 hours* first big comprehensive draft of the questions I will include in my app across the 5 dimensions
+
+#### 19/10/2023
+
+* *1 hour* Create meeting plan for Peggy
+* *0.5 hours* meeting with Peggy
+
+#### 20/10/2023
+
+* *2 hours* adding to wireframes
+* *1 hour* market research for frontend design
+
+#### 22/10/2023
+
+* *1 hour* adding to wireframes
+* *3 hours* implementing first bits of wireframes
+
+## Week 6
+
+#### 24/10/2023
+
+* *3 hours* coding
+
+#### 25/10/2023
+
+* *2 hours* more coding
+* *0.5 hours* creating meeting notes for meeting with peggy
+
+#### 27/10/2023
+
+* *0.5 hours* meeting with peggy
+
+## Week 7
+
+#### 30/10/2023
+
+* *3 hours* coding, making frontend much better
+
+#### 31/10/2023
+
+* *1 hour* creating firebase app
+* *2 hours* research on how to link app to firebase
+
+#### 01/11/2023
+
+* *2 hours* adding some functionality (client side) to signup route
+
+#### 02/11/2023
+
+* *1 hour* github maintenance (documentation, issues)
+* *3 hours* starting proper account creation development
