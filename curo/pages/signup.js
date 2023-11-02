@@ -6,8 +6,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-
-
+import { db } from '../firebase'
 
 export default function SignUp() {
   const [role, setRole] = useState('');
@@ -20,18 +19,31 @@ export default function SignUp() {
     setRole(selectedRole);
   };
 
-  function handleContinue() {
-    console.log(userProfile);
-  }
-
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (userProfile.password !== userProfile.confirmPassword) {
       setError("Passwords do not match");
     } else {
       // Perform any other necessary actions here
       console.log(userProfile);
+      try {
+        if (role === 'dev'){
+          const docRef = await addDoc(collection(db, "developers"), {
+            email: userProfile.email,
+            username: userProfile.username,
+          });
+        } else if (role === 'sm') {
+          const docRef = await addDoc(collection(db, "coaches"), {
+            email: userProfile.email,
+            username: userProfile.username,
+          });
+        }
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
     }
   };
+  
 
 
   return (

@@ -9,6 +9,7 @@
     "@fontsource-variable/karla": "^5.0.16",
     "@fontsource/montserrat": "^5.0.13",
     "firebase": "^10.5.2",
+    "firebase-admin": "^11.11.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
