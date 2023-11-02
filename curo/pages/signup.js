@@ -4,7 +4,6 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
-import signupImage from '../public/images/developer.png'
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 
@@ -25,12 +24,11 @@ export default function SignUp() {
     setRole(selectedRole);
   };
 
-  async function handleContinue() {
+  function handleContinue() {
     console.log(userProfile);
-
   }
 
-  const onSubmit = async (event) => {
+  const onSubmit = (event) => {
     try {
       event.preventDefault();
       if (error) setError("");
