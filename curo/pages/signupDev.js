@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
 import '@fontsource-variable/karla';
 
-export default function signupDev() {
+export default function SignUpDev() {
   function handleSubmit(e){
     e.preventDefaullt()
    }

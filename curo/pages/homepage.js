@@ -5,12 +5,8 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import { collection, addDoc } from 'firebase/firestore';
-
 
 export default function Homepage() {
-  // add data
-
 
   return (
     <div>

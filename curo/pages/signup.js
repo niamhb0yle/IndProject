@@ -5,7 +5,7 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -15,6 +15,7 @@ export default function SignUp() {
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [userProfile, setUserProfile] = useState({email:'', username:'', password:'', confirmPassword:''})
   const [error, setError] = useState('');
+  const [userID, setUserID] = useState('');
   
   // Function to set the role and background color
   const handleRoleClick = (selectedRole) => {
@@ -26,40 +27,42 @@ export default function SignUp() {
       setError("Passwords do not match");
     } else {
       // Perform any other necessary actions here
-      console.log(userProfile);
       try {
         if (role === 'dev'){
-          // firebase auth
-          createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password);
+          await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            setDoc(doc(db, "developers", user.uid), {
+              email: userProfile.email,
+              username: userProfile.username,
+            });
+          })
 
-          // firestore
+
+          /* firestore
           const docRef = await addDoc(collection(db, "developers"), {
             email: userProfile.email,
             username: userProfile.username,
           });
-          
-          // console output
-          console.log("Document written with ID: ", docRef.id);
+          */
 
         } else if (role === 'sm') {
           // firebase auth
-          createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password);
-
-          // firestore
-          const docRef = await addDoc(collection(db, "developers"), {
-            email: userProfile.email,
-            username: userProfile.username,
-          });
+          await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            setDoc(doc(db, "coaches", user.uid), {
+              email: userProfile.email,
+              username: userProfile.username,
+            });
+          })
           
-          // console output
-          console.log("Document written with ID: ", docRef.id);  
         }
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
   };
-  
 
 
   return (

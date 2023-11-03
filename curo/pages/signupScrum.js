@@ -18,7 +18,7 @@ export default function SignUpScrum() {
     setRole(selectedRole);
   };
 
-  console.log("signup scrum " + auth.currentUser.uid);
+  console.log("signup scrum " + auth.currentUser);
 
 
   return (
