@@ -4,7 +4,6 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
-import signupImage from '../public/images/developer.png'
 import { useState } from 'react';
 import { auth } from "../firebase";
 

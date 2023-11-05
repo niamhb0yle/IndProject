@@ -1,11 +1,10 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
-import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db, auth } from '../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -14,8 +13,6 @@ export default function SignUp() {
   const [role, setRole] = useState('');
   const [continueDisabled, setContinueDisabled] = useState(true);
   const [userProfile, setUserProfile] = useState({email:'', username:'', password:'', confirmPassword:''})
-  const [error, setError] = useState('');
-  const [userID, setUserID] = useState('');
   
   // Function to set the role and background color
   const handleRoleClick = (selectedRole) => {
