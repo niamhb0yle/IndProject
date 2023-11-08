@@ -24,7 +24,6 @@ export default function SignUp() {
     if (userProfile.password !== userProfile.confirmPassword) {
       setError("Passwords do not match");
     } else {
-      // this block sets up the users auth account and logs their data to firestore
       try {
         var fieldName;
         if (role === 'dev'){
@@ -33,14 +32,14 @@ export default function SignUp() {
           fieldName = "coaches";
         }
 
+        // creating firebase auth account
         await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          setDoc(doc(db, fieldName, user.uid), {
-            email: userProfile.email,
-            username: userProfile.username,
-          });
-        })
+
+        // creating firestore doc in correct field for coaches/devs
+        setDoc(doc(db, fieldName, userProfile.email), {
+          email: userProfile.email,
+          username: userProfile.username,
+        });
       
       } catch (e) {
         console.error("Error adding document: ", e);
