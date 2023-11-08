@@ -27,15 +27,15 @@ export default function SignUp() {
       try {
         var fieldName;
         if (role === 'dev'){
-          fieldName = "developers";
+          fieldName = "Developers";
         } else {
-          fieldName = "coaches";
+          fieldName = "Leads";
         }
 
         // creating firebase auth account
         await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
 
-        // creating firestore doc in correct field for coaches/devs
+        // creating firestore doc in correct field for coaches/leads
         setDoc(doc(db, fieldName, userProfile.email), {
           email: userProfile.email,
           username: userProfile.username,

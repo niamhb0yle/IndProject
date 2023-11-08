@@ -6,16 +6,30 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
 import { db, auth } from "../firebase";
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
 
 export default function SignUpScrum() {
-  const [teamInfo, setTeamInfo] = useState({teamName:'', org:''})
+  const [teamInfo, setTeamInfo] = useState({teamName:'', org:''});
+  const user = auth.currentUser;
 
-  // creating team on firestore
-  setDoc(doc(db, fieldName, user.uid), {
-    email: userProfile.email,
-    username: userProfile.username,
-  });
+  const addTeam = async () => {
+    // creating team on firestore
+    const docRef = await addDoc(collection(db, "Teams"), {
+      name: teamInfo.teamName,
+      organisation: teamInfo.org,
+      coach: user.email,
+    });
+
+    const coachRef = doc(db, "Leads", user.email);
+
+    // adding link to team on 
+    await updateDoc(coachRef, {
+      Teams: {
+        teamID: docRef.id,
+      }
+    });
+  }
   
   
   // Function to set the role and background color
@@ -41,20 +55,20 @@ export default function SignUpScrum() {
 
           <div className={styles.inputText}>Team name</div>
           <input 
-            onChange={(e) => setUserProfile({...teamInfo, teamName:e.target.value})} 
+            onChange={(e) => setTeamInfo({...teamInfo, teamName:e.target.value})} 
             style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
             type='email'>
           </input>
 
           <div className={styles.inputText}>Organisation</div>
           <input 
-            onChange={(e) => setUserProfile({...teamInfo, org:e.target.value})} 
+            onChange={(e) => setTeamInfo({...teamInfo, org:e.target.value})} 
             style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
             type='text'>
           </input>
           
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link href='/signupScrum2' className={styles.continue}>Continue &rarr;</Link> 
+            <Link onClick={addTeam} href='/signupScrum2' className={styles.continue}>Continue &rarr;</Link> 
           </div>
         </div>     
       </main>
