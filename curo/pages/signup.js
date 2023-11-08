@@ -20,41 +20,28 @@ export default function SignUp() {
   };
 
   const onSubmit = async () => {
+    // validation to see if passwords match up
     if (userProfile.password !== userProfile.confirmPassword) {
       setError("Passwords do not match");
     } else {
-      // Perform any other necessary actions here
+      // this block sets up the users auth account and logs their data to firestore
       try {
+        var fieldName;
         if (role === 'dev'){
-          await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            setDoc(doc(db, "developers", user.uid), {
-              email: userProfile.email,
-              username: userProfile.username,
-            });
-          })
+          fieldName = "developers";
+        } else {
+          fieldName = "coaches";
+        }
 
-
-          /* firestore
-          const docRef = await addDoc(collection(db, "developers"), {
+        await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          setDoc(doc(db, fieldName, user.uid), {
             email: userProfile.email,
             username: userProfile.username,
           });
-          */
-
-        } else if (role === 'sm') {
-          // firebase auth
-          await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            setDoc(doc(db, "coaches", user.uid), {
-              email: userProfile.email,
-              username: userProfile.username,
-            });
-          })
-          
-        }
+        })
+      
       } catch (e) {
         console.error("Error adding document: ", e);
       }
