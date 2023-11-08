@@ -5,12 +5,18 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
-import { auth } from "../firebase";
+import { db, auth } from "../firebase";
 
 
 export default function SignUpScrum() {
-  const [role, setRole] = useState('');
-  const [continueDisabled, setContinueDisabled] = useState(true);
+  const [teamInfo, setTeamInfo] = useState({teamName:'', org:''})
+
+  // creating team on firestore
+  setDoc(doc(db, fieldName, user.uid), {
+    email: userProfile.email,
+    username: userProfile.username,
+  });
+  
   
   // Function to set the role and background color
   const handleRoleClick = (selectedRole) => {
@@ -34,9 +40,18 @@ export default function SignUpScrum() {
           <p className={styles.signupInstructions}>Create your team in just a few clicks...</p>
 
           <div className={styles.inputText}>Team name</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'></input>
+          <input 
+            onChange={(e) => setUserProfile({...teamInfo, teamName:e.target.value})} 
+            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+            type='email'>
+          </input>
+
           <div className={styles.inputText}>Organisation</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='text'></input>
+          <input 
+            onChange={(e) => setUserProfile({...teamInfo, org:e.target.value})} 
+            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+            type='text'>
+          </input>
           
           <div style={{textAlign: 'right', marginTop:'50px'}}>
             <Link href='/signupScrum2' className={styles.continue}>Continue &rarr;</Link> 
