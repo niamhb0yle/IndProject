@@ -17,16 +17,19 @@ export default function SignUpScrum() {
     // creating team on firestore
     const docRef = await addDoc(collection(db, "Teams"), {
       name: teamInfo.teamName,
-      organisation: teamInfo.org,
+      org: teamInfo.org,
       coach: user.email,
     });
 
     const coachRef = doc(db, "Leads", user.email);
 
-    // adding link to team on 
+    // adding link to team on firestore
     await updateDoc(coachRef, {
       Teams: {
-        teamID: docRef.id,
+        teamID: {
+          name: teamInfo.teamName,
+          org: teamInfo.org
+        }
       }
     });
   }
