@@ -161,3 +161,27 @@
 
 * *1 hour* github maintenance (documentation, issues)
 * *3 hours* starting proper account creation development
+
+#### 03/11/2023
+
+* *1 hour* preparing for meeting
+* *0.5 hours* meeting with Peggy
+
+## Week 8
+
+#### 06/11/2023
+
+* *2 hours* backend development on team creation
+
+#### 07/11/2023
+
+* *1 hour* backend development, scrum master can now create a team
+
+#### 08/11/2023
+
+* *2 hours* starting functionality to add new member to team
+
+#### 09/11/2023
+
+* *2 hours* new member now added to team
+* *1 hour* fixing up styling and adding a little more functionality to 'join team' page
