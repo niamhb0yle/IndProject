@@ -179,3 +179,19 @@
   display:inline-block;
 }
 
+.checkTeamButton{
+  width: fit-content;;
+  padding:15px;
+  margin-inline-end: 10px;
+  flex-shrink: 0;
+  border-radius: 30px;
+  background: #DBE9FF;
+  border:none;
+  color: #033988;
+  font-family: 'Karla Variable';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  float: right;
+  cursor:pointer;
+}

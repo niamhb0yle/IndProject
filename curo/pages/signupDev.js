@@ -46,13 +46,14 @@ export default function SignUpDev() {
           <p className={styles.signupInstructions}>Join your squad by entering their unique ID - we’ll then ask your scrum member to verify: </p>
 
           <div className={styles.inputText}>Team ID</div>
-          <input style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+          <input style={{width: '75%', height: 48, display:'inline-block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
             onClick={
               (e) => setTeamID(e.target.value)
             }
             type='email'>
           </input>
-          <button onClick={checkTeam}>Check</button>
+
+          <button className={styles.checkTeamButton} onClick={checkTeam}>Check</button>
           <p className={styles.inputText} hidden={hideTeam}>Does this look right?</p>
           <ul hidden={hideTeam}>
             <li className={styles.inputText}>Name: {teamData.name}</li>
