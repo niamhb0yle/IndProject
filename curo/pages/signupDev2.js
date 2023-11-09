@@ -19,9 +19,9 @@ export default function signupDev() {
 
       <main className={styles.signupContainer}>
       <div id={styles.signupInputContainer}>
-          <div id={styles.signupHeader}>Sit tight...</div>
+          <div id={styles.signupHeader}>Welcome!</div>
 
-          <p className={styles.signupInstructions}>Thank you for registering! We've notified your scrum master, when they verify your identity you will be added to the team, which will appear in your dashboard.</p>
+          <p className={styles.signupInstructions}>Thank you for registering! We've added you to your teams Curo board. Get started by viewing your dashboard!</p>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
             <Link href='/homepage' className={styles.continue}>Continue to Dashboard &rarr;</Link> 

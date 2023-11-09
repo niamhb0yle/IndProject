@@ -4,12 +4,12 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
 import '@fontsource-variable/karla';
 import { useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { db, auth } from "../firebase";
 
 export default function SignUpDev() {
   const [teamID, setTeamID] = useState('');
-  const [teamData, setTeamData] = useState({name: '', org:'', teamLead:''});
+  const [teamData, setTeamData] = useState({name: '', org:'', teamLead:'', id: ''});
   const [hideTeam, setHideTeam] = useState(true);
   console.log(teamID);
 
@@ -23,13 +23,22 @@ export default function SignUpDev() {
     const teamSnap = await getDoc(teamRef);
 
     if (teamSnap.exists() && teamID!="") {
-      setTeamData({name: teamSnap.data().name, org: teamSnap.data().org, teamLead: teamSnap.data().coach});
+      setTeamData({name: teamSnap.data().name, org: teamSnap.data().org, teamLead: teamSnap.data().coach, id: teamID});
       console.log(teamData);
       setHideTeam(false);
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");
     }
+  }
+
+  const addMember = async () => {
+    const teamRef = doc(db, "Teams", teamID);
+
+    // adding link to team on firestore
+    await updateDoc(teamRef, {
+      Members: arrayUnion(auth.currentUser.email)
+    });
   }
 
   return (
@@ -64,7 +73,7 @@ export default function SignUpDev() {
 
 
           <div style={{textAlign: 'right', marginTop:'50px'}} hidden={hideTeam}>
-            <Link href='/signupDev2' onClick={checkTeam} className={styles.continue}>This looks right &rarr;</Link> 
+            <Link href='/signupDev2' onClick={addMember} className={styles.continue}>This looks right &rarr;</Link> 
           </div>
         </div>     
         
