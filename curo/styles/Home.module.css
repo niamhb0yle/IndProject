@@ -195,3 +195,20 @@
   float: right;
   cursor:pointer;
 }
+
+#loginContainer{
+  margin-top:200px;
+  margin-left:150px;
+  width: 400px;
+}
+
+#loginHeader{
+  color: #0051CB;
+  font-family: Montserrat;
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 750;
+  line-height: normal;
+  letter-spacing: 1.8px;
+  text-align: center;
+}
