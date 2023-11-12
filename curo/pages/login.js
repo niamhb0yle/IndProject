@@ -5,13 +5,28 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
 import '@fontsource-variable/karla';
 import {useState} from 'react';
+import { auth } from "../firebase";
 
 export default function LogIn() {
-  const [userProfile, setUserProfile] = useState({email:'', password:''})
+  const [userProfile, setUserProfile] = useState({email:'', password:''});
+
+  async function loginHandler({emailAdr, password}){
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  };
 
   function handleSubmit(e){
     e.preventDefaullt()
-   }
+   };
 
   return (
     <div>
@@ -23,49 +38,27 @@ export default function LogIn() {
       <main className={styles.container}>
         <div id={styles.loginContainer}>
           <div id={styles.loginHeader}>Log in</div>
+
+          <div className={styles.inputText}>Email Address</div>
+          <input value={userProfile.email} 
+            onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} 
+            style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+            type='password'>
+          </input>
+
+          <div className={styles.inputText}>Password</div>
+          <input value={userProfile.password} 
+            onChange={(e) => setUserProfile({...userProfile, password:e.target.value})} 
+            style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+            type='password'>
+          </input>
+
+          <div style={{display:'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop:'50px'}}>
+            <button className={styles.loginButton}>Submit</button>
+          </div>
+
         </div>
           
-        
-        {/*
-          <div className="LogIn" style={{width: 1280, height: 832, position: 'relative'}}>
-          <div className="LogIn" style={{left: 199, top: 208, position: 'absolute', color: '#0051CB', fontSize: 68, fontFamily: 'Montserrat', fontWeight: '600', letterSpacing: 2.04, wordWrap: 'break-word'}}>Log in</div>
-          <div className="Group1" style={{width: 263, height: 61, left: 188, top: 538, position: 'absolute'}}>
-          <div className="LogIn" style={{width: 1280, height: 832, position: 'relative'}}></div>
-        </div>
-        <div className={styles.inputText}>Email Address</div>
-          <input value={userProfile.email} 
-            onChange={(e) => setUserProfile({...userProfile, confirmPassword:e.target.value})} 
-            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='password'>
-          </input>
-
-        <div className={styles.inputText}>Email Address</div>
-        <div className={styles.inputText}>Password</div>
-        
-        <div className="Rectangle10" style={{width: 319, height: 48, left: 153, top: 354, position: 'absolute', borderRadius: 8, border: '1px #CDCDCD solid'}} />
-        <div className="Rectangle11" style={{width: 317, height: 48, left: 155, top: 444, position: 'absolute', borderRadius: 8, border: '1px #CDCDCD solid'}} />
-        <div className="PhEyeSlashDuotone" style={{width: 21, height: 21, left: 453, top: 457, position: 'absolute', transform: 'rotate(180deg)', transformOrigin: '0 0'}}>
-          </div>
-      </div><div className="LogIn" style={{width: 1280, height: 832, position: 'relative'}}>
-          <div className="LogIn" style={{left: 199, top: 208, position: 'absolute', color: '#0051CB', fontSize: 68, fontFamily: 'Montserrat', fontWeight: '600', letterSpacing: 2.04, wordWrap: 'break-word'}}>Log in</div>
-          <div className="Group1" style={{width: 263, height: 61, left: 188, top: 538, position: 'absolute'}}>
-        </div>
-        <div className={styles.inputText}>Email Address</div>
-          <input value={userProfile.email} 
-            onChange={(e) => setUserProfile({...userProfile, confirmPassword:e.target.value})} 
-            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='password'>
-          </input>
-
-        <div className={styles.inputText}>Email Address</div>
-        <div className={styles.inputText}>Password</div>
-        
-        <div className="Rectangle10" style={{width: 319, height: 48, left: 153, top: 354, position: 'absolute', borderRadius: 8, border: '1px #CDCDCD solid'}} />
-        <div className="Rectangle11" style={{width: 317, height: 48, left: 155, top: 444, position: 'absolute', borderRadius: 8, border: '1px #CDCDCD solid'}} />
-        <div className="PhEyeSlashDuotone" style={{width: 21, height: 21, left: 453, top: 457, position: 'absolute', transform: 'rotate(180deg)', transformOrigin: '0 0'}}>
-          </div>
-      </div>
-        */}
         
       </main>
 

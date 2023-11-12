@@ -197,8 +197,8 @@
 }
 
 #loginContainer{
-  margin-top:200px;
-  margin-left:150px;
+  margin-top:180px;
+  margin-left:200px;
   width: 400px;
 }
 
@@ -211,4 +211,45 @@
   line-height: normal;
   letter-spacing: 1.8px;
   text-align: center;
+}
+
+.loginButton{
+  width: fit-content;
+  position: absolute;
+  padding:15px;
+  flex-shrink: 0;
+  border-radius: 40px;
+  background: #DBE9FF;
+  border:none;
+  color: #033988;
+  font-family: 'Karla Variable';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  display:block;
+  cursor:pointer;
+  margin: 20px;
+}
+
+.forgotPasswordButton{
+  width: fit-content;
+  position: absolute;
+  padding:15px;
+  flex-shrink: 0;
+  border-radius: 40px;
+  background: none;
+  border:none;
+  color: #0051CB;
+  font-family: 'Karla Variable';
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  display:block;
+  cursor:pointer;
+  margin: 20px;
+}
+
+.loginButton:hover {
+  background: #CEDCFA;
+  color: #001463;
 }

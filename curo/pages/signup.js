@@ -35,7 +35,7 @@ export default function SignUp() {
         // creating firebase auth account
         await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
 
-        // creating firestore doc in correct field for coaches/leads
+        // creating firestore doc in correct field for devs/leads
         setDoc(doc(db, fieldName, userProfile.email), {
           email: userProfile.email,
           username: userProfile.username,
