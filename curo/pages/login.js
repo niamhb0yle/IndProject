@@ -7,19 +7,21 @@ import '@fontsource-variable/karla';
 import {useState} from 'react';
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { redirect } from 'next/navigation'
 import { useRouter } from 'next/router'
 
 export default function LogIn() {
   const [userProfile, setUserProfile] = useState({email:'', password:''});
+  const [credentials, setCredentials] = useState(true);
   const router = useRouter();
 
-  async function loginHandler(){
+  function loginHandler(){
     signInWithEmailAndPassword(auth, userProfile.email, userProfile.password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.uid);
         router.push('/homepage');
+      }).catch((error) => {
+        setCredentials(false);
       });
   };
 
@@ -38,11 +40,13 @@ export default function LogIn() {
         <div id={styles.loginContainer}>
           <div id={styles.loginHeader}>Log in</div>
 
+          <p hidden={credentials} className={styles.signupInstructions} >We can't find your account. Please try again</p>
+
           <div className={styles.inputText}>Email Address</div>
           <input value={userProfile.email} 
             onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} 
             style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='email'>
+            >
           </input>
 
           <div className={styles.inputText}>Password</div>
