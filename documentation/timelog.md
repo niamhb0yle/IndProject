@@ -185,3 +185,17 @@
 
 * *2 hours* new member now added to team
 * *1 hour* fixing up styling and adding a little more functionality to 'join team' page
+
+#### 10/11/2023
+
+* *0.5 hours* meeting with Peggy
+
+#### 12/11/2023
+
+* *2 hours* working on styling of login
+
+## Week 9
+
+#### 13/11/2023
+
+* *3 hours* working on getting login functionality working, finished account creation milestone!
