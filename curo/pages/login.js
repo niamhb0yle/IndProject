@@ -6,21 +6,20 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import {useState} from 'react';
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { redirect } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 export default function LogIn() {
   const [userProfile, setUserProfile] = useState({email:'', password:''});
+  const router = useRouter();
 
-  async function loginHandler({emailAdr, password}){
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+  async function loginHandler(){
+    signInWithEmailAndPassword(auth, userProfile.email, userProfile.password)
       .then((userCredential) => {
-        // Signed in 
         const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log(user.uid);
+        router.push('/homepage');
       });
   };
 
@@ -43,7 +42,7 @@ export default function LogIn() {
           <input value={userProfile.email} 
             onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} 
             style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='password'>
+            type='email'>
           </input>
 
           <div className={styles.inputText}>Password</div>
@@ -54,7 +53,7 @@ export default function LogIn() {
           </input>
 
           <div style={{display:'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop:'50px'}}>
-            <button className={styles.loginButton}>Submit</button>
+            <button onClick={loginHandler} className={styles.loginButton}>Submit</button>
           </div>
 
         </div>
