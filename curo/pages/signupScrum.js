@@ -6,7 +6,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
 import { db, auth } from "../firebase";
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
 
 
 export default function SignUpScrum() {
@@ -25,12 +25,7 @@ export default function SignUpScrum() {
 
     // adding link to team on firestore
     await updateDoc(coachRef, {
-      Teams: {
-        teamID: {
-          name: teamInfo.teamName,
-          org: teamInfo.org
-        }
-      }
+      Teams: arrayUnion(docRef.id)
     });
   }
   
@@ -54,7 +49,7 @@ export default function SignUpScrum() {
 
         <div id={styles.signupInputContainer}>
           <div id={styles.signupHeader}>Create Team</div>
-          <p className={styles.signupInstructions}>Create your team in just a few clicks...</p>
+          <p className={styles.signupInstructions}>Create a team to get started...</p>
 
           <div className={styles.inputText}>Team name</div>
           <input 
