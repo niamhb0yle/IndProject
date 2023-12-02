@@ -15,18 +15,22 @@ export default function Homepage() {
       </Head>
 
       <main style={{background:'#DBE9FF', backgroundSize: 'cover', marginTop:0, padding:0}}>
-        <div className={styles.sidebarContainer}>
-          <div id={styles.sidebarLogo}>Curo</div>
-          <div className={styles.sidebarNav}>
-            <Link id={styles.sidebarNavElements} href='/homepage'>Dashboard</Link>
-            <Link id={styles.sidebarNavElements} href='/homepage'>Teams</Link>
-            <Link id={styles.sidebarNavElements} href='/homepage'>Squad Members</Link>
-            <Link id={styles.sidebarNavElements} href='/homepage'>Goals</Link>
-            <Link id={styles.sidebarNavElements} href='/homepage'>Settings</Link>
+        <div className={styles.mainContainer}>
+          <div className={styles.sidebarContainer}>
+            <div id={styles.sidebarLogo}>C</div>
+            <div className={styles.sidebarNav}>
+              <Link id={styles.sidebarNavElements} href='/homepage'>Teams</Link>
+              <Link id={styles.sidebarNavElements} href='/homepage'>My issues</Link>
+              <Link id={styles.sidebarNavElements} href='/homepage'>Profile</Link>
+              <Link id={styles.sidebarNavElements} href='/homepage'>Settings</Link>
+            </div>
           </div>
-        </div>
-        <div style={{display:'inline-block'}}>
-          Hello!
+
+          
+          {/*<div style={{display:'inline-block', flex:1}}>*/}
+          <div className={styles.dashboard}>
+            Hello!
+          </div>
         </div>
       </main>
 

@@ -136,14 +136,26 @@
   color:#001463;
 }
 
+.mainContainer {
+  display:flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap:wrap;
+  height:100vh;
+}
+
 .sidebarContainer {
   background: linear-gradient(180deg, #4F85D6 40.05%, #9DC1F8 98.28%);
-  width:300px;
-  min-height: 100vh;
+  width:150px;
+  height: 100vh;
   margin:0;
   padding-top: 40px;
   padding-left: 45px;
-  display:inline-block;
+}
+
+.dashboard {
+  flex: 1;
+  height:100vh;
 }
 
 #sidebarLogo{
