@@ -183,6 +183,22 @@
   line-height: normal;
 }
 
+.dimensionParentFlex {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap:wrap;
+  align-content: flex-start
+}
+
+.dimensionTeaser {
+  background-color: #0051CB;
+  width:375px;
+  height: 200px;
+  margin: 20px;
+}
+
 
 #dashboardTitle{
   color: #033988;
