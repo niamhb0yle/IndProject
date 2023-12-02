@@ -26,10 +26,14 @@ export default function Homepage() {
             </div>
           </div>
 
-          
-          {/*<div style={{display:'inline-block', flex:1}}>*/}
           <div className={styles.dashboard}>
-            Hello!
+            <div className={styles.dashboardHeader}>
+              <div id={styles.dashboardTitle}>CDAP Squad</div>
+              <Link id={styles.teamNavElements} href='/homepage'>Dashboard</Link>
+              <Link id={styles.teamNavElements} href='/homepage'>Sustainable Goals</Link>
+              <Link id={styles.teamNavElements} href='/homepage'>Reports</Link>
+              <Link id={styles.teamNavElements} href='/homepage'>Team Settings</Link>
+            </div>
           </div>
         </div>
       </main>
@@ -37,7 +41,6 @@ export default function Homepage() {
       <style jsx>{`
         main {
           padding: 2rem 0;
-          display: block;
         }
       `}</style>
 

@@ -146,7 +146,7 @@
 
 .sidebarContainer {
   background: linear-gradient(180deg, #4F85D6 40.05%, #9DC1F8 98.28%);
-  width:150px;
+  width:160px;
   height: 100vh;
   margin:0;
   padding-top: 40px;
@@ -154,8 +154,45 @@
 }
 
 .dashboard {
-  flex: 1;
+  display: flex;
+  flex:1;
   height:100vh;
+  padding-top: 40px;
+  padding-left: 45px;
+}
+
+.dashboardHeader{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  flex-wrap:wrap;
+  align-items: baseline;
+}
+
+#dashboardTitle{
+  color: #033988;
+  font-family: Montserrat;
+  font-size: 75px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 2.25px;
+  width:fit-content;
+}
+
+#teamNavElements {
+  color: #033988;
+  font-family: Manrope;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: normal;
+  cursor:pointer;
+  background: none;
+  border:none;
+  text-decoration: none;
+  margin-left: 25px;
 }
 
 #sidebarLogo{
