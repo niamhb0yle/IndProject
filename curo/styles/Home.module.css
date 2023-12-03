@@ -141,7 +141,8 @@
   flex: 1;
   flex-direction: row;
   flex-wrap:wrap;
-  height:max-content;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
 .sidebarContainer {
@@ -155,7 +156,6 @@
 .dashboard {
   display: flex;
   flex:1;
-  height:fit-content;
   padding-top: 40px;
   padding-left: 45px;
   flex-direction: column;
@@ -170,7 +170,6 @@
 }
 
 .dashboardContent {
-  height:fit-content;
   padding-right: 20px;
 }
 
@@ -183,7 +182,6 @@
 }
 
 .dimensionParentFlex {
-  height: 100vh;
   display: flex;
   flex: 1;
   flex-direction: row;
