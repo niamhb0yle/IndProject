@@ -141,13 +141,12 @@
   flex: 1;
   flex-direction: row;
   flex-wrap:wrap;
-  height:100vh;
+  height:max-content;
 }
 
 .sidebarContainer {
   background: linear-gradient(180deg, #4F85D6 40.05%, #9DC1F8 98.28%);
   width:140px;
-  height: 100vh;
   margin:0;
   padding-top: 40px;
   padding-left: 32px;
@@ -156,7 +155,7 @@
 .dashboard {
   display: flex;
   flex:1;
-  height:100vh;
+  height:fit-content;
   padding-top: 40px;
   padding-left: 45px;
   flex-direction: column;
@@ -171,7 +170,7 @@
 }
 
 .dashboardContent {
-  height: 100vh;
+  height:fit-content;
   padding-right: 20px;
 }
 
@@ -195,8 +194,9 @@
 .dimensionTeaser {
   background-color: #0051CB;
   width:375px;
-  height: 200px;
+  height: 280px;
   margin: 20px;
+  border-radius: 15px;
 }
 
 

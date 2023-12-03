@@ -36,16 +36,8 @@ export default function Homepage() {
             </div>
 
             <div className={styles.dashboardContent}>
-              <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>Reports</p>
               
-              <div className={styles.dimensionParentFlex}>
-                <div className={styles.dimensionTeaser} style={{background:'#F6866A'}}></div>
-                <div className={styles.dimensionTeaser} style={{background:'#7661E2'}}></div>
-                <div className={styles.dimensionTeaser} style={{background:'#FABE7A'}}></div>
-                <div className={styles.dimensionTeaser} style={{background:'#D8F4B4'}}></div>
-                <div className={styles.dimensionTeaser} style={{background:'#9DC1F8'}}></div>
-                <div className={styles.dimensionTeaser} style={{background:'#F6866A'}}></div>
-              </div>
 
             </div>
 
