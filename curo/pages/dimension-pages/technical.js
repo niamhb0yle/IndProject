@@ -1,21 +1,12 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import { useRouter } from 'next/router';
-import SideBar from '../components/sidebar';
-import Dashboard from '../components/dashboard';
+import SideBar from '../../components/sidebar';
 
 export default function Homepage() {
-  
-  /*
-  function dimensionButton(pageName){
-    const router = useRouter();
-    router.push('/dimension-pages/' + pageName);
-  };
-  */
 
   return (
     <div>
@@ -37,7 +28,11 @@ export default function Homepage() {
               <Link id={styles.teamNavElements} href='/teamSettings'>Team Settings</Link>
             </div>
 
-            <Dashboard/>
+            <div className={styles.dashboardContent}>
+              <p>Technical page.</p>
+              
+
+            </div>
 
           </div>
         </div>
