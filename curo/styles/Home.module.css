@@ -154,10 +154,38 @@
 
 .sidebarContainer {
   background: rgb(5, 55, 5);
-  width:6vw;
+  width:5vw;
   margin:0;
   padding-top: 40px;
-  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position:sticky;
+}
+
+#sidebarLogo{
+  color: #E8F1FF;
+  font-family: Montserrat;
+  font-size: 75px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 2.25px;
+}
+
+#sidebarNavElements {
+  color: #E8F1FF;
+  font-family: Manrope;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 580;
+  letter-spacing: 1px;
+  line-height: normal;
+  cursor:pointer;
+  background: none;
+  border:none;
+  text-decoration: none;
+  margin-top: 23px;
 }
 
 .dashboard {
@@ -168,7 +196,6 @@
 
 .dashboardHeader{
   display: flex;
-  padding: 10px;
   flex-direction: row;
   flex-wrap:wrap;
   background-color: rgb(79, 167, 117);
@@ -222,11 +249,10 @@
 
 
 #dashboardTitle{
-  color: rgb(5, 55, 5);
+  color: black;
   font-family: Montserrat;
   font-size: 75px;
-  font-style: normal;
-  font-weight: 600;
+  font-weight: 900;
   line-height: normal;
   letter-spacing: 2.25px;
 }
@@ -243,40 +269,13 @@
   background: none;
   border:none;
   text-decoration: none;
-  margin-left: 28px;
+  padding-left: 35;
+  padding:10px;
 }
 
-#sidebarLogo{
-  color: #E8F1FF;
-  font-family: Montserrat;
-  font-size: 75px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: 2.25px;
-}
-
-#sidebarNavElements {
-  color: #E8F1FF;
-  font-family: Manrope;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 580;
-  letter-spacing: 1px;
-  line-height: normal;
-  cursor:pointer;
-  background: none;
-  border:none;
-  text-decoration: none;
-  display: 'block';
-  margin-top: 23px;
-  list-style-type: none;
-  display:block;
-}
-
-.sidebarNav {
-  margin-top: 5px;
-  display:inline-block;
+#teamNavElements:hover {
+  background-color:rgb(59, 123, 87);
+  color:black;
 }
 
 .checkTeamButton{
