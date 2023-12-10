@@ -147,7 +147,7 @@
 
 .sidebarContainer {
   background: linear-gradient(180deg, #4F85D6 40.05%, #9DC1F8 98.28%);
-  width:100px;
+  width:7vw;
   margin:0;
   padding-top: 40px;
   padding-left: 18px;
@@ -194,6 +194,18 @@
   height: 250px;
   margin: 20px;
   border-radius: 15px;
+  text-decoration: none;
+}
+
+.teaserText {
+  text-decoration: none;
+  text-align: left;
+  font-family: 'Montserrat';
+  font-weight: 700;
+  font-size: 35px;
+  color: #FFFFFF;
+  display:"block";
+  margin: 10px;
 }
 
 
