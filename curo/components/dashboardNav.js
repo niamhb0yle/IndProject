@@ -9,7 +9,6 @@ import { useRouter } from 'next/router';
 export default function DashboardNav() {
     return (
         <div className={styles.dashboardHeader}>
-            <div id={styles.dashboardTitle}>CDAP Squad</div>
             <Link id={styles.teamNavElements} href='/homepage'>Dashboard</Link>
             <Link id={styles.teamNavElements} href='/issueBoard'>Sustainable Goals</Link>
             <Link id={styles.teamNavElements} href='/reports'>Reports</Link>

@@ -10,13 +10,6 @@ import Dashboard from '../components/dashboard';
 import DashboardNav from '../components/dashboardNav';
 
 export default function Homepage() {
-  
-  /*
-  function dimensionButton(pageName){
-    const router = useRouter();
-    router.push('/dimension-pages/' + pageName);
-  };
-  */
 
   return (
     <div>
