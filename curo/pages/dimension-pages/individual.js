@@ -16,7 +16,7 @@ export default function Homepage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{background:'#DBE9FF', backgroundSize: 'cover', marginTop:0, padding:0}}>
+      <div className={styles.pageContainer}>
         <div className={styles.mainContainer}>
           <SideBar/>
 
@@ -31,7 +31,7 @@ export default function Homepage() {
 
           </div>
         </div>
-      </main>
+      </div>
 
       <style jsx>{`
         main {

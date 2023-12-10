@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
+import SideBar from '../components/sidebar';
+import DashboardNav from '../components/dashboardNav';
 
 export default function Homepage() {
 
@@ -14,26 +16,12 @@ export default function Homepage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{background:'#DBE9FF', backgroundSize: 'cover', marginTop:0, padding:0}}>
+      <div className={styles.pageContainer}>
         <div className={styles.mainContainer}>
-          <div className={styles.sidebarContainer}>
-            <div id={styles.sidebarLogo}>C</div>
-            <div className={styles.sidebarNav}>
-              <Link id={styles.sidebarNavElements} href='/homepage'>Teams</Link>
-              <Link id={styles.sidebarNavElements} href='/homepage'>My issues</Link>
-              <Link id={styles.sidebarNavElements} href='/homepage'>Profile</Link>
-              <Link id={styles.sidebarNavElements} href='/homepage'>Settings</Link>
-            </div>
-          </div>
+          <SideBar/>
 
           <div className={styles.dashboard}>
-            <div className={styles.dashboardHeader}>
-              <div id={styles.dashboardTitle}>CDAP Squad</div>
-              <Link id={styles.teamNavElements} href='/homepage'>Dashboard</Link>
-              <Link id={styles.teamNavElements} href='/issueBoard'>Sustainable Goals</Link>
-              <Link id={styles.teamNavElements} href='/reports'>Reports</Link>
-              <Link id={styles.teamNavElements} href='/teamSettings'>Team Settings</Link>
-            </div>
+            <DashboardNav/>
 
             <div className={styles.dashboardContent}>
               <p>Team settings</p>
@@ -43,7 +31,7 @@ export default function Homepage() {
 
           </div>
         </div>
-      </main>
+      </div>
 
       <style jsx>{`
         main {

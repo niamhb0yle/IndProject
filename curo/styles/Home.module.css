@@ -154,6 +154,7 @@
 
 .sidebarContainer {
   background: linear-gradient(180deg, #4F85D6 40.05%, #aac9f7 98.28%);
+  /* background: darkgreen;*/
   width:7vw;
   margin:0;
   padding-top: 40px;
