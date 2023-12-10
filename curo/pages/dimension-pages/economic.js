@@ -5,6 +5,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
+import DashboardNav from '../../components/dashboardNav';
 
 export default function Homepage() {
 
@@ -20,13 +21,7 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <div className={styles.dashboardHeader}>
-              <div id={styles.dashboardTitle}>CDAP Squad</div>
-              <Link id={styles.teamNavElements} href='/homepage'>Dashboard</Link>
-              <Link id={styles.teamNavElements} href='/issueBoard'>Sustainable Goals</Link>
-              <Link id={styles.teamNavElements} href='/reports'>Reports</Link>
-              <Link id={styles.teamNavElements} href='/teamSettings'>Team Settings</Link>
-            </div>
+            <DashboardNav/>
 
             <div className={styles.dashboardContent}>
               <p>Economic page.</p>

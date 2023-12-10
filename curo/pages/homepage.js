@@ -7,6 +7,7 @@ import "@fontsource/manrope";
 import { useRouter } from 'next/router';
 import SideBar from '../components/sidebar';
 import Dashboard from '../components/dashboard';
+import DashboardNav from '../components/dashboardNav';
 
 export default function Homepage() {
   
@@ -24,24 +25,17 @@ export default function Homepage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main style={{background:'#DBE9FF', backgroundSize: 'cover', marginTop:0, padding:0}}>
+      <div className={styles.pageContainer}>
         <div className={styles.mainContainer}>
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <div className={styles.dashboardHeader}>
-              <div id={styles.dashboardTitle}>CDAP Squad</div>
-              <Link id={styles.teamNavElements} href='/homepage'>Dashboard</Link>
-              <Link id={styles.teamNavElements} href='/issueBoard'>Sustainable Goals</Link>
-              <Link id={styles.teamNavElements} href='/reports'>Reports</Link>
-              <Link id={styles.teamNavElements} href='/teamSettings'>Team Settings</Link>
-            </div>
-
+            <DashboardNav/>
             <Dashboard/>
 
           </div>
         </div>
-      </main>
+      </div>
 
       <style jsx>{`
         main {

@@ -27,8 +27,8 @@ export default function Dashboard() {
             <Link href='/dimension-pages/individual' className={styles.dimensionTeaser} style={{background:'#9DC1F8'}}>
                 <div className={styles.teaserText}>Individual</div>
             </Link>
-            <Link href='/dimension-pages/technical' className={styles.dimensionTeaser} style={{background:'#F6866A'}}>
-                <div className={styles.teaserText}>Placeholder</div>
+            <Link href='/dimension-pages/sci' className={styles.dimensionTeaser} style={{background:'#F6866A'}}>
+                <div className={styles.teaserText}>SCI Score</div>
             </Link>
         </div>
 
