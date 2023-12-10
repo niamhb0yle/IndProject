@@ -24,11 +24,9 @@ export default function Homepage() {
             <DashboardNav/>
 
             <div className={styles.dashboardContent}>
-              <p>Social page.</p>
-              
+              <p>Social page.</p>     
 
             </div>
-
           </div>
         </div>
       </div>
