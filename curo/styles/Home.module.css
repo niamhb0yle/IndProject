@@ -137,7 +137,8 @@
 }
 
 .pageContainer {
-  background: #E5FFEF;
+  /*background: #E5FFEF;*/
+  background: #F3F5F7;
   background-size: 'cover';
   margin-top:0;
   padding:0;
@@ -153,7 +154,8 @@
 }
 
 .sidebarContainer {
-  background: rgb(5, 55, 5);
+  /*background: #88AB8E;*/
+  background:#6AB4B9;
   width:5vw;
   margin:0;
   padding-top: 40px;
@@ -198,7 +200,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
-  background-color: rgb(79, 167, 117);
+  background-color: #155E63;
+  /*background-color: rgb(79, 167, 117);*/
   justify-content: flex-end;
   /*background: linear-gradient(180deg,  40.05%, #FFFFFF 98.28%);
   align-items: baseline;*/
@@ -213,7 +216,7 @@
   font-family: Manrope;
   font-size: 20px;
   font-style: normal;
-  font-weight: 450;
+  font-weight: 50;
   line-height: normal;
 }
 
@@ -231,7 +234,7 @@
   margin: 20px;
   border-radius: 15px;
   text-decoration: none;
-  outline-color: lightgrey;
+  outline-color: #E6E8EC;
   outline-width: 1px;
   outline-style: solid;
 }
@@ -258,7 +261,8 @@
 }
 
 #teamNavElements {
-  color: rgb(5, 55, 5);
+  /*color: rgb(5, 55, 5);*/
+  color: white;
   font-family: Manrope;
   font-size: 20px;
   font-style: normal;

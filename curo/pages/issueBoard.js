@@ -6,6 +6,7 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../components/sidebar';
 import DashboardNav from '../components/dashboardNav';
+import IssueBoard from '../components/issueBoard';
 
 export default function Homepage() {
 
@@ -24,7 +25,9 @@ export default function Homepage() {
             <DashboardNav/>
 
             <div className={styles.dashboardContent}>
-                <p>Issue board</p>
+              <div id={styles.dashboardTitle}>Issue board</div>
+              <p>This page is to track the teams current sustainable goals</p>
+              <IssueBoard/>
             </div>
 
           </div>
