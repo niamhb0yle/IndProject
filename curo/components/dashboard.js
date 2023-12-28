@@ -12,10 +12,10 @@ export default function Dashboard() {
     <div className={styles.dashboardContent}>
         <div id={styles.dashboardTitle}>CDAP Squad</div>
         <div style={{display:'flex',flexDirection:'row', flexWrap:'wrap'}}>
-            <div style={{width:'60%', padding: '5px'}}>
+            <div style={{flex:1, padding: '5px'}}>
                 <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
-            <div style={{width:'40%', padding: '5px'}}>
+            <div style={{flex:0.5, padding: '5px'}}>
                 <p><b>Team Lead:</b> John Smith</p>
                 <p><b>Organisation:</b> Morgan Stanley</p>
                 <p><b>Reports filled:</b> 1</p>
