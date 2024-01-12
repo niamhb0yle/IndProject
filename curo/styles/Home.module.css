@@ -137,7 +137,6 @@
 }
 
 .pageContainer {
-  /*background: #E5FFEF;*/
   background: #F3F5F7;
   background-size: 'cover';
   margin-top:0;
@@ -197,7 +196,8 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 30px;
+  padding-left: 30px;
+  padding-right:30px;
   padding-top: 50px;
   padding-bottom: 15px;
 }
@@ -219,13 +219,11 @@
 
 #headerElements {
   color: black;
-  font-family: Manrope;
+  font-family: Montserrat;
   font-size: 20px;
   font-style: normal;
   font-weight: 600;
-  letter-spacing: 1px;
   line-height: normal;
-  cursor: pointer;
   background: none;
   border: none;
   text-decoration: none;
@@ -233,12 +231,13 @@
 }
 
 .dashboardContent {
-  padding-right: 20px;
+  padding-right: 50px;
   margin-left: 30px;
 }
 
 .dashboardContent p {
-  font-family: Manrope;
+  font-family: 'Manrope';
+  color: #444444;
   font-size: 20px;
   font-style: normal;
   font-weight: 50;
