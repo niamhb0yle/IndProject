@@ -6,10 +6,10 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useRouter } from 'next/router';
 
-export default function Header() {
+export default function Header( {title} ) {
     return (
       <div className={styles.header}>
-        <div id={styles.headerTitle}>Dashboard</div>
+        <div id={styles.headerTitle}>{title}</div>
         <div className={styles.headerElts}>
           <Link id={styles.headerElements} href='/header/profile'>
             Profile

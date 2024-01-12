@@ -9,14 +9,17 @@ export default function SideBar() {
   return (
     <div className={styles.sidebarContainer}>
       <div id={styles.sidebarLogo}>C</div>
-      <Link id={styles.sidebarNavElements} href='/dashboard'>
-        <img src='/images/teamsIcon.png' alt='teams icon' width='40px'/>
+      <Link id={styles.sidebarNavElements} href='/sidebar/dashboard'>
+        Dashboard
       </Link>
-      <Link id={styles.sidebarNavElements} href='/dashboard'>
-        <img src='/images/teamsIcon.png' alt='teams icon' width='40px'/>
+      <Link id={styles.sidebarNavElements} href='/sidebar/issueBoard'>
+        Issue board
       </Link>
-      <Link id={styles.sidebarNavElements} href='/dashboard'>
-        <img src='/images/settingsIcon.png' alt='settings icon' width='40px'/>
+      <Link id={styles.sidebarNavElements} href='/sidebar/reports'>
+        Reports
+      </Link>
+      <Link id={styles.sidebarNavElements} href='/sidebar/teamSettings'>
+        Settings
       </Link>
     </div>
   )

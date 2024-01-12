@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import SideBar from '../components/sidebar';
-import DashboardNav from '../components/dashboardNav';
-import IssueBoard from '../components/issueBoard';
+import { useRouter } from 'next/router';
+import SideBar from '../../components/sidebar';
+import Dashboard from '../../components/dashboard';
+import Header from '../../components/Header';
 
 export default function Homepage() {
 
@@ -22,14 +23,9 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <DashboardNav/>
-
-            <div className={styles.dashboardContent}>
-              <div id={styles.dashboardTitle}>Issue board</div>
-              <p>This page is to track the teams current sustainable goals</p>
-              <IssueBoard/>
-            </div>
-
+            <Header title="Dashboard"/>
+            <Dashboard/>
+            
           </div>
         </div>
       </div>

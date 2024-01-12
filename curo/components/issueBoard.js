@@ -6,23 +6,6 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useRouter } from 'next/router';
 
-/*
-width: fit-content;;
-  padding:15px;
-  margin-inline-end: 10px;
-  flex-shrink: 0;
-  border-radius: 30px;
-  background: #DBE9FF;
-  border:none;
-  color: #033988;
-  font-family: 'Karla Variable';
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  display:inline-block;
-  cursor:pointer;
-*/
-
 export default function IssueBoard() {
   return (
     <div style={{display:'flex', flex: 1, flexDirection: 'row', flexWrap:'wrap', alignContent:'flex-start'}}>

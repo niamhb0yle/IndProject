@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import Header from '../components/Header';
-import SideBar from '../components/sidebar';
+import SideBar from '../../components/sidebar';
+import Header from '../../components/Header';
 
 export default function Homepage() {
 
@@ -21,11 +21,12 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header/>
+            <Header title="Team Settings"/>
 
             <div className={styles.dashboardContent}>
-              <div id={styles.dashboardTitle}>Reports</div>
-              <p>View and export your previous reports below.</p>
+              <p>Team settings</p>
+              
+
             </div>
 
           </div>

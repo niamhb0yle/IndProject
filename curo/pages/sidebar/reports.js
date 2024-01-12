@@ -1,13 +1,11 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import { useRouter } from 'next/router';
-import SideBar from '../components/sidebar';
-import Dashboard from '../components/dashboard';
-import Header from '../components/Header';
+import Header from '../../components/Header';
+import SideBar from '../../components/sidebar';
 
 export default function Homepage() {
 
@@ -23,9 +21,12 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header/>
-            <Dashboard/>
-            
+            <Header title="Reports"/>
+
+            <div className={styles.dashboardContent}>
+              <p>View and export your previous reports below.</p>
+            </div>
+
           </div>
         </div>
       </div>

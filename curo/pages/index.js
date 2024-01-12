@@ -24,7 +24,7 @@ export default function Home() {
             <Link href='/signup' id={styles.navbarelements}>Sign up</Link>
           </li>
           <li id={styles.navbarelements}>
-            <Link href='/dashboard' id={styles.navbarelements}>Dashboard</Link>
+            <Link href='/sidebar/dashboard' id={styles.navbarelements}>Dashboard</Link>
           </li>
         </ul>
 

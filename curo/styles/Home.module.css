@@ -154,9 +154,8 @@
 }
 
 .sidebarContainer {
-  /*background: #88AB8E;*/
-  background:#155E63;
-  width:8vw;
+  background:#18392B;
+  width:12vw;
   margin:0;
   padding-top: 50px;
   display: flex;
@@ -169,8 +168,8 @@
   color: #E8F1FF;
   font-family: Montserrat;
   font-size: 75px;
-  font-style: normal;
-  font-weight: 600;
+  font-style:normal;
+  font-weight: 900;
   line-height: normal;
   letter-spacing: 2.25px;
 }
@@ -180,8 +179,8 @@
   font-family: Manrope;
   font-size: 18px;
   font-style: normal;
-  font-weight: 580;
-  letter-spacing: 1px;
+  font-weight: 600;
+  letter-spacing: 1.3px;
   line-height: normal;
   cursor:pointer;
   background: none;
@@ -198,7 +197,9 @@
 .header {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 30px;
+  padding-top: 50px;
+  padding-bottom: 15px;
 }
 
 .headerElts {
@@ -232,10 +233,9 @@
   padding: 10px;
 }
 
-
 .dashboardContent {
   padding-right: 20px;
-  margin-left: 45px;
+  margin-left: 30px;
 }
 
 .dashboardContent p {
