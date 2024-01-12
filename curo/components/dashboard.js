@@ -22,6 +22,9 @@ export default function Dashboard() {
         </div>
 
         <div className={styles.dimensionParentFlex}>
+            <Link href='/dimension-pages/economic' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%)'}}>
+                <div className={styles.teaserText}>Economic</div>
+            </Link>
             <Link href='/dimension-pages/technical' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, rgb(79, 167, 117) 0%, rgb(79, 167, 117) 60%, white 60%, white 100%)'}}>
                 <div className={styles.teaserText}>Technical</div>
             </Link>
@@ -30,9 +33,6 @@ export default function Dashboard() {
             </Link>
             <Link href='/dimension-pages/social' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #FABE7A 0%, #FABE7A 60%, white 60%, white 100%)'}}>
                 <div className={styles.teaserText}>Social</div>
-            </Link>
-            <Link href='/dimension-pages/economic' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Economic</div>
             </Link>
             <Link href='/dimension-pages/individual' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #9DC1F8 0%, #9DC1F8 60%, white 60%, white 100%)'}}>
                 <div className={styles.teaserText}>Individual</div>

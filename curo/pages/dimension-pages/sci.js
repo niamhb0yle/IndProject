@@ -21,7 +21,7 @@ export default function SCI() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header/>
+            <Header title="SCI Score"/>
 
             <div className={styles.dashboardContent}>
               <div className={styles.dashboardTitle}>SCI Score</div>

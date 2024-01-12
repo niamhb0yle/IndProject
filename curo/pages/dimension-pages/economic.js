@@ -5,9 +5,9 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
-import DashboardNav from '../../components/dashboardNav';
+import Header from '../../components/Header';
 
-export default function Homepage() {
+export default function Ecconomic() {
 
   return (
     <div>
@@ -21,7 +21,7 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <DashboardNav/>
+            <Header title="Economic"/>
 
             <div className={styles.dashboardContent}>
               <div id={styles.dashboardTitle}>Economic Sustainability</div>
