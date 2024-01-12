@@ -137,7 +137,7 @@
 }
 
 .pageContainer {
-  background: #F3F5F7;
+  background: #FFFFFF;
   background-size: 'cover';
   margin-top:0;
   padding:0;
@@ -150,42 +150,6 @@
   flex-wrap:wrap;
   min-height: 100vh;
   overflow-y: auto;
-}
-
-.sidebarContainer {
-  background:#18392B;
-  width:12vw;
-  margin:0;
-  padding-top: 50px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position:sticky;
-}
-
-#sidebarLogo{
-  color: #E8F1FF;
-  font-family: Montserrat;
-  font-size: 75px;
-  font-style:normal;
-  font-weight: 900;
-  line-height: normal;
-  letter-spacing: 2.25px;
-}
-
-#sidebarNavElements {
-  color: #E8F1FF;
-  font-family: Manrope;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 1.3px;
-  line-height: normal;
-  cursor:pointer;
-  background: none;
-  border:none;
-  text-decoration: none;
-  margin-top: 23px;
 }
 
 .dashboard {
@@ -253,14 +217,12 @@
 }
 
 .dimensionTeaser {
-  width:375px;
+  width:350px;
   height: 250px;
   margin: 20px;
   border-radius: 15px;
   text-decoration: none;
-  outline-color: #E6E8EC;
-  outline-width: 1px;
-  outline-style: solid;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .teaserText {

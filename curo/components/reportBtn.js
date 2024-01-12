@@ -8,10 +8,11 @@ import { useRouter } from 'next/router';
 
  
 const ReportBtn = ({ dimension }) => {
+    const router = useRouter();
+
     const handleClick = () => {
-      // Your logic for what happens when the button is clicked
       console.log(`Button clicked for ${dimension}`);
-      // You can navigate, show a modal, or perform any other action here
+      router.push(`/report-pages/${dimension}Report`);
     };
   
     return (

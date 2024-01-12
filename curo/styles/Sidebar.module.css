@@ -1,0 +1,35 @@
+.sidebarContainer {
+    background:#18392B;
+    width:175px;
+    margin:0;
+    padding-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position:sticky;
+  }
+  
+  #sidebarLogo{
+    color: #E8F1FF;
+    font-family: Montserrat;
+    font-size: 75px;
+    font-style:normal;
+    font-weight: 900;
+    line-height: normal;
+    letter-spacing: 2.25px;
+  }
+  
+  #sidebarNavElements {
+    color: #E8F1FF;
+    font-family: Manrope;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+    line-height: normal;
+    cursor:pointer;
+    background: none;
+    border:none;
+    text-decoration: none;
+    margin-top: 23px;
+  }
