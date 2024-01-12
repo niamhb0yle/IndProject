@@ -11,10 +11,10 @@ export default function Header() {
       <div className={styles.header}>
         <div id={styles.headerTitle}>Dashboard</div>
         <div className={styles.headerElts}>
-          <Link id={styles.headerElements} href='/profile'>
+          <Link id={styles.headerElements} href='/header/profile'>
             Profile
           </Link>
-          <Link id={styles.headerElements} href='/settings'>
+          <Link id={styles.headerElements} href='/header/settings'>
             Settings
           </Link>
         </div>

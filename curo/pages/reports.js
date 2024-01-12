@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import DashboardNav from '../components/dashboardNav';
+import Header from '../components/Header';
 import SideBar from '../components/sidebar';
 
 export default function Homepage() {
@@ -21,7 +21,7 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <DashboardNav/>
+            <Header/>
 
             <div className={styles.dashboardContent}>
               <div id={styles.dashboardTitle}>Reports</div>
