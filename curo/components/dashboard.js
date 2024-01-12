@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 export default function Dashboard() {
   return (
     <div className={styles.dashboardContent}>
-        <div id={styles.dashboardTitle}>CDAP Squad</div>
         <div style={{display:'flex',flexDirection:'row', flexWrap:'wrap'}}>
             <div style={{flex:1, padding: '5px'}}>
                 <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>

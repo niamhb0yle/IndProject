@@ -24,7 +24,8 @@ export default function Homepage() {
             <DashboardNav/>
 
             <div className={styles.dashboardContent}>
-                <p>Reports</p>
+              <div id={styles.dashboardTitle}>Reports</div>
+              <p>View and export your previous reports below.</p>
             </div>
 
           </div>

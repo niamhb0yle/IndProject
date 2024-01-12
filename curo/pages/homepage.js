@@ -7,7 +7,7 @@ import "@fontsource/manrope";
 import { useRouter } from 'next/router';
 import SideBar from '../components/sidebar';
 import Dashboard from '../components/dashboard';
-import DashboardNav from '../components/dashboardNav';
+import Header from '../components/Header';
 
 export default function Homepage() {
 
@@ -23,9 +23,9 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <DashboardNav/>
+            <Header/>
             <Dashboard/>
-
+            
           </div>
         </div>
       </div>

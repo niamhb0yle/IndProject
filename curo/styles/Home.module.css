@@ -155,10 +155,10 @@
 
 .sidebarContainer {
   /*background: #88AB8E;*/
-  background:#6AB4B9;
-  width:5vw;
+  background:#155E63;
+  width:8vw;
   margin:0;
-  padding-top: 40px;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -195,17 +195,43 @@
   flex:1;
   flex-direction: column;
 }
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
 
-.dashboardHeader{
+.headerElts {
   display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
-  background-color: #155E63;
-  /*background-color: rgb(79, 167, 117);*/
+  flex-wrap: wrap;
   justify-content: flex-end;
-  /*background: linear-gradient(180deg,  40.05%, #FFFFFF 98.28%);
-  align-items: baseline;*/
 }
+
+#headerTitle {
+  color: black;
+  font-family: 'Montserrat';
+  font-size: 75px;
+  font-weight: 900;
+  line-height: normal;
+  letter-spacing: 2.25px;
+}
+
+#headerElements {
+  color: black;
+  font-family: Manrope;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 1px;
+  line-height: normal;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: none;
+  padding: 10px;
+}
+
 
 .dashboardContent {
   padding-right: 20px;
@@ -248,38 +274,6 @@
   color: #FFFFFF;
   display:"block";
   margin: 10px;
-}
-
-
-#dashboardTitle{
-  color: black;
-  font-family: Montserrat;
-  font-size: 75px;
-  font-weight: 900;
-  line-height: normal;
-  letter-spacing: 2.25px;
-}
-
-#teamNavElements {
-  /*color: rgb(5, 55, 5);*/
-  color: white;
-  font-family: Manrope;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 1px;
-  line-height: normal;
-  cursor:pointer;
-  background: none;
-  border:none;
-  text-decoration: none;
-  padding-left: 35;
-  padding:10px;
-}
-
-#teamNavElements:hover {
-  background-color:rgb(59, 123, 87);
-  color:black;
 }
 
 .checkTeamButton{

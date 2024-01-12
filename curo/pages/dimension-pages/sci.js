@@ -5,7 +5,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
-import DashboardNav from '../../components/dashboardNav';
+import Header from '../../components/Header';
 
 export default function SCI() {
 
@@ -21,7 +21,7 @@ export default function SCI() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <DashboardNav/>
+            <Header/>
 
             <div className={styles.dashboardContent}>
               <div className={styles.dashboardTitle}>SCI Score</div>
