@@ -8,23 +8,38 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
 import Likert from 'react-likert-scale';
+import { useState } from 'react';
 
-export default function Ecconomic() {
+export default function Economic() {
+    const [responses, setResponses] = useState({});
 
     const likertOptions = {
         responses: [
-            { value: 1, text: "Abysmal" },
-            { value: 2, text: "Poor" },
-            { value: 3, text: "Average", checked: true },
-            { value: 4, text: "Good" },
-            { value: 5, text: "Excellent" }
+            { value: 1, text: "Strongly Disagree" },
+            { value: 2, text: "Disagree" },
+            { value: 3, text: "Neutral", checked: true },
+            { value: 4, text: "Agree" },
+            { value: 5, text: "Strongly Agree" }
         ],
-        onChange: val => {
-            console.log(val);
-        }
+        onChange: (val, questionId) => {
+            setResponses(prevResponses => ({
+                ...prevResponses,
+                [questionId]: val
+            }));
+            console.log("val, index: ", val, questionId);
+            console.log("responses:", responses);
+            }
+            
     };
 
-  return (
+    const handleSubmit = () => {
+        // Assuming you want to send the responses to Firebase
+        // Use the 'responses' state for your data
+        console.log("Responses:", responses);
+        // Add logic to send 'responses' to Firebase here
+        };
+
+    return (
     <div>
       <Head>
         <title>Curo</title>
@@ -44,11 +59,11 @@ export default function Ecconomic() {
                     <div style={{width:'75%'}}>
                         <div>
                             <p style={{fontSize:18}}>1. The team met the sprint's defined goals and objectives within the allocated budget</p>
-                            <Likert {...likertOptions} />
+                            <Likert {...likertOptions} questionId="q1"/>
                         </div>
                         <div>
                             <p style={{fontSize:18}}>2. Initiatives were in place to ensure job security for team members</p>
-                            <Likert {...likertOptions} />
+                            <Likert {...likertOptions} questionId="q2"/>
                         </div>
                         <div>
                             <p style={{fontSize:18}}>3. There were professional development opportunities for the team members</p>
