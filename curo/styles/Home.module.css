@@ -263,6 +263,7 @@
   padding: 15px;
   border: none;
   float: right;
+  cursor: pointer;
   font-family: 'Montserrat';
 }
 

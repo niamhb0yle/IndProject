@@ -6,12 +6,14 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
-import ReportBtn from '../../components/reportBtn';
 import Likert from 'react-likert-scale';
 import { useState } from 'react';
+import next from 'next';
 
 export default function Economic() {
     const [responses, setResponses] = useState({});
+    const [nextAvailable, setNextAvailable] = useState(true);
+    const responsesCount = Object.keys(responses).length;
     
     const likertOptions = {
         responses: [
@@ -29,7 +31,10 @@ export default function Economic() {
         [questionId]: val
         }));
         console.log(questionId, val);
-        console.log(responses);
+        console.log(responses, "responses count: ", responsesCount);
+        if (responsesCount === 14) {
+            setNextAvailable(false);
+        }
     };
 
     const handleSubmit = () => {
@@ -52,7 +57,7 @@ export default function Economic() {
             <Header title="Economic"/>
             
             <div className={styles.dashboardContent}>
-                <div style={{background:'#F8F8F8', width:'100%', height:'fit-content', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)', borderRadius:30, padding:30}}>
+                <div style={{background:'#F8F8F8', width:'100%', height:'fit-content', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)', borderRadius:30, padding:30, overflow:'auto'}}>
                     <p style={{fontSize:22, fontWeight:600, marginBottom: 40, color:'black'}}>Please rank the following statements based on how much you agree with them:</p>
                     <div style={{width:'75%'}}>
                         <div>
@@ -116,6 +121,24 @@ export default function Economic() {
                             <p style={{fontSize:18}}>15. Decisions were made with a focus on maximizing the project's economic benefits</p>
                             <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q15")} />
                         </div>
+                        <button
+                            disabled={nextAvailable}
+                            onClick={handleSubmit}
+                            className={styles.ReportBtn}
+                            style={{
+                            background: !nextAvailable ? "#18392B" : "gray",
+                            cursor: !nextAvailable ? "pointer" : "default",
+                            width: "fit-content",
+                            borderRadius: "30px",
+                            fontFamily:"Montserrat",
+                            fontSize:"22px",
+                            color:"white",
+                            padding:"15px",
+                            border:"none",
+                            float:"right",
+                            }}>
+                            Continue &rarr;
+                        </button>
                     </div>
                 </div>
             </div>
