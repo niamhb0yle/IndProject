@@ -13,6 +13,7 @@ import next from 'next';
 export default function Economic() {
     const [responses, setResponses] = useState({});
     const [nextAvailable, setNextAvailable] = useState(true);
+    const [questionView, setQuestionView] = useState("quantitative");
     const responsesCount = Object.keys(responses).length;
     
     const likertOptions = {
@@ -32,13 +33,14 @@ export default function Economic() {
         }));
         console.log(questionId, val);
         console.log(responses, "responses count: ", responsesCount);
-        if (responsesCount === 14) {
+        if (responsesCount === 15) {
             setNextAvailable(false);
         }
     };
 
     const handleSubmit = () => {
         console.log("Responses:", responses);
+        setQuestionView("qualitative");
         // Add logic to send 'responses' to Firebase here
         };
 
@@ -59,7 +61,7 @@ export default function Economic() {
             <div className={styles.dashboardContent}>
                 <div style={{background:'#F8F8F8', width:'100%', height:'fit-content', boxShadow: '2px 2px 10px rgba(0, 0, 0, 0.3)', borderRadius:30, padding:30, overflow:'auto'}}>
                     <p style={{fontSize:22, fontWeight:600, marginBottom: 40, color:'black'}}>Please rank the following statements based on how much you agree with them:</p>
-                    <div style={{width:'75%'}}>
+                    <div style={{width:'75%', display: questionView === "quantitative" ? "block" : "none"}}>
                         <div>
                             <p style={{fontSize:18}}>1. The team met the sprint's defined goals and objectives within the allocated budget</p>
                             <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q1")} />
@@ -139,6 +141,9 @@ export default function Economic() {
                             }}>
                             Continue &rarr;
                         </button>
+                    </div>
+                    <div style={{width:"75%", display: questionView === "qualitative" ? "block" : "none"}}>
+                      <p>Hello second page</p>
                     </div>
                 </div>
             </div>
