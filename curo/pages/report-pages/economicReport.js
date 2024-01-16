@@ -11,13 +11,15 @@ import { useState } from 'react';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import 'firebase/firestore';
 import { db } from "../../firebase";
+import { useRouter } from 'next/router';
 
 export default function Economic() {
     const [quantResponses, setQuantResponses] = useState({});
     const [qualResponses, setQualResponses] = useState({});
     const [nextAvailable, setNextAvailable] = useState(true);
     const [questionView, setQuestionView] = useState("quantitative");
-    const responsesCount = Object.keys(quantResponses).length;
+    const responsesCount = Object.keys(quantResponses).length + 1;
+    const router = useRouter();
     
     const likertOptions = {
         responses: [
@@ -29,16 +31,15 @@ export default function Economic() {
         ]
       };
 
-    const handleLikertChange = async (val, questionId) => {
-        await setQuantResponses(prevResponses => ({
+    const handleLikertChange = (val, questionId) => {
+      setQuantResponses(prevResponses => ({
         ...prevResponses,
         [questionId]: val
-        }));
-        console.log(questionId, val);
-        console.log(quantResponses, "responses count: ", responsesCount);
-        if (responsesCount === 15) {
-            setNextAvailable(false);
-        }
+      }));
+      console.log(responsesCount);
+      if (responsesCount >= 15) {
+        setNextAvailable(false);
+      }
     };
 
     const handleSubmitNew = async () => {
@@ -49,18 +50,25 @@ export default function Economic() {
       } else if (questionView === 'qualitative') {
         console.log('Qualitative responses:', qualResponses);
   
-        const userId = "developer@gmail.com"; // Replace with the actual user ID
-        const reportNumber = "1"; // Replace with the actual report number
+        // getting existing document references to update data
+        const userId = "developer@gmail.com"; // TODO: Replace with the actual user ID
+        const reportNumber = "1"; // TODO: Replace with the actual report number
   
-        const docRef = doc(db, "Users", userId);
-        const reportRef = doc(docRef, "Reports", reportNumber);
+        const userRef = doc(db, "Users", userId);
+        const reportRef = doc(userRef, "Reports", reportNumber);
 
-        
-        
         await updateDoc(reportRef, {
           EconomicQuant: quantResponses,
           EconomicQual: qualResponses,
         });
+
+        // set a state in the users document to signify that this report has been filled out
+        await updateDoc(userRef, {
+          Progress: {Economic: true}
+        });
+
+        // redirect to dashboard
+        router.push('../sidebar/dashboard');
       }
     };
 
@@ -84,64 +92,64 @@ export default function Economic() {
                       <p style={{fontSize:22, fontWeight:600, marginBottom: 40, color:'black'}}>Please rank the following statements based on how much you agree with them:</p>
                       <div>
                           <p style={{fontSize:18}}>1. The team met the sprint's defined goals and objectives within the allocated budget</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q1")} />
+                          <Likert {...likertOptions} id='1' onChange={(val) => handleLikertChange(val.value, "q1")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>2. Initiatives were in place to ensure job security for team members</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q2")} />
+                          <Likert {...likertOptions} id='2' onChange={(val) => handleLikertChange(val.value, "q2")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>3. There were professional development opportunities for the team members</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q3")} />
+                          <Likert {...likertOptions} id='3' onChange={(val) => handleLikertChange(val.value, "q3")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>4. The team supports learning and career advancement for team members</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q4")} />
+                          <Likert {...likertOptions} id='4' onChange={(val) => handleLikertChange(val.value, "q4")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>5. Compensation structures within the team were fair</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q5")} />
+                          <Likert {...likertOptions} id='5' onChange={(val) => handleLikertChange(val.value, "q5")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>6. The project positively contributed to economic growth in its community or industry</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q6")} />
+                          <Likert {...likertOptions} id='6' onChange={(val) => handleLikertChange(val.value, "q6")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>7. The team actively sought ways to contribute to the economic wellbeing of stakeholders</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q7")} />
+                          <Likert {...likertOptions} id='7' onChange={(val) => handleLikertChange(val.value, "q7")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>8. Efforts were made to minimize the environmental impact of the project's infrastructure</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q8")} />
+                          <Likert {...likertOptions} id='8' onChange={(val) => handleLikertChange(val.value, "q8")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>9. The team invested in innovative technologies or practices to improve efficiency</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q9")} />
+                          <Likert {...likertOptions} id='9' onChange={(val) => handleLikertChange(val.value, "q9")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>10. Innovation was a priority in project planning and execution</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q10")} />
+                          <Likert {...likertOptions} id='10' onChange={(val) => handleLikertChange(val.value, "q10")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>11. The team actively engages in activities that enhance the competitiveness of the industry</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q11")} />
+                          <Likert {...likertOptions} id='11' onChange={(val) => handleLikertChange(val.value, "q11")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>12. Resources, including time and personnel, were allocated efficiently throughout the project</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q12")} />
+                          <Likert {...likertOptions} id='12' onChange={(val) => handleLikertChange(val.value, "q12")} />
                       </div>
                       
                       <div>
                           <p style={{fontSize:18}}>13. The team conducted cost-benefit analyses for major project decisions</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q13")} />
+                          <Likert {...likertOptions} id='13' onChange={(val) => handleLikertChange(val.value, "q13")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>14. The team prioritizes activities with a positive cost-benefit ratio</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q14")} />
+                          <Likert {...likertOptions} id='14' onChange={(val) => handleLikertChange(val.value, "q14")} />
                       </div>
                       <div>
                           <p style={{fontSize:18}}>15. Decisions were made with a focus on maximizing the project's economic benefits</p>
-                          <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q15")} />
+                          <Likert {...likertOptions} id='15' onChange={(val) => handleLikertChange(val.value, "q15")} />
                       </div>
                       <button
                           disabled={nextAvailable}
