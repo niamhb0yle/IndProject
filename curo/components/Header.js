@@ -11,12 +11,12 @@ export default function Header( {title} ) {
       <div className={styles.header}>
         <div id={styles.headerTitle}>{title}</div>
         <div className={styles.headerElts}>
-          <p id={styles.headerElements}>Hey, Niamh B!</p>
+          {/*<p id={styles.headerElements}>Hey, Niamh B!</p>*/}
           <Link id={styles.headerElements} href='/header/profile'>
-            <img src='/images/user.png' alt='settings icon' width='55px'/>
+            <img src='/images/user.png' alt='settings icon' width='40px'/>
           </Link>
           <Link id={styles.headerElements} href='/header/settings'>
-            <img src='/images/engineer.png' alt='settings icon' width='55px'/>
+            <img src='/images/engineer.png' alt='settings icon' width='40px'/>
           </Link>
         </div>
       </div>
