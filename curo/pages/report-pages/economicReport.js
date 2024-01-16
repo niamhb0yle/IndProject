@@ -8,6 +8,9 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import Likert from 'react-likert-scale';
 import { useState } from 'react';
+import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
+import 'firebase/firestore';
+import { db } from "../../firebase";
 
 export default function Economic() {
     const [quantResponses, setQuantResponses] = useState({});
@@ -38,14 +41,26 @@ export default function Economic() {
         }
     };
 
-    const handleSubmit = () => {
-      if (questionView === "quantitative"){
-        console.log("Quantitative responses:", quantResponses);
-        setQuestionView("qualitative");
-        // Add logic to send 'responses' to Firebase here
-      }
-      else if (questionView === "qualitative"){
-        console.log(qualResponses);
+    const handleSubmitNew = async () => {
+      if (questionView === 'quantitative') {
+        console.log('Quantitative responses:', quantResponses);
+        setQuestionView('qualitative');
+
+      } else if (questionView === 'qualitative') {
+        console.log('Qualitative responses:', qualResponses);
+  
+        const userId = "developer@gmail.com"; // Replace with the actual user ID
+        const reportNumber = "1"; // Replace with the actual report number
+  
+        const docRef = doc(db, "Users", userId);
+        const reportRef = doc(docRef, "Reports", reportNumber);
+
+        
+        
+        await updateDoc(reportRef, {
+          EconomicQuant: quantResponses,
+          EconomicQual: qualResponses,
+        });
       }
     };
 
@@ -129,8 +144,8 @@ export default function Economic() {
                           <Likert {...likertOptions} onChange={(val) => handleLikertChange(val.value, "q15")} />
                       </div>
                       <button
-              
-                          onClick={handleSubmit}
+                          disabled={nextAvailable}
+                          onClick={handleSubmitNew}
                           className={styles.ReportBtn}
                           style={{
                             background: !nextAvailable ? "#18392B" : "gray",
@@ -166,7 +181,7 @@ export default function Economic() {
                         </input>
                       </div>
                       <button
-                          onClick={handleSubmit}
+                          onClick={handleSubmitNew}
                           className={styles.ReportBtn}
                           style={{
                             background: "#18392B",
