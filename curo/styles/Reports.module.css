@@ -1,0 +1,47 @@
+.reportContainer {
+    background:'#F8F8F8';
+    overflow:auto;
+    height:fit-content;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    padding: 30px;
+    width:80%;
+}
+
+.reportContainer p {
+    font-size: 18px;
+    font-family: 'Manrope';
+}
+
+.inputBoxes {
+    width:100%;
+    height:48px;
+    display:block;
+    border-radius: 8px;
+    border: 1px #CDCDCD solid;
+    margin: 5px;
+    font-size: 16px;
+    font-family: 'Karla Variable';
+    padding: 10px;
+}
+
+.nextButton {
+    background: #18392B;
+    cursor: pointer;
+    width: fit-content;
+    border-radius: 30px;
+    font-family: 'Montserrat';
+    font-size: 22px;
+    color: white;
+    padding: 15px;
+    border: none;
+    float: right;
+}
+
+.headingText {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color:black;
+    font-family: 'Manrope';
+}
