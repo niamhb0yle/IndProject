@@ -4,7 +4,7 @@ import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import { useState } from 'react';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, collection, addDoc } from 'firebase/firestore';
 import { db, auth } from '../firebase'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -25,21 +25,28 @@ export default function SignUp() {
       setError("Passwords do not match");
     } else {
       try {
-        var fieldName;
-        if (role === 'dev'){
-          fieldName = "Developers";
-        } else {
-          fieldName = "Leads";
-        }
-
         // creating firebase auth account
         await createUserWithEmailAndPassword(auth, userProfile.email, userProfile.password)
 
-        // creating firestore doc in correct field for devs/leads
-        setDoc(doc(db, fieldName, userProfile.email), {
+        // creating firestore doc
+        const userDocRef = doc(db, 'Users', userProfile.email);
+        await setDoc(userDocRef, {
           email: userProfile.email,
           username: userProfile.username,
+          progress: {
+            economic: false,
+            technical: false,
+            individual: false,
+            social: false,
+            environmental: false,
+            sci: false,
+            ghg: false,
+          }
         });
+
+        // create a subcollection named 'Reports' for first report
+        const reportRef = doc(userDocRef, 'Reports', '1');
+        await setDoc(reportRef, {});
       
       } catch (e) {
         console.error("Error adding document: ", e);

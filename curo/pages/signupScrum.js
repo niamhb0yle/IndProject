@@ -21,7 +21,7 @@ export default function SignUpScrum() {
       coach: user.email,
     });
 
-    const coachRef = doc(db, "Leads", user.email);
+    const coachRef = doc(db, "Users", user.email);
 
     // adding link to team on firestore
     await updateDoc(coachRef, {

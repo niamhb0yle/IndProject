@@ -9,7 +9,7 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import Likert from 'react-likert-scale';
 import { useState } from 'react';
-import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
 import 'firebase/firestore';
 import { db } from "../../firebase";
 import { useRouter } from 'next/router';
