@@ -7,10 +7,14 @@ import '@fontsource-variable/karla';
 import { useState } from 'react';
 import { db, auth } from "../firebase";
 import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function SignUpScrum() {
   const [teamInfo, setTeamInfo] = useState({teamName:'', org:''});
+  const [formView, setFormView] = useState("details");
+  const [startDate, setStartDate] = useState(new Date());
   const user = auth.currentUser;
 
   const addTeam = async () => {
@@ -31,8 +35,8 @@ export default function SignUpScrum() {
   
   
   // Function to set the role and background color
-  const handleRoleClick = (selectedRole) => {
-    setRole(selectedRole);
+  const handleDetails = () => {
+    setFormView("datepicker");
   };
 
   console.log("signup scrum " + auth.currentUser);
@@ -49,25 +53,39 @@ export default function SignUpScrum() {
 
         <div id={styles.signupInputContainer}>
           <div id={styles.signupHeader}>Create Team</div>
-          <p className={styles.signupInstructions}>Create a team to get started...</p>
 
-          <div className={styles.inputText}>Team name</div>
-          <input 
-            onChange={(e) => setTeamInfo({...teamInfo, teamName:e.target.value})} 
-            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='email'>
-          </input>
+          <div style={{display: formView === "details" ? "block" : "none"}}>
+            <p className={styles.signupInstructions}>Create a team to get started...</p>
 
-          <div className={styles.inputText}>Organisation</div>
-          <input 
-            onChange={(e) => setTeamInfo({...teamInfo, org:e.target.value})} 
-            style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            type='text'>
-          </input>
-          
-          <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link onClick={addTeam} href='/signupScrum2' className={styles.continue}>Continue &rarr;</Link> 
+            <div className={styles.inputText}>Team name</div>
+            <input 
+              onChange={(e) => setTeamInfo({...teamInfo, teamName:e.target.value})} 
+              style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+              type='email'>
+            </input>
+
+            <div className={styles.inputText}>Organisation</div>
+            <input 
+              onChange={(e) => setTeamInfo({...teamInfo, org:e.target.value})} 
+              style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
+              type='text'>
+            </input>
+            
+            <div style={{textAlign: 'right', marginTop:'50px'}}>
+              <button onClick={handleDetails} className={styles.continue}>Continue &rarr;</button> 
+            </div>
           </div>
+
+          <div style={{display: formView === "datepicker" ? "block" : "none"}}>
+            <p>To get started, please enter the date you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by.</p>
+            <p>This will be visible for the whole team, and can be changed later in your teams settings.</p>
+            <DatePicker
+              showIcon
+              selected={startDate}
+              onChange={(date) => setStartDate(date)} 
+            />
+          </div>
+
         </div>     
       </main>
 

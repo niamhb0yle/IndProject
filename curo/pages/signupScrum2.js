@@ -11,14 +11,13 @@ import { doc, getDoc } from 'firebase/firestore';
 
 
 export default function SignUp() {
-  const [role, setRole] = useState('');
   const [teamID, setTeamID] = useState('');
 
   useEffect(() => {
     async function fetchTeamID() {
       const user = auth.currentUser;
       console.log(user.email)
-      const coachRef = doc(db, "Leads", user.email);
+      const coachRef = doc(db, "Users", user.email);
       const coachSnap = await getDoc(coachRef);
 
       if (coachSnap.exists()) {
@@ -31,12 +30,6 @@ export default function SignUp() {
     fetchTeamID();
   }, []);
   
-
-  function validate(){
-    if (role==''){
-      return 'invalid'
-    }
-  }
 
   return (
     <div>
