@@ -19,7 +19,7 @@ export default function LogIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.uid);
-        router.push('/homepage');
+        router.push('/sidebar/dashboard');
       }).catch((error) => {
         setCredentials(false);
       });

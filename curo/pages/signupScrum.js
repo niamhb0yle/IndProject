@@ -42,9 +42,7 @@ export default function SignUpScrum() {
 
     // changing form state to switch forward
     setFormView("teamId");
-
   }
-  
   
   // Function to set the role and background color
   const handleDetails = () => {
