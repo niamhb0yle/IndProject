@@ -5,19 +5,49 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { auth, db } from '../firebase';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
  
 export default function Dashboard() {
+    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:''})
+
+    const user = auth.currentUser;
+
+    const checkTeam = async () => {
+
+        const userRef = doc(db, "Users", user.email);
+        const userSnap = await getDoc(userRef);
+        const teamRef = userSnap.data().Team
+
+        if (userSnap.exists()) {
+            const teamRef = userSnap.data().Team
+        } else {
+            console.log("No such document!");
+        }
+
+        const teamSnap = await getDoc(teamRef);
+
+        if (teamSnap.exists()) {
+            setDashboardInfo({Team:teamSnap.data().name,Lead:teamSnap.data().coach,Organisation:teamSnap.data().org})
+        } else {
+            console.log("No such document!");
+        }
+    };
+
+
   return (
     <div className={styles.dashboardContent}>
         <div style={{display:'flex',flexDirection:'row', flexWrap:'wrap'}}>
             <div style={{flex:1, padding: '5px'}}>
                 <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <button onClick={checkTeam}></button>
             </div>
             <div style={{flex:0.5, padding: '5px'}}>
-                <p><b>Team Lead:</b> John Smith</p>
-                <p><b>Organisation:</b> Morgan Stanley</p>
-                <p><b>Reports filled:</b> 1</p>
+                <p><b>Team:</b> {dashboardInfo.Team}</p>
+                <p><b>Lead:</b> {dashboardInfo.Lead}</p>
+                <p><b>Organisation:</b> {dashboardInfo.Organisation}</p>
             </div>
         </div>
 

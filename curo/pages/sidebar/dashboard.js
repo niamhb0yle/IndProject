@@ -13,17 +13,6 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 
 export default function Homepage() {
 
-  const user = auth.currentUser;
-  console.log(user, user.email);
-
-  const checkTeam = async () => {
-
-    const userRef = doc(db, "Users", user.email);
-    const userSnap = getDoc(userRef);
-    // const teamRef = await userSnap.data().Team;
-    console.log(userSnap.data);
-  }
-
   return (
     <div>
       <Head>
@@ -37,7 +26,6 @@ export default function Homepage() {
 
           <div className={styles.dashboard}>
             <Header title="Dashboard"/>
-            <button onClick={checkTeam}></button>
             <Dashboard/>
             
           </div>
