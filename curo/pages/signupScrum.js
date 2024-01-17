@@ -12,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function SignUpScrum() {
-  const [teamInfo, setTeamInfo] = useState({teamName:'', org:''});
+  const [teamInfo, setTeamInfo] = useState({teamName:'', org:'', id:''});
   const [formView, setFormView] = useState("details");
   const [startDate, setStartDate] = useState(new Date());
   const user = auth.currentUser;
@@ -23,14 +23,25 @@ export default function SignUpScrum() {
       name: teamInfo.teamName,
       org: teamInfo.org,
       coach: user.email,
+      CurrentReport: {
+        due: startDate,
+        number: 1
+      },
+      Members: {}
     });
 
+    // setting team id to be used later in form
+    setTeamInfo({...teamInfo, id: docRef.id});
+
+    // adding personal link to team on scrum masters user profile
     const coachRef = doc(db, "Users", user.email);
-
-    // adding link to team on firestore
     await updateDoc(coachRef, {
-      Teams: arrayUnion(docRef.id)
+      Team: docRef
     });
+
+    // changing form state to switch forward
+    setFormView("teamId");
+
   }
   
   
@@ -78,12 +89,19 @@ export default function SignUpScrum() {
 
           <div style={{display: formView === "datepicker" ? "block" : "none"}}>
             <p>To get started, please enter the date you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by.</p>
-            <p>This will be visible for the whole team, and can be changed later in your teams settings.</p>
-            <DatePicker
-              showIcon
-              selected={startDate}
-              onChange={(date) => setStartDate(date)} 
-            />
+            <p>This date will be visible for the whole team, and can be changed later in your teams settings.</p>
+            <div style={{display:'block'}}>
+              <DatePicker
+                showIcon
+                selected={startDate}
+                onChange={(date) => setStartDate(date)} 
+              />
+            </div>
+            <button onClick={addTeam} className={styles.continue}>Continue &rarr;</button> 
+          </div>
+
+          <div style={{display: formView === "teamId" ? "block" : "none"}}>
+            <p className={styles.signupInstructions}>We have created your team! Here is your teams unique identifier: {teamInfo.id}. Send this code to your team members so that they can join your Curo group. </p>
           </div>
 
         </div>     
