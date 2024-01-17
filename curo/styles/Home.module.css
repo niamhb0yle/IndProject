@@ -89,8 +89,9 @@
   position: 'absolute';
   color: 'rgba(0, 0, 0, 0.40)';
   font-size: 20px;
-  font-family: 'Karla Variable';
-  font-weight: 600;
+  font-family: 'Manrope';
+  font-weight: 300;
+  letter-spacing: 0.2px;
   word-wrap: 'break-word';
 }
 
@@ -129,7 +130,8 @@
   cursor:pointer;
   background: none;
   border:none;
-  text-decoration: none
+  text-decoration: none;
+  float:right;
 }
 
 .continue:hover{

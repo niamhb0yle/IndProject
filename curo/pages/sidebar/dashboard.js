@@ -8,8 +8,12 @@ import { useRouter } from 'next/router';
 import SideBar from '../../components/sidebar';
 import Dashboard from '../../components/dashboard';
 import Header from '../../components/Header';
+import {auth} from '../../firebase';
 
 export default function Homepage() {
+
+  const user = auth.currentUser;
+  console.log(user.uid);
 
   return (
     <div>

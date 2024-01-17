@@ -4,6 +4,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
+import "@fontsource/manrope";
 import { useState } from 'react';
 import { db, auth } from "../firebase";
 import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
@@ -88,8 +89,8 @@ export default function SignUpScrum() {
           </div>
 
           <div style={{display: formView === "datepicker" ? "block" : "none"}}>
-            <p>To get started, please enter the date you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by.</p>
-            <p>This date will be visible for the whole team, and can be changed later in your teams settings.</p>
+            <p className={styles.signupInstructions}>To get started, please enter the date you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by.</p>
+            <p className={styles.signupInstructions}>This date will be visible for the whole team, and can be changed later in your teams settings.</p>
             <div style={{display:'block'}}>
               <DatePicker
                 showIcon
@@ -101,7 +102,8 @@ export default function SignUpScrum() {
           </div>
 
           <div style={{display: formView === "teamId" ? "block" : "none"}}>
-            <p className={styles.signupInstructions}>We have created your team! Here is your teams unique identifier: {teamInfo.id}. Send this code to your team members so that they can join your Curo group. </p>
+            <p className={styles.signupInstructions}>We have created your team! Here is your teams unique identifier: <b>{teamInfo.id}</b>. Send this code to your team members so that they can join your Curo group. </p>
+            <Link href='/sidebar/dashboard' className={styles.continue}>Continue to Dashboard &rarr;</Link>
           </div>
 
         </div>     
