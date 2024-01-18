@@ -223,9 +223,10 @@
   width:350px;
   height: 250px;
   margin: 20px;
-  border-radius: 15px;
+  border-radius: 30px;
   text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%);
 }
 
 .teaserText {
@@ -236,7 +237,10 @@
   font-size: 35px;
   color: #FFFFFF;
   display:"block";
-  margin: 10px;
+  height: 150px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+  padding:15px;
 }
 
 .checkTeamButton{

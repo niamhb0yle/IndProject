@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import DimensionTeaser from './dimensionTeaser';
 
  
 export default function Dashboard() {
@@ -56,25 +57,12 @@ export default function Dashboard() {
         </div>
 
         <div className={styles.dimensionParentFlex}>
-            <Link href='/dimension-pages/economic' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Economic</div>
-                <img src='/images/tick.png' alt='settings icon' width='30px'/>
-            </Link>
-            <Link href='/dimension-pages/technical' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, rgb(79, 167, 117) 0%, rgb(79, 167, 117) 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Technical</div>
-            </Link>
-            <Link href='/dimension-pages/environmental' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #7661E2 0%, #7661E2 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Environmental</div>
-            </Link>
-            <Link href='/dimension-pages/social' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #FABE7A 0%, #FABE7A 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Social</div>
-            </Link>
-            <Link href='/dimension-pages/individual' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #9DC1F8 0%, #9DC1F8 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>Individual</div>
-            </Link>
-            <Link href='/dimension-pages/sci' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, #F6866A 0%, #F6866A 60%, white 60%, white 100%)'}}>
-                <div className={styles.teaserText}>SCI Score</div>
-            </Link>
+            <DimensionTeaser dimension={'Economic'} dimensionColour={'#9D2932'} />
+            <DimensionTeaser dimension={'Individual'} dimensionColour={'#FB931C'} />
+            <DimensionTeaser dimension={'Environmental'} dimensionColour={'#AB6413'} />
+            <DimensionTeaser dimension={'Social'} dimensionColour={'#ED4226'} />
+            <DimensionTeaser dimension={'Technical'} dimensionColour={'#006B3D'} />
+            <DimensionTeaser dimension={'SCI'} dimensionColour={'#A94438'} />
         </div>
 
     </div>
