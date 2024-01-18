@@ -323,7 +323,7 @@
 
 #### 09/01/2024
 
-* *2 hours* questionnaire implementation
+* *2 hours* questionnaire implementation (only working on economic report rn)
 
 #### 11/01/2024
 
@@ -343,7 +343,22 @@
 * *3 hours* fixing certain flexbox styles, refactoring some styles into separate css files instead of just the 1 large one
 * *1 hour* fixing more bugs :(
 
+#### 15/01/2024
 
+* *2 hours* Adding qualitative questions to questionnaire form
+* *2 hours* working on integration with backend again
 
+#### 16/01/2024
 
+* *4 hours* More debugging with faulty react components
+* *3 hours* restructuring how a user profile is instantiated from my app to backend
+
+#### 17/01/2024
+
+* *5 hours* Beginning to re-work dashboard, displaying certain items fetched from backend, restructuring certain backend elements
+
+#### 18/01/2024
+
+* *1.5 hours* updating github
+* *1 hour* creating meeting plan for tomorrow
 
