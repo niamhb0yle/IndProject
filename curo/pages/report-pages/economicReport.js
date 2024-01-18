@@ -11,7 +11,7 @@ import Likert from 'react-likert-scale';
 import { useState } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
 import 'firebase/firestore';
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 import { useRouter } from 'next/router';
 
 export default function Economic() {
@@ -21,6 +21,7 @@ export default function Economic() {
     const [questionView, setQuestionView] = useState("quantitative");
     const responsesCount = Object.keys(quantResponses).length + 1;
     const router = useRouter();
+    const user = auth.currentUser;
     
     const likertOptions = {
         responses: [
@@ -52,7 +53,7 @@ export default function Economic() {
         console.log('Qualitative responses:', qualResponses);
   
         // getting existing document references to update data
-        const userId = "developer@gmail.com"; // TODO: Replace with the actual user ID
+        const userId = user.email; 
         const reportNumber = "1"; // TODO: Replace with the actual report number
   
         const userRef = doc(db, "Users", userId);
@@ -64,9 +65,11 @@ export default function Economic() {
         });
 
         // set a state in the users document to signify that this report has been filled out
-        await updateDoc(userRef, {
-          Progress: {Economic: true}
-        });
+        await setDoc(
+          userRef,
+          { progress: { Economic: true } },
+          { merge: true }
+        );
 
         // redirect to dashboard
         router.push('../sidebar/dashboard');

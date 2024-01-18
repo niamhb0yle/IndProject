@@ -35,13 +35,13 @@ export default function SignUp() {
           email: userProfile.email,
           username: userProfile.username,
           progress: {
-            economic: false,
-            technical: false,
-            individual: false,
-            social: false,
-            environmental: false,
-            sci: false,
-            ghg: false,
+            Economic: false,
+            Technical: false,
+            Individual: false,
+            Social: false,
+            Environmental: false,
+            SCI: false,
+            GHG: false,
           }
         });
 
