@@ -194,8 +194,55 @@
 
 * *2 hours* working on styling of login
 
-## Week 9
+## Week 9 (Had a lot of deadlines in next couple weeks so less work on project)
 
 #### 13/11/2023
 
 * *3 hours* working on getting login functionality working, finished account creation milestone!
+
+#### 15/11/2023
+
+* *2 hours* Fixing a couple bugs with login
+
+#### 18/11/2023
+
+* *3 hours* Working on Figma - dashboard and several diff components
+
+#### 19/11/2023
+
+* *2 hours* Researched specific metrics to calculate sustainability - looked into 'SCI' score
+
+## Week 10
+
+#### 20/11/2023
+
+* *1 hour* Starting diss plan
+
+#### 23/11/2023
+
+* *4 hours* Working on Figma - dashboard and several diff components
+
+#### 24/11/2023
+
+* *3 hours* more research into API's I can use to implement SCI score into my app - discovered climatiq API
+* *0.5 hours* drafted plan for christmas break
+
+## Week 11 (Studying for exam so didn't have much time)
+
+#### 26/11/2023
+
+* *3 hours* Research
+
+#### 27/11/2023
+
+* *2 hours* Research - collecting papers
+
+#### 30/11/2023
+
+* *3 hours* Research - 'the green software foundation'
+
+## Christmas Break
+
+
+  
+
