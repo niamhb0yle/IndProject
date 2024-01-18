@@ -226,7 +226,13 @@
   border-radius: 30px;
   text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%);
+  background: white;
+  overflow: hidden;
+  transition: transform 0.1s ease-in-out;
+}
+
+.dimensionTeaser:hover {
+  transform: translate(2px, 4px);
 }
 
 .teaserText {
