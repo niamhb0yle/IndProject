@@ -194,8 +194,171 @@
 
 * *2 hours* working on styling of login
 
-## Week 9
+## Week 9 (Had a lot of deadlines in next couple weeks so less work on project)
 
 #### 13/11/2023
 
 * *3 hours* working on getting login functionality working, finished account creation milestone!
+
+#### 15/11/2023
+
+* *2 hours* Fixing a couple bugs with login
+
+#### 18/11/2023
+
+* *3 hours* Working on Figma - dashboard and several diff components
+
+#### 19/11/2023
+
+* *2 hours* Researched specific metrics to calculate sustainability - looked into 'SCI' score
+
+## Week 10
+
+#### 20/11/2023
+
+* *1 hour* Starting diss plan
+
+#### 23/11/2023
+
+* *4 hours* Working on Figma - dashboard and several diff components
+
+#### 24/11/2023
+
+* *3 hours* more research into API's I can use to implement SCI score into my app - discovered climatiq API
+* *0.5 hours* drafted plan for christmas break
+
+## Week 11 (Studying for exam so didn't have much time)
+
+#### 26/11/2023
+
+* *3 hours* Research
+
+#### 27/11/2023
+
+* *4 hours* Research - collecting papers, doing reviews on several papers
+
+#### 30/11/2023
+
+* *2 hours* Research - 'the green software foundation'
+
+## Christmas Break (Was staying at home, didn't have a huge amount of time as working part time and a lot of events)
+
+#### 01/12/2023
+
+* *1 hour* Research - reading a new paper
+
+#### 04/12/2023
+
+* *2.5 hours* Figma - working on prototype 2
+
+#### 03/12/2023
+
+* *2 hours* Figma - working on prototype 2
+
+#### 04/12/2023
+
+* *1.5 hours* Figma - working on prototype 2
+
+### Exam on 07/12/2023, focusing on that
+
+#### 10/12/2023
+
+* *2 hours* Figma - working on prototype 2
+
+#### 11/12/2023
+
+* *2 hours* Implementation - starting to create dashboard
+* *2 hours* Implementation - creating all my flexboxes
+
+#### 13/12/2023
+
+* *4 hours* Implementation - creating pages for every dimension, getting links working
+
+#### 14/12/2023
+
+* *6 hours* Implementation - playing about with navbar & sidebar, deleting and restarting several times
+
+#### 15/12/2023
+
+* *1 hour* Implementation - fixing bugs from yesterday
+* *2 hours* Styling - selecting and implementing new colour scheme and fonts
+
+#### 17/12/2023
+
+* *4 hours* Implementation - starting to create issue board, figuring
+
+#### 19/12/2023
+
+* *2 hours* creating components of previously messy features
+* *2 hours* refactoring codebase
+
+#### 20/12/2023 (decided to redesign the whole frontend at this point)
+
+* *3 hours* Figma - working on prototype 3
+
+#### 21/12/2023
+
+* *2 hours* Figma - working on prototype 3
+
+#### 28/12/2023
+
+* *1 hour* Figma - working on prototype 3
+
+#### 02/01/2024
+
+* *3 hours* Implementation - continuing issue board, got front-end looking nice
+
+#### 04/01/2024
+
+* *2 hours* speaking to other compsci students for research - changing original idea
+* *2 hours* forming writing down plans for slightly different app - now every developer will fill out a questionnaire for each dimension, and i will be using likert scales to take average responses for each question to culminate report
+
+#### 05/01/2024
+
+* *2 hours* designing new back-end storage strategy
+
+#### 07/01/2024
+
+* *4 hours* starting questionnaire implementation
+
+#### 09/01/2024
+
+* *2 hours* questionnaire implementation (only working on economic report rn)
+
+#### 11/01/2024
+
+* *4 hours* questionnaire implementation - likert scale integrated
+
+#### 13/01/2024
+
+* *4.5 hours* linking up questionnaire to backend for users
+
+#### 14/01/2024
+
+* *2 hours* fixing bugs with likert scale component
+* *2.5 hours* going back to fix issues wit previous signup/login implementation
+
+#### 14/01/2024
+
+* *3 hours* fixing certain flexbox styles, refactoring some styles into separate css files instead of just the 1 large one
+* *1 hour* fixing more bugs :(
+
+#### 15/01/2024
+
+* *2 hours* Adding qualitative questions to questionnaire form
+* *2 hours* working on integration with backend again
+
+#### 16/01/2024
+
+* *4 hours* More debugging with faulty react components
+* *3 hours* restructuring how a user profile is instantiated from my app to backend
+
+#### 17/01/2024
+
+* *5 hours* Beginning to re-work dashboard, displaying certain items fetched from backend, restructuring certain backend elements
+
+#### 18/01/2024
+
+* *1.5 hours* updating github
+* *1 hour* creating meeting plan for tomorrow
+
