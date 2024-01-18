@@ -235,14 +235,80 @@
 
 #### 27/11/2023
 
-* *2 hours* Research - collecting papers
+* *4 hours* Research - collecting papers, doing reviews on several papers
 
 #### 30/11/2023
 
-* *3 hours* Research - 'the green software foundation'
+* *2 hours* Research - 'the green software foundation'
 
-## Christmas Break
+## Christmas Break (Was staying at home, didn't have a huge amount of time as working part time and a lot of events)
 
+#### 01/12/2023
 
-  
+* *1 hour* Research - reading a new paper
+
+#### 04/12/2023
+
+* *2.5 hours* Figma - working on prototype 2
+
+#### 03/12/2023
+
+* *2 hours* Figma - working on prototype 2
+
+#### 04/12/2023
+
+* *1.5 hours* Figma - working on prototype 2
+
+### Exam on 07/12/2023, focusing on that
+
+#### 10/12/2023
+
+* *2 hours* Figma - working on prototype 2
+
+#### 11/12/2023
+
+* *2 hours* Implementation - starting to create dashboard
+* *2 hours* Implementation - creating all my flexboxes
+
+#### 13/12/2023
+
+* *4 hours* Implementation - creating pages for every dimension, getting links working
+
+#### 14/12/2023
+
+* *6 hours* Implementation - playing about with navbar & sidebar, deleting and restarting several times
+
+#### 15/12/2023
+
+* *1 hour* Implementation - fixing bugs from yesterday
+* *2 hours* Styling - selecting and implementing new colour scheme and fonts
+
+#### 17/12/2023
+
+* *4 hours* Implementation - starting to create issue board, figuring
+
+#### 19/12/2023
+
+* *2 hours* creating components of previously messy features
+* *2 hours* refactoring codebase
+
+#### 20/12/2023 (decided to redesign the whole frontend at this point)
+
+* *3 hours* Figma - working on prototype 3
+
+#### 21/12/2023
+
+* *2 hours* Figma - working on prototype 3
+
+#### 28/12/2023
+
+* *1 hour* Figma - working on prototype 3
+
+#### 02/01/2024
+
+* *3 hours* Implementation - continuing issue board, got front-end looking nice
+
+#### 04/01/2024
+
+* *
 
