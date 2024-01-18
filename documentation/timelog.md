@@ -310,5 +310,40 @@
 
 #### 04/01/2024
 
-* *
+* *2 hours* speaking to other compsci students for research - changing original idea
+* *2 hours* forming writing down plans for slightly different app - now every developer will fill out a questionnaire for each dimension, and i will be using likert scales to take average responses for each question to culminate report
+
+#### 05/01/2024
+
+* *2 hours* designing new back-end storage strategy
+
+#### 07/01/2024
+
+* *4 hours* starting questionnaire implementation
+
+#### 09/01/2024
+
+* *2 hours* questionnaire implementation
+
+#### 11/01/2024
+
+* *4 hours* questionnaire implementation - likert scale integrated
+
+#### 13/01/2024
+
+* *4.5 hours* linking up questionnaire to backend for users
+
+#### 14/01/2024
+
+* *2 hours* fixing bugs with likert scale component
+* *2.5 hours* going back to fix issues wit previous signup/login implementation
+
+#### 14/01/2024
+
+* *3 hours* fixing certain flexbox styles, refactoring some styles into separate css files instead of just the 1 large one
+* *1 hour* fixing more bugs :(
+
+
+
+
 
