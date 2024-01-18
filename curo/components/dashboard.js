@@ -5,7 +5,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -36,13 +36,15 @@ export default function Dashboard() {
         }
     };
 
+    useEffect(() => {
+        checkTeam();
+    }, []);
 
   return (
     <div className={styles.dashboardContent}>
         <div style={{display:'flex',flexDirection:'row', flexWrap:'wrap'}}>
             <div style={{flex:1, padding: '5px'}}>
                 <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <button onClick={checkTeam}></button>
             </div>
             <div style={{flex:0.5, padding: '5px'}}>
                 <p><b>Team:</b> {dashboardInfo.Team}</p>
