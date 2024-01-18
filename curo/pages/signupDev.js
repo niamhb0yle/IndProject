@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
 import '@fontsource-variable/karla';
+import "@fontsource/manrope";
 import { useState } from 'react';
 import { doc, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { db, auth } from "../firebase";
@@ -13,9 +14,7 @@ export default function SignUpDev() {
   const [hideTeam, setHideTeam] = useState(true);
   console.log(teamID);
 
-  function handleSubmit(e){
-    e.preventDefaullt()
-  }
+  const user = auth.currentUser;
 
   const checkTeam = async () => {
     // checking to find team on firestore
@@ -37,8 +36,14 @@ export default function SignUpDev() {
 
     // adding link to team on firestore
     await updateDoc(teamRef, {
-      Members: arrayUnion(auth.currentUser.email)
+      Members: arrayUnion(user.email)
     });
+
+    const userRef = doc(db, "Users", user.email);
+    await updateDoc(userRef, {
+      Team: teamID
+    });
+
   }
 
   return (
@@ -52,12 +57,12 @@ export default function SignUpDev() {
       <div id={styles.signupInputContainer}>
           <div id={styles.signupHeader}>Join a Team</div>
 
-          <p className={styles.signupInstructions}>Join your squad by entering their unique ID - we’ll then ask your scrum member to verify: </p>
+          <p className={styles.signupInstructions}>Join your squad by entering their unique ID - we’ll then ask your scrum master to verify: </p>
 
           <div className={styles.inputText}>Team ID</div>
           <input style={{width: '75%', height: 48, display:'inline-block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
-            onClick={
-              (e) => setTeamID(e.target.value)
+            onChange={
+              (event) => setTeamID(event.target.value)
             }
             type='email'>
           </input>

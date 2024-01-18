@@ -12,6 +12,7 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
  
 export default function Dashboard() {
     const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:''})
+    const [progress, setProgress] = useState({});
 
     const user = auth.currentUser;
 
@@ -22,7 +23,8 @@ export default function Dashboard() {
         const teamRef = userSnap.data().Team
 
         if (userSnap.exists()) {
-            const teamRef = userSnap.data().Team
+            const teamRef = userSnap.data().Team;
+            setProgress(userSnap.data().progress);
         } else {
             console.log("No such document!");
         }
@@ -48,7 +50,7 @@ export default function Dashboard() {
             </div>
             <div style={{flex:0.5, padding: '5px'}}>
                 <p><b>Team:</b> {dashboardInfo.Team}</p>
-                <p><b>Lead:</b> {dashboardInfo.Lead}</p>
+                <p><b>Lead:</b> {dashboardInfo.Lead}</p> {/* TODO: change this to coach display name instead of the email */}
                 <p><b>Organisation:</b> {dashboardInfo.Organisation}</p>
             </div>
         </div>
@@ -56,6 +58,7 @@ export default function Dashboard() {
         <div className={styles.dimensionParentFlex}>
             <Link href='/dimension-pages/economic' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, darkgreen 0%, darkgreen 60%, white 60%, white 100%)'}}>
                 <div className={styles.teaserText}>Economic</div>
+                <img src='/images/tick.png' alt='settings icon' width='30px'/>
             </Link>
             <Link href='/dimension-pages/technical' className={styles.dimensionTeaser} style={{background: 'linear-gradient(180deg, rgb(79, 167, 117) 0%, rgb(79, 167, 117) 60%, white 60%, white 100%)'}}>
                 <div className={styles.teaserText}>Technical</div>

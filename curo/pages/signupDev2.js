@@ -4,6 +4,8 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat"; 
 import '@fontsource-variable/karla';
+import "@fontsource/manrope";
+
 
 export default function signupDev() {
   function handleSubmit(e){
@@ -24,7 +26,7 @@ export default function signupDev() {
           <p className={styles.signupInstructions}>Thank you for registering! We've added you to your teams Curo board. Get started by viewing your dashboard!</p>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
-            <Link href='/homepage' className={styles.continue}>Continue to Dashboard &rarr;</Link> 
+            <Link href='/sidebar/dashboard' className={styles.continue}>Continue to Dashboard &rarr;</Link> 
           </div>
         </div>     
         

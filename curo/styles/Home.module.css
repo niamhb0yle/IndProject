@@ -59,6 +59,7 @@
   margin-top:160px;
   margin-left:800px;
   width: 500px;
+  overflow: auto;
 }
 
 .inputText{
@@ -126,7 +127,6 @@
   line-height: normal;
   letter-spacing: 0.87px;
   text-align: right;
-  margin-top: 50px;
   cursor:pointer;
   background: none;
   border:none;
