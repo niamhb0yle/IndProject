@@ -41,7 +41,8 @@ export default function SignUpDev() {
 
     const userRef = doc(db, "Users", user.email);
     await updateDoc(userRef, {
-      Team: teamID
+      Team: teamRef,
+      userType:'dev'
     });
 
   }

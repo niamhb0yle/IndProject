@@ -37,7 +37,8 @@ export default function SignUpScrum() {
     // adding personal link to team on scrum masters user profile
     const coachRef = doc(db, "Users", user.email);
     await updateDoc(coachRef, {
-      Team: docRef
+      Team: docRef,
+      userType: 'lead'
     });
 
     // changing form state to switch forward
