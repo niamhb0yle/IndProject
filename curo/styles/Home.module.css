@@ -229,10 +229,14 @@
   background: white;
   overflow: hidden;
   transition: transform 0.1s ease-in-out;
+  outline-color: #E6E8EC;
+  outline-width: 1px;
+  outline-style: solid;
 }
 
 .dimensionTeaser:hover {
   transform: translate(2px, 4px);
+  box-shadow: none;
 }
 
 .teaserText {
@@ -243,7 +247,7 @@
   font-size: 35px;
   color: #FFFFFF;
   display:"block";
-  height: 150px;
+  height: 165px;
   border-top-right-radius: 30px;
   border-top-left-radius: 30px;
   padding:15px;

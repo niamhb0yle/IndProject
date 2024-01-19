@@ -19,7 +19,7 @@ export default function SideBar() {
         Reports
       </Link>
       <Link id={styles.sidebarNavElements} href='/sidebar/teamSettings'>
-        Settings
+        Team Settings
       </Link>
     </div>
   )

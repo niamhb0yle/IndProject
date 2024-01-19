@@ -57,12 +57,12 @@ export default function Dashboard() {
         </div>
 
         <div className={styles.dimensionParentFlex}>
-            <DimensionTeaser dimension={'Economic'} dimensionColour={'#9D2932'} />
-            <DimensionTeaser dimension={'Individual'} dimensionColour={'#FB931C'} />
-            <DimensionTeaser dimension={'Environmental'} dimensionColour={'#AB6413'} />
-            <DimensionTeaser dimension={'Social'} dimensionColour={'#ED4226'} />
-            <DimensionTeaser dimension={'Technical'} dimensionColour={'#006B3D'} />
-            <DimensionTeaser dimension={'SCI'} dimensionColour={'#A94438'} />
+            <DimensionTeaser dimension={'Economic'} dimensionColour={'#AC2C4D'} />
+            <DimensionTeaser dimension={'Individual'} dimensionColour={'#95A5CF'} />
+            <DimensionTeaser dimension={'Environmental'} dimensionColour={'#A74E4D'} />
+            <DimensionTeaser dimension={'Social'} dimensionColour={'#262127'} />
+            <DimensionTeaser dimension={'Technical'} dimensionColour={'#627E9C'} />
+            <DimensionTeaser dimension={'SCI'} dimensionColour={'#5B4971'} />
         </div>
 
     </div>

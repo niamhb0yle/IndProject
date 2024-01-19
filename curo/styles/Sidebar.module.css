@@ -1,12 +1,13 @@
 .sidebarContainer {
     background:#18392B;
-    width:175px;
+    width:190px;
     margin:0;
     padding-top: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     position:sticky;
+    padding-left: 30px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   }
   
   #sidebarLogo{
