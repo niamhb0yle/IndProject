@@ -24,14 +24,12 @@ const DimensionTeaser = ({ dimension, dimensionColour }) => {
         const userSnap = await getDoc(userRef);
         
         if (userSnap.exists()) {
-            console.log(userSnap.data().progress[dimension])
             if (userSnap.data().progress[dimension] === true){
                 setReportDone(true);
             }
         } else {
             console.log("No such document!");
         }
-        console.log(dimension, reportDone);
     };
 
     useEffect(() => {

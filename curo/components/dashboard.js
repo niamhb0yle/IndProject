@@ -17,6 +17,32 @@ export default function Dashboard() {
 
     const user = auth.currentUser;
 
+    const checkProgress = async () => {
+        const userRef = doc(db, "Users", user.email);
+        const userSnap = await getDoc(userRef);
+        const userProgress = 0;
+        
+        if (userSnap.exists()) {
+            const progressData = userSnap.data().progress;
+
+            if (progressData) {
+                let counter = 0;
+
+                // Loop through keys of the progress map
+                Object.keys(progressData).forEach((key) => {
+                    // Check if the value is true
+                    if (progressData[key] === true) {
+                        counter++;
+                    }
+                });
+
+                console.log("Number of true values:", counter);
+            }
+        } else {
+            console.log("No such document!");
+        }
+    }
+
     const checkTeam = async () => {
 
         const userRef = doc(db, "Users", user.email);
@@ -41,6 +67,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         checkTeam();
+        checkProgress();
     }, []);
 
   return (
