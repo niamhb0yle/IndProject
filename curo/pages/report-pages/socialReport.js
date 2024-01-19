@@ -183,7 +183,7 @@ export default function SocialReport() {
                       <div>
                         <p>3. What technologies were used to help the teams collaboration?</p>
                         <input 
-                          onChange={(e) => setQualResponses({...qualResponses, q2:e.target.value})} 
+                          onChange={(e) => setQualResponses({...qualResponses, q3:e.target.value})} 
                           className={reportStyles.inputBoxes}
                           >
                         </input>
