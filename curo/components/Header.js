@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Header.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -11,12 +11,11 @@ export default function Header( {title} ) {
       <div className={styles.header}>
         <div id={styles.headerTitle}>{title}</div>
         <div className={styles.headerElts}>
-          {/*<p id={styles.headerElements}>Hey, Niamh B!</p>*/}
-          <Link id={styles.headerElements} href='/header/profile'>
-            <img src='/images/user.png' alt='user icon' width='50px'/>
+          <Link href='/header/profile'>
+            <img src='/images/user.png' alt='user icon' width='50px' height='50px' id={styles.headerElements}/>
           </Link>
-          <Link id={styles.headerElements} href='/header/settings'>
-            <img src='/images/settings.png' alt='settings icon' width='50px'/>
+          <Link href='/header/settings'>
+            <img src='/images/settings.png' alt='settings icon' width='50px' height='50px' id={styles.headerElements}/>
           </Link>
         </div>
       </div>

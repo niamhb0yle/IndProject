@@ -159,42 +159,6 @@
   flex:1;
   flex-direction: column;
 }
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding-left: 30px;
-  padding-right:30px;
-  padding-top: 50px;
-  padding-bottom: 15px;
-}
-
-.headerElts {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-#headerTitle {
-  color: black;
-  font-family: 'Montserrat';
-  font-size: 75px;
-  font-weight: 900;
-  line-height: normal;
-}
-
-#headerElements {
-  color: black;
-  font-family: Montserrat;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  background: none;
-  border: none;
-  text-decoration: none;
-  padding: 10px;
-}
 
 .dashboardContent {
   padding-right: 50px;
@@ -225,21 +189,15 @@
   margin: 20px;
   border-radius: 30px;
   text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
   background: white;
   overflow: hidden;
-  transition: transform 0.1s ease-in-out;
-  outline-color: #E6E8EC;
-  outline-width: 1px;
-  outline-style: solid;
+  transition: transform 0.3s;
 }
 
 .dimensionTeaser:hover {
-  transform: translate(2px, 4px);
-  box-shadow: none;
-  outline-color: #E6E8EC;
-  outline-width: 1px;
-  outline-style: solid;
+  transform: scale(1.05);
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
 }
 
 .teaserText {

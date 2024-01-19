@@ -1,0 +1,34 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+    padding-right:70px;
+    padding-top: 50px;
+    padding-bottom: 15px;
+}
+  
+.headerElts {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+  
+#headerTitle {
+    color: black;
+    font-family: 'Montserrat';
+    font-size: 75px;
+    font-weight: 900;
+    line-height: normal;
+}
+  
+#headerElements {
+    margin: 10px;
+    margin-top: 10px;
+    border-radius: 50px;
+    transition: transform 0.3s;
+  }
+  
+  #headerElements:hover {
+    transform: scale(1.2);
+  }

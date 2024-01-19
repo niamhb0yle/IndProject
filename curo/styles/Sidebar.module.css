@@ -33,9 +33,10 @@
   border:none;
   text-decoration: none;
   margin-top: 23px;
-  transition: transform 0.1s ease-in-out;
+  transition: transform 0.2s;
 }
 
 #sidebarNavElements:hover {
-  transform: translateX(1px);
+  transform: scale(1.03);
+  color: #24FFA2;
 }
