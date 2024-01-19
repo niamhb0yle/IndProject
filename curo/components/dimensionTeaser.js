@@ -11,9 +11,14 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 
 const DimensionTeaser = ({ dimension, dimensionColour }) => {
     const [reportDone, setReportDone] = useState(false);
+    const [howTo, setHowTo] = useState(false);
     const user = auth.currentUser;
 
     const checkProgress = async () => {
+
+        if (dimension === 'HowTo'){
+            setHowTo(true);
+        }
 
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
@@ -36,8 +41,8 @@ const DimensionTeaser = ({ dimension, dimensionColour }) => {
     return (
             <Link href={`/dimension-pages/${dimension}`} className={styles.dimensionTeaser} >
                 <div style={{overflow:'auto'}}>
-                    <div className={styles.teaserText} style={{background:dimensionColour}}>{dimension}</div>
-                    <img src={reportDone ? '/images/check.png' : '/images/cross.png'} alt='settings icon' width='35px' style={{float:'right', marginRight:'25px', marginTop:'20px'}} />
+                    <div className={styles.teaserText} style={{background:dimensionColour}}>{howTo ? 'How it works...' : dimension}</div>
+                    <img src={reportDone ? '/images/check.png' : '/images/cross.png'} alt='settings icon' width='35px' style={{float:'right', marginRight:'25px', marginTop:'20px', opacity:0.6, display: howTo ? "none" : "block"}} />
                 </div>
             </Link>
     );

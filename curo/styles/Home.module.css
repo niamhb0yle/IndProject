@@ -237,6 +237,9 @@
 .dimensionTeaser:hover {
   transform: translate(2px, 4px);
   box-shadow: none;
+  outline-color: #E6E8EC;
+  outline-width: 1px;
+  outline-style: solid;
 }
 
 .teaserText {

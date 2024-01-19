@@ -6,9 +6,8 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
-import ReportBtn from '../../components/reportBtn';
 
-export default function Homepage() {
+export default function GHG() {
 
   return (
     <div>
@@ -22,13 +21,13 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="Social"/>
+            <Header title="Environmental"/>
 
             <div className={styles.dashboardContent}>
-              <p>Social page.</p>
-              <ReportBtn dimension="social"/> 
+              <p>GHG report page.</p>
 
             </div>
+
           </div>
         </div>
       </div>
