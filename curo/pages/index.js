@@ -23,9 +23,6 @@ export default function Home() {
           <li id={styles.navbarelements}>
             <Link href='/signup' id={styles.navbarelements}>Sign up</Link>
           </li>
-          <li id={styles.navbarelements}>
-            <Link href='/sidebar/dashboard' id={styles.navbarelements}>Dashboard</Link>
-          </li>
         </ul>
 
         

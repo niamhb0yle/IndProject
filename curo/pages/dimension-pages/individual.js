@@ -6,6 +6,7 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
+import ReportBtn from '../../components/reportBtn';
 
 export default function Individual() {
 
@@ -25,6 +26,7 @@ export default function Individual() {
 
             <div className={styles.dashboardContent}>
               <p>Individual page.</p>
+              <ReportBtn dimension={'individual'}/>
               
 
             </div>
