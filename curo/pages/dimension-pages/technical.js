@@ -6,6 +6,7 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
+import ReportBtn from '../../components/reportBtn';
 
 export default function Homepage() {
 
@@ -25,6 +26,7 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <p>Technical page.</p>
+              <ReportBtn dimension={'technical'} />
               
 
             </div>
