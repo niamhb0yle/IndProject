@@ -14,7 +14,7 @@ import 'firebase/firestore';
 import { db, auth } from "../../firebase";
 import { useRouter } from 'next/router';
 
-export default function IndividualReport() {
+export default function EnvironmentalReport() {
     const [quantResponses, setQuantResponses] = useState({});
     const [qualResponses, setQualResponses] = useState({});
     const [nextAvailable, setNextAvailable] = useState(true);
@@ -60,14 +60,14 @@ export default function IndividualReport() {
         const reportRef = doc(userRef, "Reports", reportNumber);
 
         await updateDoc(reportRef, {
-          IndividualQuant: quantResponses,
-          IndividualQual: qualResponses,
+          EnvironmentalQuant: quantResponses,
+          EnvironmentalQual: qualResponses,
         });
 
         // set a state in the users document to signify that this report has been filled out
         await setDoc(
           userRef,
-          { progress: { Individual: true } },
+          { progress: { Environmental: true } },
           { merge: true }
         );
 
@@ -88,70 +88,70 @@ export default function IndividualReport() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="Individual Report"/>
+            <Header title="Environmental Report"/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
                     <div style={{width:'90%', display: questionView === "quantitative" ? "block" : "none"}}>
                       <div className={reportStyles.headingText}>Please rank the following statements based on how much you agree with them:</div>
                       <div>
-                          <p>1. You felt a ‘sense of accomplishment’ and personal growth during this sprint</p>
+                          <p>1. The team is consistently looking to optimize code for energy efficiency</p>
                           <Likert {...likertOptions} id='1' onChange={(val) => handleLikertChange(val.value, "q1")} />
                       </div>
                       <div>
-                          <p>2. You feel that you can maintain a healthy work-life balance whilst working on this project</p>
+                          <p>2. The team is conscious of the environmental impact related to energy use in software development</p>
                           <Likert {...likertOptions} id='2' onChange={(val) => handleLikertChange(val.value, "q2")} />
                       </div>
                       <div>
-                          <p>3. Your workload is manageable</p>
+                          <p>3. Sustainable development practices are integrated into the team's workflow</p>
                           <Likert {...likertOptions} id='3' onChange={(val) => handleLikertChange(val.value, "q3")} />
                       </div>
                       <div>
-                          <p>4. You feel that there are appropriate measures are in place to address and mitigate stress and burnout</p>
+                          <p>4. Code review processes include considerations for the environmental impact of the codebase where appropriate</p>
                           <Likert {...likertOptions} id='4' onChange={(val) => handleLikertChange(val.value, "q4")} />
                       </div>
                       <div>
-                          <p>5. You feel that your health and wellbeing are prioritised</p>
+                          <p>5. Environmental impact is a factor in the selection of technologies and tools for the project, eg servers</p>
                           <Likert {...likertOptions} id='5' onChange={(val) => handleLikertChange(val.value, "q5")} />
                       </div>
                       <div>
-                          <p>6. Your personal time and boundaries are being respected</p>
+                          <p>6. The team makes an effort to reduce waste in terms of time and resources during the development process</p>
                           <Likert {...likertOptions} id='6' onChange={(val) => handleLikertChange(val.value, "q6")} />
                       </div>
                       <div>
-                          <p>7. You feel that work was spread evenly and fairly among yourself and other team members</p>
+                          <p>7. The team seeks out and adopts green technologies and practices where appropriate</p>
                           <Likert {...likertOptions} id='7' onChange={(val) => handleLikertChange(val.value, "q7")} />
                       </div>
                       <div>
-                          <p>8. You have opportunities for skill development or career advancement</p>
+                          <p>8. The team considers the environmental impact of hardware disposal in its decision-making processes by creating software which is backwards compatible with older devices</p>
                           <Likert {...likertOptions} id='8' onChange={(val) => handleLikertChange(val.value, "q8")} />
                       </div>
                       <div>
-                          <p>9. Your work arrangements were flexible - ie, you were able to work remotely if necessary</p>
+                          <p>9. Plans are in place for the responsible disposal or recycling of hardware rendered obsolete by software development or updates</p>
                           <Likert {...likertOptions} id='9' onChange={(val) => handleLikertChange(val.value, "q9")} />
                       </div>
                       <div>
-                          <p>10. You feel supported in balancing personal and professional commitments</p>
+                          <p>10. Cloud-based solutions are optimized for efficiency to minimize environmental impact</p>
                           <Likert {...likertOptions} id='10' onChange={(val) => handleLikertChange(val.value, "q10")} />
                       </div>
                       <div>
-                          <p>11. You enjoy your work</p>
+                          <p>11. On-premises data centers, if used, are operated sustainably with environmental considerations</p>
                           <Likert {...likertOptions} id='11' onChange={(val) => handleLikertChange(val.value, "q11")} />
                       </div>
                       <div>
-                          <p>12. You feel that your personal individual contributions and accomplishments are acknowledged and celebrated</p>
+                          <p>12. Carbon emissions related to development activities are monitored and addressed by the team</p>
                           <Likert {...likertOptions} id='12' onChange={(val) => handleLikertChange(val.value, "q12")} />
                       </div>
                       <div>
-                          <p>13. You have a clear understanding of your role within the team and what is expected of you</p>
+                          <p>13. Strategies are in place to offset or mitigate the environmental impact of the team's activities, eg investing in carbon offset programs</p>
                           <Likert {...likertOptions} id='13' onChange={(val) => handleLikertChange(val.value, "q13")} />
                       </div>
                       <div>
-                          <p>14. Constructive feedback is provided to support individual growth</p>
+                          <p>14. Efforts are made to transition to or support renewable energy providers</p>
                           <Likert {...likertOptions} id='14' onChange={(val) => handleLikertChange(val.value, "q14")} />
                       </div>
                       <div>
-                          <p>15. Mentorship programs or supportive relationships are available for team members</p>
+                          <p>15. The team actively seeks feedback on its environmental sustainability practice</p>
                           <Likert {...likertOptions} id='15' onChange={(val) => handleLikertChange(val.value, "q15")} />
                       </div>
                       <button
@@ -168,7 +168,7 @@ export default function IndividualReport() {
                     <div style={{width:"90%", display: questionView === "qualitative" ? "block" : "none"}}>
                       <div className={reportStyles.headingText}>Please provide feedback in the following areas where appropriate:</div>
                       <div>
-                        <p>1. Were there any specific instances during this sprint where you felt your work-life balance was compromised?</p>
+                        <p>1. What sustainable development practices did the team use to minimize the environmental impact of the project?</p>
                         <input 
                           onChange={(e) => setQualResponses({...qualResponses, q1:e.target.value})} 
                           className={reportStyles.inputBoxes}
@@ -176,7 +176,7 @@ export default function IndividualReport() {
                         </input>
                       </div>
                       <div>
-                        <p>2. Are there specific skills or areas of expertise you would like to further develop, and how can the team assist you in this?</p>
+                        <p>2. Were any green technologies or practices adopted during the sprint?</p>
                         <input 
                           onChange={(e) => setQualResponses({...qualResponses, q2:e.target.value})} 
                           className={reportStyles.inputBoxes}
@@ -184,9 +184,17 @@ export default function IndividualReport() {
                         </input>
                       </div>
                       <div>
-                        <p>3. In what ways do you think the team can enhance its feedback mechanisms to better support individual development?</p>
+                        <p>3. Were plans in place for the responsible disposal or recycling of hardware that became obsolete due to software development or updates?</p>
                         <input 
                           onChange={(e) => setQualResponses({...qualResponses, q3:e.target.value})} 
+                          className={reportStyles.inputBoxes}
+                          >
+                        </input>
+                      </div>
+                      <div>
+                        <p>4. Were cloud-based solutions optimized for efficiency, or were on-premises data centers used sustainably?</p>
+                        <input 
+                          onChange={(e) => setQualResponses({...qualResponses, q4:e.target.value})} 
                           className={reportStyles.inputBoxes}
                           >
                         </input>

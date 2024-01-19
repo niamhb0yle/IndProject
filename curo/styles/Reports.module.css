@@ -38,6 +38,27 @@
     float: right;
 }
 
+.reportBtn {
+    width: fit-content;
+    border-radius: 30px; 
+    background-color: #18392B;
+    font-weight: bold;
+    font-size: 22px;
+    color: white;
+    padding: 15px;
+    border: none;
+    float: right;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s ease-in-out;
+  }
+
+.reportBtn:hover {
+    transform: translate(1px, 2px);
+    box-shadow: none;
+}
+
 .headingText {
     font-size: 22px;
     font-weight: 600;

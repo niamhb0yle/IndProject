@@ -273,19 +273,6 @@
   cursor:pointer;
 }
 
-.reportBtn {
-  width: fit-content;
-  border-radius: 30px; 
-  background-color: #18392B;
-  font-size: 22px;
-  color: white;
-  padding: 15px;
-  border: none;
-  float: right;
-  cursor: pointer;
-  font-family: 'Montserrat';
-}
-
 #loginContainer{
   margin-top:180px;
   margin-left:180px;
