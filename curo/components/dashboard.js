@@ -12,7 +12,7 @@ import DimensionTeaser from './dimensionTeaser';
 
  
 export default function Dashboard() {
-    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:''})
+    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:'', Members:[]})
     const [progress, setProgress] = useState(0);
 
     const user = auth.currentUser;
@@ -56,7 +56,12 @@ export default function Dashboard() {
         const teamSnap = await getDoc(teamRef);
 
         if (teamSnap.exists()) {
-            setDashboardInfo({Team:teamSnap.data().name,Lead:teamSnap.data().coach,Organisation:teamSnap.data().org})
+            setDashboardInfo({
+                Team:teamSnap.data().name,
+                Lead:teamSnap.data().coach,
+                Organisation:teamSnap.data().org,
+                Members: teamSnap.data().Members || [],
+            })
         } else {
             console.log("No such document!");
         }
@@ -80,6 +85,7 @@ export default function Dashboard() {
             </div>
             <div style={{flex:0.25, padding: '5px'}}>
                 <p><b>Progress:</b> {progress}%</p>
+                <p><b>Members:</b> {dashboardInfo.Members.length +1}</p>
             </div>
         </div>
 
