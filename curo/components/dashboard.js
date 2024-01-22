@@ -13,30 +13,27 @@ import DimensionTeaser from './dimensionTeaser';
  
 export default function Dashboard() {
     const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:''})
-    const [progress, setProgress] = useState({});
+    const [progress, setProgress] = useState(0);
 
     const user = auth.currentUser;
 
     const checkProgress = async () => {
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
-        const userProgress = 0;
         
         if (userSnap.exists()) {
             const progressData = userSnap.data().progress;
 
             if (progressData) {
                 let counter = 0;
-
-                // Loop through keys of the progress map
                 Object.keys(progressData).forEach((key) => {
-                    // Check if the value is true
                     if (progressData[key] === true) {
                         counter++;
                     }
                 });
 
                 console.log("Number of true values:", counter);
+                setProgress(Math.round((counter/6)*100));
             }
         } else {
             console.log("No such document!");
@@ -73,13 +70,16 @@ export default function Dashboard() {
   return (
     <div className={styles.dashboardContent}>
         <div style={{display:'flex',flexDirection:'row', flexWrap:'wrap'}}>
-            <div style={{flex:1, padding: '5px'}}>
+            <div style={{flex:0.5, padding: '5px'}}>
                 <p>Here is a description of the team, with an introduction to their work. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
-            <div style={{flex:0.5, padding: '5px'}}>
+            <div style={{flex:0.25, padding: '5px'}}>
                 <p><b>Team:</b> {dashboardInfo.Team}</p>
                 <p><b>Lead:</b> {dashboardInfo.Lead}</p> {/* TODO: change this to coach display name instead of the email */}
                 <p><b>Organisation:</b> {dashboardInfo.Organisation}</p>
+            </div>
+            <div style={{flex:0.25, padding: '5px'}}>
+                <p><b>Progress:</b> {progress}%</p>
             </div>
         </div>
 
