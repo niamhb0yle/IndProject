@@ -6,6 +6,7 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
+import ReportBtn from '../../components/reportBtn';
 
 export default function SCI() {
 
@@ -25,8 +26,7 @@ export default function SCI() {
 
             <div className={styles.dashboardContent}>
               <div className={styles.dashboardTitle}>SCI Score</div>
-              
-
+              <ReportBtn dimension="sci"/>
             </div>
 
           </div>
