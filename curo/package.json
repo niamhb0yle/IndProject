@@ -8,9 +8,11 @@
   "dependencies": {
     "@fontsource-variable/karla": "^5.0.16",
     "@fontsource/montserrat": "^5.0.13",
+    "cors": "^2.8.5",
     "firebase": "^10.5.2",
     "firebase-admin": "^11.11.0",
     "firebase-auth": "^0.1.2",
+    "http-proxy-middleware": "^2.0.6",
     "next": "latest",
     "react": "18.2.0",
     "react-datepicker": "^4.25.0",
