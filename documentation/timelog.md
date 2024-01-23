@@ -361,4 +361,22 @@
 
 * *1.5 hours* updating github
 * *1 hour* creating meeting plan for tomorrow
+* *2 hours* Added a lot of  styling
+* *0.5 hours* created a new component for the dimension teasers on dashboard component, cleaned up code
+
+#### 19/01/2024
+
+* *0.5 hours* met with peggy
+* *2 hours* Added report for every single other dimension using economicReport code (technical, social, individual, environmental)
+* *1 hour* started a bit of work on adding a report progress % indicator on users dashboard
+
+#### 22/01/2024
+
+* *1 hour* finished progress % indicator, also added 'members' count to dashboard
+* *3 hours* research on sci score - implementing basic sci score report page and calculation
+
+#### 23/01/2024
+
+* *6 hours* a lot of trial and error with integrating an existing api for cloud computing carbon emission estimates, finally got it working (https://www.cloudcarbonfootprint.org/docs)
+
 
