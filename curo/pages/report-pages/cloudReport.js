@@ -13,8 +13,10 @@ import '../api/[...all]';
 export default function CloudReport() {
     const [regionalEmissions, setRegionalEmissions] = useState([]);
     const [providerRegions, setProviderRegions] = useState({});
-    const providers = [];
     const [expand, setExpand] = useState(false);
+    const [selectedProvider, setSelectedProvider] = useState('');
+    const [selectedRegion, setSelectedRegion] = useState('');
+    const [displayRegions, setDisplayRegions] = useState(false);
 
 
     function tryAPICall() {
@@ -68,9 +70,15 @@ export default function CloudReport() {
           }
     }, [regionalEmissions]);
 
+    useEffect(() => {
+        setDisplayRegions(true);
+    }, [selectedProvider]);
+
     const expandToggle = () => {
         setExpand(!expand);
     };
+
+    const regionOptions = selectedProvider ? providerRegions[selectedProvider] : [];
 
     return (
     <div>
@@ -83,11 +91,39 @@ export default function CloudReport() {
         <div className={styles.mainContainer}>
           <SideBar/>
 
-          <div className={styles.dashboard}>
+          <div className={styles.dashboard}> 
             <Header title="Cloud Report"/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
+                    <div className={reportStyles.headingText}>Please enter all the details of your cloud computing resource to calculate the carbon emissions</div>
+                        <p>Select your cloud provider:</p>
+                        <select
+                            value={selectedProvider}
+                            onChange={(e) => setSelectedProvider(e.target.value)}
+                        >
+                            <option value="">Select a provider</option>
+                            {Object.keys(providerRegions).map((provider, index) => (
+                            <option key={index} value={provider}>
+                                {provider}
+                            </option>
+                            ))}
+                        </select>
+                    <br></br>
+                    <div style={{width:'90%', display: selectedProvider != "" ? "block" : "none"}}>
+                        <p>Select your region:</p>
+                            <select
+                                value={selectedRegion}
+                                onChange={(e) => setSelectedRegion(e.target.value)}
+                            >
+                                <option value="">Select a region</option>
+                                    {regionOptions.map((region, index) => (
+                                        <option key={index} value={region}>
+                                            {region}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
                     <button
                         onClick={tryAPICall}
                         className={reportStyles.nextButton}>
