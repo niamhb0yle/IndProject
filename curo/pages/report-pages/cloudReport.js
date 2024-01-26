@@ -9,6 +9,9 @@ import Header from '../../components/Header';
 import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import '../api/[...all]';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 export default function CloudReport() {
     const [regionalEmissions, setRegionalEmissions] = useState([]);
@@ -16,7 +19,8 @@ export default function CloudReport() {
     const [expand, setExpand] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
-    const [displayRegions, setDisplayRegions] = useState(false);
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
 
     function tryAPICall() {
@@ -36,9 +40,11 @@ export default function CloudReport() {
             setRegionalEmissions(data);
         })
         .catch(error => console.error('Error fetching emissions factors:', error));
+        console.log('help');
     }
 
     function populateData(){
+        console.log(regionalEmissions);
         const tempProviderRegions = {};
 
         // loop through each entry in regionalEmissions
@@ -70,10 +76,6 @@ export default function CloudReport() {
           }
     }, [regionalEmissions]);
 
-    useEffect(() => {
-        setDisplayRegions(true);
-    }, [selectedProvider]);
-
     const expandToggle = () => {
         setExpand(!expand);
     };
@@ -101,6 +103,8 @@ export default function CloudReport() {
                         <select
                             value={selectedProvider}
                             onChange={(e) => setSelectedProvider(e.target.value)}
+                            className={reportStyles.inputBoxes}
+                            style={{width:'50%'}}
                         >
                             <option value="">Select a provider</option>
                             {Object.keys(providerRegions).map((provider, index) => (
@@ -110,20 +114,44 @@ export default function CloudReport() {
                             ))}
                         </select>
                     <br></br>
-                    <div style={{width:'90%', display: selectedProvider != "" ? "block" : "none"}}>
+
+                    <div style={{display: selectedProvider != "" ? "block" : "none"}}>
                         <p>Select your region:</p>
-                            <select
-                                value={selectedRegion}
-                                onChange={(e) => setSelectedRegion(e.target.value)}
-                            >
-                                <option value="">Select a region</option>
-                                    {regionOptions.map((region, index) => (
-                                        <option key={index} value={region}>
-                                            {region}
-                                        </option>
-                                    ))}
-                            </select>
+                        <select
+                            value={selectedRegion}
+                            onChange={(e) => setSelectedRegion(e.target.value)}
+                            className={reportStyles.inputBoxes}
+                            style={{width:'50%'}}
+                        >
+                        <option value="">Select a region</option>
+                            {regionOptions.map((region, index) => (
+                                <option key={index} value={region}>
+                                    {region}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <br></br>
+
+                    <div style={{display: selectedRegion != "" ? "block" : "none"}}>
+                        <p>Select a start/end date:</p>
+                        <div style={{width:'50%', padding:'10px', display:'inline'}}>
+                            <DatePicker
+                                showIcon
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)} 
+                            />
                         </div>
+
+                        <div style={{width:'50%', padding:'10px', display:'inline'}}>
+                            <DatePicker
+                            showIcon
+                            selected={endDate}
+                            onChange={(date) => setEndDate(date)} 
+                            />
+                        </div>
+                    </div>
+
                     <button
                         onClick={tryAPICall}
                         className={reportStyles.nextButton}>
