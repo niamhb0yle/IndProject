@@ -19,8 +19,11 @@ export default function CloudReport() {
     const [expand, setExpand] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('');
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [totalHours, setTotalHours] = useState(0);
+    const [calculateDisplay, setCalculateDisplay] = useState(false);
+    const [totalEmissions, setTotalEmissions] = useState(0);
 
 
     function tryAPICall() {
@@ -40,8 +43,9 @@ export default function CloudReport() {
             setRegionalEmissions(data);
         })
         .catch(error => console.error('Error fetching emissions factors:', error));
-        console.log('help');
     }
+
+    
 
     function populateData(){
         console.log(regionalEmissions);
@@ -49,24 +53,26 @@ export default function CloudReport() {
 
         // loop through each entry in regionalEmissions
         regionalEmissions.forEach((emission) => {
-            if (emission.cloudProvider != "ALI"){ // discard entries under ALI - all in foreign language, outside scope
+            if (emission.cloudProvider !== "ALI"){ // discard entries under ALI
                 const provider = emission.cloudProvider;
                 const region = emission.region;
+                const mtPerKwHour = emission.mtPerKwHour; // Assuming mtPerKwHour is the property name
 
-                // check if the provider key exists, if not initialize it with an empty array
+                // check if the provider key exists, if not initialize it with an empty object
                 if (!tempProviderRegions[provider]) {
-                    tempProviderRegions[provider] = [];
+                    tempProviderRegions[provider] = {};
                 }
 
-                // check if the region is not already included to avoid duplicates
-                if (!tempProviderRegions[provider].includes(region)) {
-                    tempProviderRegions[provider].push(region);
-                }
+                // set the region and its mtPerKwHour value
+                tempProviderRegions[provider][region] = mtPerKwHour;
             }
         });
 
         setProviderRegions(tempProviderRegions);
-        console.log(tempProviderRegions);
+    }
+
+    function calculate() {
+        setTotalEmissions(providerRegions[selectedProvider][selectedRegion] * totalHours);
     }
     
     // if regionalEmissions is updated, then populate regions and cloud providers for user to choose from
@@ -76,11 +82,15 @@ export default function CloudReport() {
           }
     }, [regionalEmissions]);
 
+    useEffect(() => {
+        const differenceInMilliseconds = Math.abs(startDate - endDate);
+        setTotalHours(differenceInMilliseconds / 3600000);
+        setCalculateDisplay(() => true);
+    }, [startDate, endDate]);
+
     const expandToggle = () => {
         setExpand(!expand);
     };
-
-    const regionOptions = selectedProvider ? providerRegions[selectedProvider] : [];
 
     return (
     <div>
@@ -124,11 +134,11 @@ export default function CloudReport() {
                             style={{width:'50%'}}
                         >
                         <option value="">Select a region</option>
-                            {regionOptions.map((region, index) => (
-                                <option key={index} value={region}>
-                                    {region}
-                                </option>
-                            ))}
+                        {selectedProvider && Object.keys(providerRegions[selectedProvider]).map((region, index) => (
+                            <option key={index} value={region}>
+                                {region}
+                        </option>
+                        ))}
                         </select>
                     </div>
                     <br></br>
@@ -150,9 +160,23 @@ export default function CloudReport() {
                             onChange={(date) => setEndDate(date)} 
                             />
                         </div>
+
+                        <div style={{display: calculateDisplay == true ? 'block':'none'}}>
+                            <button
+                                onClick={calculate}
+                                className={reportStyles.nextButton}>
+                                Calculate
+                            </button>
+                        </div>
+                        
+                        <div style={{display: totalEmissions == 0 ? 'none':'block'}}>
+                            {totalEmissions}
+                        </div>
+
                     </div>
 
-                    <button
+                    
+                    <button style={{display: selectedProvider == '' ? 'block' :'none'}}
                         onClick={tryAPICall}
                         className={reportStyles.nextButton}>
                         Try api call
