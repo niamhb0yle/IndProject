@@ -12,16 +12,18 @@ import '../api/[...all]';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Scope1Report() {
 
-  const [vehicles, setVehicles] = useState([{ avgMiles: 0, avgEmissionFactor: 0 }]);
-  const [generatorData, setGeneratorData] = useState({ fuelConsumed: 0, emissionFactor: 0 });
-  const [teamTransports, setTeamTransports] = useState([{ transportMode: "" }]);
+// TODO: Styling for form, add in heating/utility usage part later
+
+export default function Scope1Report() {
+  const teamSize = 4; // TODO: add firebase fetch code here
+  const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "" }));
+  const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
     "Petrol Car": 0.27436,
-    "HybridCar": 0.19318,
+    "Hybrid Car": 0.19318,
     "Plug-in Hybrid Car": 0.11007,
     "Motorcycle": 0.18274,
     "Works from home": 0,
@@ -29,19 +31,6 @@ export default function Scope1Report() {
     "Bike": 0,
   };
 
-  const handleVehicleChange = (index, e) => {
-    const newVehicles = [...vehicles];
-    newVehicles[index][e.target.name] = e.target.value;
-    setVehicles(newVehicles);
-  };
-
-  const addVehicle = () => {
-    setVehicles([...vehicles, { avgMiles: 0, avgEmissionFactor: 0 }]);
-  };
-
-  const handleGeneratorDataChange = (e) => {
-    setGeneratorData({ ...generatorData, [e.target.name]: e.target.value });
-  };
 
   const handleTransportChange = (index, e) => {
     const newTransports = [...teamTransports];
@@ -49,15 +38,9 @@ export default function Scope1Report() {
     setTeamTransports(newTransports);
   };
 
-  const addTransport = () => {
-    setTeamTransports([...teamTransports, { transportMode: "" }]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Calculation and submission logic goes here
-    console.log('Vehicles:', vehicles);
-    console.log('Generator Data:', generatorData);
+    // TODO: add calculations
     console.log('Team Transports:', teamTransports);
   };
 
@@ -76,32 +59,30 @@ export default function Scope1Report() {
           <Header title="Scope 1"/>
           
           <div className={styles.dashboardContent}>
-              <div className={reportStyles.reportContainer}>
+            <div className={reportStyles.reportContainer}>
               <form onSubmit={handleSubmit}>
-        {/* ... existing form elements for vehicles and generators ... */}
-        <h2>Team's Mode of Transport</h2>
-        {teamTransports.map((transport, index) => (
-          <div key={index}>
-            <label>Team Member {index + 1}'s Transport Mode: </label>
-            <select
-              value={transport.transportMode}
-              onChange={(e) => handleTransportChange(index, e)}
-            >
-              <option value="">Select Transport Mode</option>
-              {Object.keys(emissionFactors).map((mode) => (
-                <option key={mode} value={mode}>{mode}</option>
-              ))}
-            </select>
+                <h2>Team's Mode of Transport</h2>
+                  {teamTransports.map((transport, index) => (
+                    <div key={index}>
+                      <label>Team Member {index + 1}'s Transport Mode: </label>
+                      <select
+                        value={transport.transportMode}
+                        onChange={(e) => handleTransportChange(index, e)}
+                      >
+                        <option value="">Select Transport Mode</option>
+                        {Object.keys(emissionFactors).map((mode) => (
+                          <option key={mode} value={mode}>{mode}</option>
+                        ))}
+                      </select>
+                    </div>
+                  ))}
+                <button type="submit">Submit Data</button>
+            </form>
           </div>
-        ))}
-        <button type="button" onClick={addTransport}>Add Another Transport Mode</button>
-        <button type="submit">Submit Data</button>
-      </form>
-              </div>
-          </div>
-
         </div>
+
       </div>
+    </div>
     </div>
 
     <style jsx>{`
