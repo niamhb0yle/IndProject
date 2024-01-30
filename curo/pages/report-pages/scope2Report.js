@@ -1,16 +1,22 @@
-import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import reportStyles from '../../styles/Reports.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
-import ReportBtn from '../../components/reportBtn';
+import { useState, useEffect } from 'react';
+import 'firebase/firestore';
+import '../api/[...all]';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-export default function GHG() {
 
-  return (
+export default function Scope2Report() {
+
+
+    return (
     <div>
       <Head>
         <title>Curo</title>
@@ -21,14 +27,13 @@ export default function GHG() {
         <div className={styles.mainContainer}>
           <SideBar/>
 
-          <div className={styles.dashboard}>
-            <Header title="Environmental"/>
-
+          <div className={styles.dashboard}> 
+            <Header title="Scope 2"/>
+            
             <div className={styles.dashboardContent}>
-              <p>GHG report page.</p>
-              <ReportBtn dimension='scope1'/>
-              <ReportBtn dimension='scope2'/>
-              <ReportBtn dimension='scope3'/>
+                <div className={reportStyles.reportContainer}>
+                    
+                </div>
             </div>
 
           </div>

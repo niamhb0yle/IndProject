@@ -98,7 +98,6 @@ export default function Dashboard() {
             <DimensionTeaser dimension={'Technical'} dimensionColour={'#627E9C'} />
             <DimensionTeaser dimension={'SCI'} dimensionColour={'#5B4971'} />
             <DimensionTeaser dimension={'GHG'} dimensionColour={'#CD474A'} />
-            <Link href='/report-pages/cloudReport'>Cloud report</Link>
         </div>
 
     </div>

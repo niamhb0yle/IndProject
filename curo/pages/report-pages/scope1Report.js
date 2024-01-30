@@ -13,10 +13,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-export default function CloudReport() {
+export default function Scope1Report() {
     const [regionalEmissions, setRegionalEmissions] = useState([]);
     const [providerRegions, setProviderRegions] = useState({});
-    const [expand, setExpand] = useState(false);
     const [selectedProvider, setSelectedProvider] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
     const [startDate, setStartDate] = useState(new Date());
@@ -72,7 +71,7 @@ export default function CloudReport() {
     }
 
     function calculate() {
-        setTotalEmissions(providerRegions[selectedProvider][selectedRegion] * totalHours);
+        setTotalEmissions(providerRegions[selectedProvider][selectedRegion] * totalHours); // the unit is metric ton co2e
     }
     
     // if regionalEmissions is updated, then populate regions and cloud providers for user to choose from
@@ -88,10 +87,6 @@ export default function CloudReport() {
         setCalculateDisplay(() => true);
     }, [startDate, endDate]);
 
-    const expandToggle = () => {
-        setExpand(!expand);
-    };
-
     return (
     <div>
       <Head>
@@ -104,7 +99,7 @@ export default function CloudReport() {
           <SideBar/>
 
           <div className={styles.dashboard}> 
-            <Header title="Cloud Report"/>
+            <Header title="Scope 1"/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
@@ -165,12 +160,12 @@ export default function CloudReport() {
                             <button
                                 onClick={calculate}
                                 className={reportStyles.nextButton}>
-                                Calculate
+                                Calculate &rarr;
                             </button>
                         </div>
                         
                         <div style={{display: totalEmissions == 0 ? 'none':'block'}}>
-                            {totalEmissions}
+                            {totalEmissions} metric ton co2e
                         </div>
 
                     </div>

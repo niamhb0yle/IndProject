@@ -58,38 +58,12 @@ export default function SCIReport() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="SCI Report"/>
+            <Header title="GHG Report"/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
-                    <div className={reportStyles.headingText}>Please enter the functional unit of the calculation:</div>
                     
-                    <input
-                        className={reportStyles.inputBoxes}
-                        style={{width:'400px'}}
-                        type="number"
-                        value={energyConsumed}
-                        onChange={(e) => setEnergyConsumed(e.target.value)}
-                        placeholder="Functional Unit"
-                        
-                    />
-
-                    <div onClick={() => expandToggle()} className={reportStyles.expand} style={{width: expand ? "700px" : "400px"}}>
-                        <h1>Unsure of what this means?</h1>
-                        <div className={`${reportStyles.expandContent} ${expand ? reportStyles.expanded : ''}`}>
-                        <p style={{display: expand ? "block" : "none"}}>Energy consumed is the total electrical energy (in kilowatt-hours, kWh) that the hardware running the software system uses over a certain period or for a specific amount of work.</p>
-                        <p style={{display: expand ? "block" : "none"}}>It can be measured in various ways depending on the context:
-                        In a data center or server environment, it might be the energy reported by the facility or estimated based on the server's power usage and operating time.
-                        For cloud-based services, cloud providers often provide metrics or estimates of energy usage for the resources (like virtual machines or cloud functions) utilized.
-                        In a desktop or mobile context, it could involve estimating the energy use of the device while running the software.</p>
-                        </div>
-                    </div>
-
-                    <button
-                        onClick={handleSubmit}
-                        className={reportStyles.nextButton}>
-                        Calculate
-                    </button>
+                <Link href='/report-pages/cloudReport'>Cloud report</Link>
                 </div>
             </div>
 
