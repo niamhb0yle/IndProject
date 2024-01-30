@@ -11,12 +11,16 @@ import 'firebase/firestore';
 import '../api/[...all]';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { auth, db } from '../../firebase';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+
 
 
 // TODO: Styling for form, add in heating/utility usage part later
 
 export default function Scope1Report() {
-  const teamSize = 4; // TODO: add firebase fetch code here
+  const user = auth.currentUser;
+  const [teamSize, setTeamSize] = useState(0); // TODO: add firebase fetch code here
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "" }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
 
@@ -31,6 +35,27 @@ export default function Scope1Report() {
     "Bike": 0,
   };
 
+  const checkTeamSize = async () => {
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    const teamRef = userSnap.data().Team
+
+    if (userSnap.exists()) {
+        const teamRef = userSnap.data().Team;
+    } else {
+        console.log("No such document!");
+    }
+
+    const teamSnap = await getDoc(teamRef);
+
+    if (teamSnap.exists()) {
+      const newTeamSize = (teamSnap.data().Members.length || 0) + 1;
+      setTeamSize(newTeamSize);
+      setTeamTransports(Array.from({ length: newTeamSize }, () => ({ transportMode: "" })));
+    } else {
+      console.log("No such document!");
+    }
+  };
 
   const handleTransportChange = (index, e) => {
     const newTransports = [...teamTransports];
@@ -43,6 +68,13 @@ export default function Scope1Report() {
     // TODO: add calculations
     console.log('Team Transports:', teamTransports);
   };
+
+  useEffect(() => {
+    if (user) {
+      checkTeamSize();
+    }
+  }, [user]);
+  
 
   return (
   <div>
