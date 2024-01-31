@@ -26,9 +26,17 @@ export default function GHG() {
 
             <div className={styles.dashboardContent}>
               <p>GHG report page.</p>
-              <ReportBtn dimension='scope1'/>
-              <ReportBtn dimension='scope2'/>
-              <ReportBtn dimension='scope3'/>
+              <div style={{display:'block', float:'left'}}>
+                <ReportBtn dimension='scope1'/>
+              </div>
+              <br></br>
+              <div style={{display:'block', float:'left'}}>
+                <ReportBtn dimension='scope2'/>
+              </div>
+              <br></br>
+              <div style={{display:'block', float:'left'}}>
+                <ReportBtn dimension='scope3'/>
+              </div>
             </div>
 
           </div>

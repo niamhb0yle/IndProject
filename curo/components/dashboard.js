@@ -85,7 +85,7 @@ export default function Dashboard() {
             </div>
             <div style={{flex:0.25, padding: '5px'}}>
                 <p><b>Progress:</b> {progress}%</p>
-                <p><b>Members:</b> {dashboardInfo.Members.length +1}</p>
+                <p><b>Members:</b> {dashboardInfo.Members.length}</p>
             </div>
         </div>
 

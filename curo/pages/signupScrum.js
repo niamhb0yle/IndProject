@@ -16,6 +16,7 @@ export default function SignUpScrum() {
   const [teamInfo, setTeamInfo] = useState({teamName:'', org:'', id:''});
   const [formView, setFormView] = useState("details");
   const [startDate, setStartDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(new Date());
   const user = auth.currentUser;
 
   const addTeam = async () => {
@@ -25,10 +26,11 @@ export default function SignUpScrum() {
       org: teamInfo.org,
       coach: user.email,
       CurrentReport: {
-        due: startDate,
+        due: dueDate,
+        start: startDate,
         number: 1
       },
-      Members: {}
+      Members: [user.email]
     });
 
     // setting team id to be used later in form
@@ -88,13 +90,22 @@ export default function SignUpScrum() {
           </div>
 
           <div style={{display: formView === "datepicker" ? "block" : "none"}}>
-            <p className={styles.signupInstructions}>To get started, please enter the date you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by.</p>
+            <p className={styles.signupInstructions}>To get started, please enter the dates you would like to have <b>{teamInfo.teamName}'s</b> first Curo report completed by, as well as when you would like the first report to date back to.</p>
             <p className={styles.signupInstructions}>This date will be visible for the whole team, and can be changed later in your teams settings.</p>
             <div style={{display:'block'}}>
+              <p>Start Date:</p>
               <DatePicker
                 showIcon
                 selected={startDate}
                 onChange={(date) => setStartDate(date)} 
+              />
+            </div>
+            <div style={{display:'block'}}>
+              <p>Due Date:</p>
+              <DatePicker
+                showIcon
+                selected={dueDate}
+                onChange={(date) => setDueDate(date)} 
               />
             </div>
             <button onClick={addTeam} className={styles.continue}>Continue &rarr;</button> 

@@ -21,7 +21,7 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 export default function Scope1Report() {
   const user = auth.currentUser;
   const [teamSize, setTeamSize] = useState(0); // TODO: add firebase fetch code here
-  const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "" }));
+  const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
 
   const emissionFactors = {
@@ -49,7 +49,7 @@ export default function Scope1Report() {
     const teamSnap = await getDoc(teamRef);
 
     if (teamSnap.exists()) {
-      const newTeamSize = (teamSnap.data().Members.length || 0) + 1;
+      const newTeamSize = (teamSnap.data().Members.length || 0);
       setTeamSize(newTeamSize);
       setTeamTransports(Array.from({ length: newTeamSize }, () => ({ transportMode: "" })));
     } else {
@@ -92,24 +92,39 @@ export default function Scope1Report() {
           
           <div className={styles.dashboardContent}>
             <div className={reportStyles.reportContainer}>
-              <form onSubmit={handleSubmit}>
-                <h2>Team's Mode of Transport</h2>
-                  {teamTransports.map((transport, index) => (
-                    <div key={index}>
-                      <label>Team Member {index + 1}'s Transport Mode: </label>
-                      <select
-                        value={transport.transportMode}
-                        onChange={(e) => handleTransportChange(index, e)}
-                      >
-                        <option value="">Select Transport Mode</option>
-                        {Object.keys(emissionFactors).map((mode) => (
-                          <option key={mode} value={mode}>{mode}</option>
-                        ))}
-                      </select>
-                    </div>
-                  ))}
-                <button type="submit">Submit Data</button>
-            </form>
+            
+              <div className={reportStyles.headingText}>Team's Mode of Transport</div>
+                {teamTransports.map((transport, index) => (
+                  <div key={index}>
+                    <p>Team Member {index + 1}:</p>
+                    <label>Mode of transport</label>
+                    <select
+                      value={transport.transportMode}
+                      onChange={(e) => handleTransportChange(index, e)}
+                    >
+                      <option value="">Select Transport Mode</option>
+                      {Object.keys(emissionFactors).map((mode) => (
+                        <option key={mode} value={mode}>{mode}</option>
+                      ))}
+                    </select>
+                    <br></br>
+                    <label>Estimate of miles travelled since last report</label>
+                    <input
+                        className={reportStyles.inputBoxes}
+                        style={{width:'200px'}}
+                        type="number"
+                        value={transport.milesTravelled}
+                        onChange={(e) => setEnergyConsumed(e.target.value)}
+                        placeholder="Miles"
+                      />
+                  </div>
+                ))}
+
+              <div>
+                <div className={reportStyles.headingText}>On site Energy Consumption</div>
+
+              </div>
+            <button onClick={handleSubmit}>Submit Data</button>
           </div>
         </div>
 
