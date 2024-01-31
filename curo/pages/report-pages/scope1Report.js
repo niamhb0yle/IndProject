@@ -24,6 +24,7 @@ export default function Scope1Report() {
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
+  const carTransportModes = ["Diesel Car", "Petrol Car", "Hybrid Car", "Plug-in Hybrid Car", "Motorcycle"];
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
@@ -52,13 +53,10 @@ export default function Scope1Report() {
       const dueTimestamp = teamSnap.data().CurrentReport.due;
       const start = startTimestamp.toDate();
       const due = dueTimestamp.toDate();
-      console.log(dueTimestamp.toDate())
       setReportDates({startDate: start.toLocaleDateString(), dueDate: due.toLocaleDateString()})
     } else {
       console.log("No such document!");
     }
-
-    console.log(reportDates);
   };
 
   const handleTransportChange = (index, e) => {
@@ -75,6 +73,7 @@ export default function Scope1Report() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // TODO: add calculations
     console.log('Team Transports:', teamTransports);
   };
@@ -105,13 +104,11 @@ export default function Scope1Report() {
             
             
               <div className={reportStyles.headingText2}>Team's Mode of Transport</div>
-                <p style={{color:'black'}}>For this section, we will make an estimate on the teams carbon emissions from travelling to work. Please enter each members <b>primary</b> mode of transport, as well as an estimate of the miles travelled using this mode of transport, between the dates {reportDates.startDate} and {reportDates.dueDate}. If team members work from home, or walk/bike, feel free to enter their 'miles travelled' as 0 - it will not affect the emission estimate.</p>
+                <p style={{color:'black'}}>For this section, we will make an estimate on the teams carbon emissions from travelling to work. Please enter each members <b>primary</b> mode of transport, as well as an estimate of the miles travelled using this mode of transport, between the dates {reportDates.startDate} and {reportDates.dueDate}.</p>
 
                 <div className={reportStyles.teamEntriesContainer}>
                 {teamTransports.map((transport, index) => (
-                  
-                  <div className={reportStyles.teamEntries}>
-                    <div key={index}>
+                  <div className={reportStyles.teamEntries} key={index}>
                     <h1>Team Member {index + 1}:</h1>
                     <p>Mode of transport</p>
                     <select
@@ -125,19 +122,23 @@ export default function Scope1Report() {
                         <option key={mode} value={mode}>{mode}</option>
                       ))}
                     </select>
-                    <p>Estimate of miles travelled</p>
-                    <input
-                        className={reportStyles.inputBoxes}
-                        style={{width:'200px'}}
-                        type="number"
-                        value={transport.milesTravelled}
-                        onChange={(e) => handleMilesChange(index,e)}
-                        placeholder="Miles"
-                      />
 
-                  </div>
+                    {carTransportModes.includes(transport.transportMode) && (
+                      <>
+                        <p>Estimate of miles travelled</p>
+                        <input
+                          className={reportStyles.inputBoxes}
+                          style={{width:'200px'}}
+                          type="number"
+                          value={transport.milesTravelled}
+                          onChange={(e) => handleMilesChange(index, e)}
+                          placeholder="Miles"
+                        />
+                      </>
+                    )}
                   </div>
                 ))}
+
                 </div>
 
               <div>
