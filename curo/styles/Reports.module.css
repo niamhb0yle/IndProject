@@ -6,6 +6,7 @@
     border-radius: 30px;
     padding: 30px;
     width:80%;
+    min-width: 900px;
 }
 
 .reportContainer p {
@@ -74,8 +75,45 @@
     font-family: 'Manrope';
 }
 
+.headingText2 {
+    font-size: 26px;
+    font-weight: 900;
+    margin-bottom: 18px;
+    color:black;
+    font-family: 'Manrope';
+}
+
+.teamEntriesContainer {
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    flex-wrap:wrap;
+}
+
+.teamEntries {
+    background-color: #ededed;
+    border-radius: 15px;
+    padding-top:0px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 500px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-inline-start: 15px;
+}
+
+.teamEntries h1 {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Manrope';
+    padding:12px;
+    padding-left: 0px;
+    margin-bottom:0px;
+    color: #444444;
+}
+
 .expand {
-    background-color: #d9d9d9;
+    background-color: #ededed;
     border-radius: 15px;
     padding-top: 0px;
     width: 650px;

@@ -21,6 +21,7 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 export default function Scope1Report() {
   const user = auth.currentUser;
   const [teamSize, setTeamSize] = useState(0); // TODO: add firebase fetch code here
+  const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
 
@@ -35,26 +36,29 @@ export default function Scope1Report() {
     "Bike": 0,
   };
 
-  const checkTeamSize = async () => {
+  const checkTeam = async () => {
     const userRef = doc(db, "Users", user.email);
     const userSnap = await getDoc(userRef);
     const teamRef = userSnap.data().Team
-
-    if (userSnap.exists()) {
-        const teamRef = userSnap.data().Team;
-    } else {
-        console.log("No such document!");
-    }
-
     const teamSnap = await getDoc(teamRef);
+    
 
     if (teamSnap.exists()) {
       const newTeamSize = (teamSnap.data().Members.length || 0);
       setTeamSize(newTeamSize);
       setTeamTransports(Array.from({ length: newTeamSize }, () => ({ transportMode: "" })));
+      
+      const startTimestamp = teamSnap.data().CurrentReport.start;
+      const dueTimestamp = teamSnap.data().CurrentReport.due;
+      const start = startTimestamp.toDate();
+      const due = dueTimestamp.toDate();
+      console.log(dueTimestamp.toDate())
+      setReportDates({startDate: start.toLocaleDateString(), dueDate: due.toLocaleDateString()})
     } else {
       console.log("No such document!");
     }
+
+    console.log(reportDates);
   };
 
   const handleTransportChange = (index, e) => {
@@ -62,6 +66,12 @@ export default function Scope1Report() {
     newTransports[index].transportMode = e.target.value;
     setTeamTransports(newTransports);
   };
+
+  const handleMilesChange = (index, e) => {
+    const newTransports = [...teamTransports];
+    newTransports[index].milesTravelled = e.target.value;
+    setTeamTransports(newTransports);
+};
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +81,7 @@ export default function Scope1Report() {
 
   useEffect(() => {
     if (user) {
-      checkTeamSize();
+      checkTeam();
     }
   }, [user]);
   
@@ -91,41 +101,52 @@ export default function Scope1Report() {
           <Header title="Scope 1"/>
           
           <div className={styles.dashboardContent}>
-            <div className={reportStyles.reportContainer}>
+            <div className={reportStyles.reportContainer} style={{width:'100%'}}>
             
-              <div className={reportStyles.headingText}>Team's Mode of Transport</div>
+            
+              <div className={reportStyles.headingText2}>Team's Mode of Transport</div>
+                <p style={{color:'black'}}>For this section, we will make an estimate on the teams carbon emissions from travelling to work. Please enter each members <b>primary</b> mode of transport, as well as an estimate of the miles travelled using this mode of transport, between the dates {reportDates.startDate} and {reportDates.dueDate}. If team members work from home, or walk/bike, feel free to enter their 'miles travelled' as 0 - it will not affect the emission estimate.</p>
+
+                <div className={reportStyles.teamEntriesContainer}>
                 {teamTransports.map((transport, index) => (
-                  <div key={index}>
-                    <p>Team Member {index + 1}:</p>
-                    <label>Mode of transport</label>
+                  
+                  <div className={reportStyles.teamEntries}>
+                    <div key={index}>
+                    <h1>Team Member {index + 1}:</h1>
+                    <p>Mode of transport</p>
                     <select
                       value={transport.transportMode}
                       onChange={(e) => handleTransportChange(index, e)}
+                      className={reportStyles.inputBoxes}
+                      style={{width:'300px'}}
                     >
                       <option value="">Select Transport Mode</option>
                       {Object.keys(emissionFactors).map((mode) => (
                         <option key={mode} value={mode}>{mode}</option>
                       ))}
                     </select>
-                    <br></br>
-                    <label>Estimate of miles travelled since last report</label>
+                    <p>Estimate of miles travelled</p>
                     <input
                         className={reportStyles.inputBoxes}
                         style={{width:'200px'}}
                         type="number"
                         value={transport.milesTravelled}
-                        onChange={(e) => setEnergyConsumed(e.target.value)}
+                        onChange={(e) => handleMilesChange(index,e)}
                         placeholder="Miles"
                       />
+
+                  </div>
                   </div>
                 ))}
+                </div>
 
               <div>
-                <div className={reportStyles.headingText}>On site Energy Consumption</div>
+                <div className={reportStyles.headingText2}>On site Energy Consumption</div>
 
               </div>
             <button onClick={handleSubmit}>Submit Data</button>
           </div>
+          
         </div>
 
       </div>
