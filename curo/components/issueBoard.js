@@ -1,49 +1,162 @@
 import Link from 'next/link';
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import { useRouter } from 'next/router';
+import Header from './Header';
+import SideBar from './sidebar';
+import { useState, useEffect } from 'react';
+import styles from '../styles/IssueBoard.module.css';
+import ibStyles from '../styles/IssueBoard.module.css';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { auth, db } from '../firebase';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+
+const fetchIssues = async () => {
+  const user = auth.currentUser;
+  const userRef = doc(db, "Users", user.email);
+  const userSnap = await getDoc(userRef);
+  const teamRef = userSnap.data().Team
+  const issuesRef = collection(teamRef, "Issues");
+
+  const q = query(issuesRef, where('Status', 'in', ['To Do', 'In Progress', 'Complete']));
+  const querySnapshot = await getDocs(q);
+  let issues = { 'To Do': [], 'In Progress': [], 'Complete': [] };
+
+  querySnapshot.forEach((doc) => {
+    issues[doc.data().Status].push(doc.data().Title);
+  });
+
+  return issues;
+};
+
+const initialTasks = {
+  'To Do:': [],
+  'In Progress:': [],
+  'Complete': []
+};
 
 export default function IssueBoard() {
-  return (
-    <div style={{display:'flex', flex: 1, flexDirection: 'row', flexWrap:'wrap', alignContent:'flex-start'}}>
-        <div style={{width: 400, minHeight:600, background:'#D9D9D9', marginRight:30, borderRadius:20, display:'flex', flex:1, alignItems:'center', flexDirection:'column', justifyContent:'flex-start', borderLeft:10, borderTop:10}}>
-            <p style={{fontSize:25, fontFamily:'Manrope', fontWeight:1000, color: 'black'}}>To do:</p>  
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #6AB4B9 60%, #6AB4B9 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 1 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #1e868d 60%, #1e868d 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 2 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #155e63 60%, #155e63 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 3 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-            <div><button style={{width:'fit-content', borderRadius:30, background:'transparent', fontSize:20}}>Add issue</button></div>
-        </div>
-        <div style={{width: 400, minHeight:600, background:'#D9D9D9', marginRight:30, borderRadius:20, display:'flex', flex:1, alignItems:'center', flexDirection:'column', justifyContent:'flex-start', borderLeft:10, borderTop:10}}>
-            <p style={{fontSize:25, fontFamily:'Manrope', fontWeight:1000, color: 'black'}}>In progress:</p>
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #6AB4B9 60%, #6AB4B9 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 1 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-        </div>
-        <div style={{width: 400, minHeight:600, background:'#D9D9D9', marginRight:30, borderRadius:20, display:'flex', flex:1, alignItems:'center', flexDirection:'column', justifyContent:'flex-start', borderLeft:10, borderTop:10}}>
-            <p style={{fontSize:25, fontFamily:'Manrope', fontWeight:1000, color: 'black'}}>Complete:</p>
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #6AB4B9 60%, #6AB4B9 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 1 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-            <div style={{width:350, height:'fit-content', background:'linear-gradient(180deg, white 0%, white 60%, #1e868d 60%, #1e868d 100%)', borderRadius:20, marginBottom: 18}}>
-              <p style={{marginLeft:7, fontWeight:1000, fontSize:22}}>Issue 2 Title</p>
-              <p style={{marginLeft:7, fontSize:15}}>Assignees: Person 1, Person 2</p>
-            </div>
-        </div>
+  const [tasks, setTasks] = useState({ 'To Do': [], 'In Progress': [], 'Complete': [] });
 
+  useEffect(() => {
+    const loadIssues = async () => {
+      const fetchedIssues = await fetchIssues();
+      setTasks(fetchedIssues);
+    };
+
+    loadIssues();
+  }, []);
+
+  const onDragEnd = result => {
+    const { source, destination } = result;
+
+    // Dropped outside the list
+    if (!destination) {
+      return;
+    }
+
+    if (source.droppableId === destination.droppableId) {
+      const items = Array.from(tasks[source.droppableId]);
+      const [reorderedItem] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, reorderedItem);
+
+      setTasks({ ...tasks, [source.droppableId]: items });
+    } else {
+      const sourceItems = Array.from(tasks[source.droppableId]);
+      const [movedItem] = sourceItems.splice(source.index, 1);
+      const destinationItems = Array.from(tasks[destination.droppableId]);
+      destinationItems.splice(destination.index, 0, movedItem);
+
+      setTasks({ 
+        ...tasks, 
+        [source.droppableId]: sourceItems,
+        [destination.droppableId]: destinationItems 
+      });
+    }
+  };
+
+  return (
+    <div>
+      <Head>
+        <title>Curo</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <div className={styles.pageContainer}>
+        <div className={styles.mainContainer}>
+
+          <div className={styles.dashboard}>
+
+            <div className={styles.dashboardContent}>
+            <div className={ibStyles.boardContainer}>
+            <DragDropContext onDragEnd={onDragEnd}>
+              {Object.keys(tasks).map((columnId) => (
+                <Droppable key={columnId} droppableId={columnId}>
+                  {(provided, snapshot) => (
+                    <div
+                    className={ibStyles.issueColumn}
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      <h3 className={ibStyles.columnHeader}>{columnId}</h3>
+                      {tasks[columnId].map((item, index) => (
+                        <Draggable key={item} draggableId={item} index={index}>
+                          {(provided, snapshot) => (
+                            <div
+                              className={ibStyles.issueDiv}
+                              ref={provided.innerRef}
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                            >
+                              <h1>{item}</h1>
+                              <p>Assignees: test test</p>
+                            </div>
+                          )}
+                        </Draggable>
+                      ))}
+                      {provided.placeholder}
+                    </div>
+                  )}
+                </Droppable>
+      ))}
+    </DragDropContext>
     </div>
-  )
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        main {
+          padding: 2rem 0;
+        }
+      `}</style>
+
+      <style jsx global>{`
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            Segoe UI,
+            Roboto,
+            Oxygen,
+            Ubuntu,
+            Cantarell,
+            Fira Sans,
+            Droid Sans,
+            Helvetica Neue,
+            sans-serif;
+        }
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
+    </div>
+  );
 }
+
