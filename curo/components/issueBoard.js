@@ -24,16 +24,16 @@ const fetchIssues = async () => {
   let issues = { 'To Do': [], 'In Progress': [], 'Complete': [] };
 
   querySnapshot.forEach((doc) => {
-    issues[doc.data().Status].push(doc.data().Title);
+    const issueData = doc.data();
+    console.log(doc.data());
+    issues[issueData.Status].push({
+      title: issueData.Title,
+      assignee: issueData.Assignee,
+      description: issueData.Description
+    });
   });
 
   return issues;
-};
-
-const initialTasks = {
-  'To Do:': [],
-  'In Progress:': [],
-  'Complete': []
 };
 
 export default function IssueBoard() {
@@ -95,13 +95,13 @@ export default function IssueBoard() {
                 <Droppable key={columnId} droppableId={columnId}>
                   {(provided, snapshot) => (
                     <div
-                    className={ibStyles.issueColumn}
+                      className={ibStyles.issueColumn}
                       ref={provided.innerRef}
                       {...provided.droppableProps}
                     >
                       <h3 className={ibStyles.columnHeader}>{columnId}</h3>
                       {tasks[columnId].map((item, index) => (
-                        <Draggable key={item} draggableId={item} index={index}>
+                        <Draggable key={item.title} draggableId={item.title} index={index}>
                           {(provided, snapshot) => (
                             <div
                               className={ibStyles.issueDiv}
@@ -109,8 +109,8 @@ export default function IssueBoard() {
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
                             >
-                              <h1>{item}</h1>
-                              <p>Assignees: test test</p>
+                              <h1>{item.title}</h1>
+                              <p>Assignee: {item.assignee}</p>
                             </div>
                           )}
                         </Draggable>
