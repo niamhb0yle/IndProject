@@ -34,6 +34,12 @@
     background:linear-gradient(180deg, white 0%, white 60%, #b8dcb8 60%, #b8dcb8 100%);
     border-radius:20px;
     margin-bottom: 18px;
+    transition: transform 0.3s;
+}
+
+.issueDiv:hover{
+    transform: scale(1.01);
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .issueDiv h1 {

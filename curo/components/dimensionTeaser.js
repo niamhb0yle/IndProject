@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { auth, db } from '../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
-const DimensionTeaser = ({ dimension, dimensionColour }) => {
+const DimensionTeaser = ({ dimension, bgUrl }) => {
     const [reportDone, setReportDone] = useState(false);
     const [howTo, setHowTo] = useState(false);
     const user = auth.currentUser;
@@ -39,7 +39,7 @@ const DimensionTeaser = ({ dimension, dimensionColour }) => {
     return (
             <Link href={`/dimension-pages/${dimension}`} className={styles.dimensionTeaser} >
                 <div style={{overflow:'auto'}}>
-                    <div className={styles.teaserText} style={{background:dimensionColour}}>{howTo ? 'How it works...' : dimension}</div>
+                    <div className={styles.teaserText} style={{backgroundImage:`url("${bgUrl}")`}}><h1>{howTo ? 'How it works...' : dimension}</h1></div>
                     <img src={reportDone ? '/images/check.png' : '/images/cross.png'} alt='settings icon' width='35px' style={{float:'right', marginRight:'25px', marginTop:'20px', opacity:0.6, display: howTo ? "none" : "block"}} />
                 </div>
             </Link>

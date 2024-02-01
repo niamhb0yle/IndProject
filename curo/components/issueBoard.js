@@ -25,7 +25,6 @@ const fetchIssues = async () => {
 
   querySnapshot.forEach((doc) => {
     const issueData = doc.data();
-    console.log(doc.data());
     issues[issueData.Status].push({
       title: issueData.Title,
       assignee: issueData.Assignee,
