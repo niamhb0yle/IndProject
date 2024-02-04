@@ -13,6 +13,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import Link from 'next/link';
 
 
 
@@ -97,10 +98,14 @@ export default function Scope1Report() {
         <SideBar/>
 
         <div className={styles.dashboard}> 
-          <Header title="Scope 1"/>
+          <Header title=""/>
           
           <div className={styles.dashboardContent}>
             <div className={reportStyles.reportContainer} style={{width:'100%'}}>
+
+            <div className={reportStyles.scopeHeadingText}>
+              <span style={{color:'black'}}>Scope 1</span> &rarr;  Scope 2  &rarr;  Scope 3
+            </div>
             
             
               <div className={reportStyles.headingText2}>Team's Mode of Transport</div>
@@ -145,7 +150,12 @@ export default function Scope1Report() {
                 <div className={reportStyles.headingText2}>On site Energy Consumption</div>
 
               </div>
-            <button onClick={handleSubmit}>Submit Data</button>
+
+              <Link href="./scope2Report" 
+              className={reportStyles.reportBtn} 
+              >
+                Continue to scope 2 &rarr;
+              </Link>
           </div>
           
         </div>

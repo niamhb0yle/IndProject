@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import reportStyles from '../../styles/Reports.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -22,21 +23,14 @@ export default function GHG() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="Environmental"/>
+            <Header title="GHG Protocol"/>
 
             <div className={styles.dashboardContent}>
               <p>GHG report page.</p>
-              <div style={{display:'block', float:'left'}}>
-                <ReportBtn dimension='scope1'/>
-              </div>
-              <br></br>
-              <div style={{display:'block', float:'left'}}>
-                <ReportBtn dimension='scope2'/>
-              </div>
-              <br></br>
-              <div style={{display:'block', float:'left'}}>
-                <ReportBtn dimension='scope3'/>
-              </div>
+
+              <Link href='../report-pages/scope1Report' className={reportStyles.reportBtn}>Start mini GHG report &rarr;</Link>
+              
+              
             </div>
 
           </div>

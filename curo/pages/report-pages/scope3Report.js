@@ -99,10 +99,15 @@ export default function Scope3Report() {
           <SideBar/>
 
           <div className={styles.dashboard}> 
-            <Header title="Scope 3"/>
+            <Header title=""/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
+
+                    <div className={reportStyles.scopeHeadingText}>
+                        Scope 1 &rarr;  Scope 2  &rarr; <span style={{color:'black'}}> Scope 3</span>
+                    </div>
+
                     <div className={reportStyles.headingText}>Please enter all the details of your cloud computing resource to calculate the carbon emissions</div>
                         <p>Select your cloud provider:</p>
                         <select

@@ -11,9 +11,18 @@ import 'firebase/firestore';
 import '../api/[...all]';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import emissionFactors from './scope2emissionFactors.json';
+import Link from 'next/link';
 
 
 export default function Scope2Report() {
+
+  const getEmissionFactor = (country) => emissionFactors[country];
+  const [selectedCountry, setSelectedCountry] = useState('');
+
+  const handleCountryChange = (e) => {
+    setSelectedCountry(e.target.value);
+  };
 
 
     return (
@@ -28,11 +37,37 @@ export default function Scope2Report() {
           <SideBar/>
 
           <div className={styles.dashboard}> 
-            <Header title="Scope 2"/>
+            <Header title=""/>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>
-                    
+                <div className={reportStyles.scopeHeadingText}>
+                  Scope 1&rarr;  <span style={{color:'black'}}>Scope 2  </span> &rarr;  Scope 3
+                </div>
+
+                <div className={reportStyles.headingText}>Purchased Electricity</div>
+
+
+                  <p>Please select the location of your office:</p>
+                  <select 
+                    value={selectedCountry} 
+                    onChange={handleCountryChange}
+                    className={reportStyles.inputBoxes}
+                    style={{width:'500px'}}>
+                    <option value="">Location</option>
+                    {Object.keys(emissionFactors).map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </select>
+
+                  <Link href="./scope3Report" 
+                  className={reportStyles.reportBtn} 
+                  >
+                    Continue to scope 3 &rarr;
+                  </Link>
+
                 </div>
             </div>
 
