@@ -109,7 +109,7 @@ export default function Scope1Report() {
             
             
               <div className={reportStyles.headingText2}>Team's Mode of Transport</div>
-                <p style={{color:'black'}}>For this section, we will make an estimate on the teams carbon emissions from travelling to work. Please enter each members <b>primary</b> mode of transport, as well as an estimate of the miles travelled using this mode of transport, between the dates {reportDates.startDate} and {reportDates.dueDate}.</p>
+                <p style={{color:'black'}}>For this section, we will make an estimate on the teams carbon emissions from travelling to work. Please enter each members <b>primary</b> mode of transport, as well as an estimate of the miles travelled using this mode of transport, between the dates <b>{reportDates.startDate}</b> and <b>{reportDates.dueDate}</b>.</p>
 
                 <div className={reportStyles.teamEntriesContainer}>
                 {teamTransports.map((transport, index) => (

@@ -19,6 +19,7 @@ export default function Scope2Report() {
 
   const getEmissionFactor = (country) => emissionFactors[country];
   const [selectedCountry, setSelectedCountry] = useState('');
+  const [displayCountries, setDisplayCountries] = useState('No');
 
   const handleCountryChange = (e) => {
     setSelectedCountry(e.target.value);
@@ -47,20 +48,42 @@ export default function Scope2Report() {
 
                 <div className={reportStyles.headingText}>Purchased Electricity</div>
 
-
-                  <p>Please select the location of your office:</p>
+                  <p>Does your team work in an office with an electricity supply?</p>
                   <select 
-                    value={selectedCountry} 
-                    onChange={handleCountryChange}
+                    value={displayCountries} 
+                    onChange={(e) => setDisplayCountries(e.target.value)}
                     className={reportStyles.inputBoxes}
-                    style={{width:'500px'}}>
-                    <option value="">Location</option>
-                    {Object.keys(emissionFactors).map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
+                    style={{width:'50%'}}>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                   </select>
+
+                  <div style={{display: displayCountries === "Yes" ? "block" : "none", }}>
+                    <p>Please select the location of your office space from the dropdown listed, along with  (if your team are spread internationally, you may add multiple office spaces)</p>
+                    
+                    <div style={{height:'fit-content', background:'#ededed', padding:'10px', marginBottom:'10px', borderRadius:'20px'}}>
+                      <select 
+                        value={selectedCountry} 
+                        onChange={handleCountryChange}
+                        className={reportStyles.inputBoxes}
+                        style={{width:'45%', display:'inline'}}>
+                        <option value="">Location</option>
+                        {Object.keys(emissionFactors).map((country) => (
+                          <option key={country} value={country}>
+                            {country}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                          className={reportStyles.inputBoxes}
+                          style={{width:'45%', display:'inline'}}
+                          type="number"
+                          placeholder="Activity data (kWh)"
+                        />
+                    </div>
+
+
+                  </div>
 
                   <Link href="./scope3Report" 
                   className={reportStyles.reportBtn} 
