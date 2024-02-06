@@ -21,7 +21,7 @@ import Link from 'next/link';
 
 export default function Scope1Report() {
   const user = auth.currentUser;
-  const [teamSize, setTeamSize] = useState(0); // TODO: add firebase fetch code here
+  const [teamSize, setTeamSize] = useState(0);
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
