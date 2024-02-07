@@ -15,7 +15,7 @@ import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 
-// TODO: send to backend
+// TODO: add validation
 
 export default function Scope1Report() {
   const user = auth.currentUser;
@@ -27,9 +27,11 @@ export default function Scope1Report() {
   const [kwh_per_day, set_kwh] = useState(0);
   const [displayGenerators, setDisplayGenerators] = useState('No');
   const carTransportModes = ["Diesel Car", "Petrol Car", "Hybrid Car", "Plug-in Hybrid Car", "Motorcycle"];
-  const [transportEmissions, setTransportEmissions] = useState();
-  const [generatorEmissions, setGeneratorEmissions] = useState();
+  const [transportEmissions, setTransportEmissions] = useState(0);
+  const [generatorEmissions, setGeneratorEmissions] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
+  const [calculationComplete, setCalculationComplete] = useState(false);
+  const [transportBreakdown, setTransportBreakdown] = useState({});
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
@@ -43,38 +45,73 @@ export default function Scope1Report() {
   };
 
   const generatorEmissionFactors = {
-    "Coal": 0.82,
     "Gas": 0.49,
+    "Coal": 0.82,
     "Solar Powered":0.041,
     "Biomass":0.23
   }
 
-  const calculate = async () => {
-    // Calculate team transports
+  const calculate = () => {
+    // calculate total emission factors ( only for cars )
     let teamTotal = 0;
-
-    teamTransports.forEach(transport =>{
+    teamTransports.forEach(transport => {
       if (transport.transportMode && transport.milesTravelled) {
         const emissionFactor = emissionFactors[transport.transportMode];
         teamTotal += emissionFactor * transport.milesTravelled;
       }
     });
-
+    
+    // add to team transport breakdown
+    let breakdownTemp = {};
+    teamTransports.forEach(transport => {
+      if (breakdownTemp[transport.transportMode]){
+        breakdownTemp[transport.transportMode] = breakdownTemp[transport.transportMode] + 1
+      }
+      else{
+        breakdownTemp[transport.transportMode] = 1;
+      }
+    });
+  
     setTransportEmissions(teamTotal);
-
-    // Check to make sure the team has a generator - if not, do not include in report
-    if (displayGenerators==="Yes"){
-      // activity * emission factor = total emissions
-      setGeneratorEmissions(((kwh_per_day * generatorEmissionFactors[powerType]) * (totalHours/24))  );
-      console.log("Generator emissions: ", generatorEmissions)
+    setTransportBreakdown(breakdownTemp);
+  
+    if (displayGenerators === "Yes") {
+      const generatorEmissionsForPeriod = ((kwh_per_day * generatorEmissionFactors[powerType]) * (totalHours/24));
+      setGeneratorEmissions(generatorEmissionsForPeriod);
     }
+  
+    setCalculationComplete(true);
+  };
 
-    const userRef = doc(db, "Users", user.email);
-    const userSnap = await getDoc(userRef);
-    const teamRef = userSnap.data().Team
+  useEffect(() => {
+    const sendToFirestore = async () => {
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      const teamRef = userSnap.data().Team
+      const teamSnap = await getDoc(teamRef);
 
-
-  }
+      if (calculationComplete && teamSnap.exists()) {
+        const reportNumber = String(teamSnap.data().CurrentReport.number);
+        const reportRef = doc(teamRef, "Reports", reportNumber);
+        await updateDoc(reportRef, {
+          GHG: {
+            "Scope 1": {
+              "Transport Emissions": transportEmissions,
+              "Generator Emissions": generatorEmissions,
+              "Transport Breakdown":transportBreakdown
+            }
+          }
+        });
+      }
+  
+      // Reset calculationComplete to false after sending data
+      setCalculationComplete(false);
+    };
+  
+    if (calculationComplete) {
+      sendToFirestore();
+    }
+  }, [calculationComplete, transportEmissions, generatorEmissions]);
 
   const checkTeam = async () => {
     const userRef = doc(db, "Users", user.email);
@@ -223,13 +260,11 @@ export default function Scope1Report() {
                       />
                     </div>
                 </div>
-
               </div>
 
-              <button onClick={calculate}>Calculate</button>
-
               <Link href="./scope2Report" 
-              className={reportStyles.reportBtn} 
+              className={reportStyles.reportBtn}
+              onClick={calculate}
               >
                 Continue to scope 2 &rarr;
               </Link>
