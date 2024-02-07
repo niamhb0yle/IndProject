@@ -7,7 +7,7 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useState } from 'react';
 import { db, auth } from "../firebase";
-import { addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, arrayUnion, collection, doc, updateDoc, setDoc } from 'firebase/firestore';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -32,6 +32,28 @@ export default function SignUpScrum() {
       },
       Members: [user.email]
     });
+
+    // Set up 'Issues' collection for the team
+    const issuesCollectionRef = collection(db, "Teams", docRef.id, "Issues");
+
+    await addDoc(issuesCollectionRef, { 
+      Assignee: user.email,
+      Title: "Complete first Mini GHG report",
+      Description: "Navigate to the GHG report page and familiarise yourself with the concept before completing your first report.",
+      Status: "To do",
+     });
+
+    // Set up 'Reports' collection for the team
+    // Add initial report
+    const reportsCollectionRef = collection(db, "Teams", docRef.id, "Reports");
+    const initialReport = doc(reportsCollectionRef, '1');
+
+    await setDoc(initialReport, {
+      due: dueDate,
+      start: startDate,
+      number: 1,
+    });
+
 
     // setting team id to be used later in form
     setTeamInfo({...teamInfo, id: docRef.id});

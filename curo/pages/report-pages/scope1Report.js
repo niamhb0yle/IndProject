@@ -49,20 +49,18 @@ export default function Scope1Report() {
     "Biomass":0.23
   }
 
-  function calculate() {
+  const calculate = async () => {
     // Calculate team transports
     let teamTotal = 0;
 
     teamTransports.forEach(transport =>{
       if (transport.transportMode && transport.milesTravelled) {
-        // Get the emission factor for the selected transport mode
         const emissionFactor = emissionFactors[transport.transportMode];
-        // Calculate the emissions for this team member and add it to the total
         teamTotal += emissionFactor * transport.milesTravelled;
       }
     });
-    
-    console.log(teamTotal)
+
+    setTransportEmissions(teamTotal);
 
     // Check to make sure the team has a generator - if not, do not include in report
     if (displayGenerators==="Yes"){
@@ -70,6 +68,12 @@ export default function Scope1Report() {
       setGeneratorEmissions(((kwh_per_day * generatorEmissionFactors[powerType]) * (totalHours/24))  );
       console.log("Generator emissions: ", generatorEmissions)
     }
+
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    const teamRef = userSnap.data().Team
+
+
   }
 
   const checkTeam = async () => {
