@@ -15,6 +15,7 @@ import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import Link from 'next/link';
 
+// TODO: send to backend
 
 export default function Scope1Report() {
   const user = auth.currentUser;
@@ -22,11 +23,13 @@ export default function Scope1Report() {
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
-  const [powerType, setPowerType] = useState('');
-  const [kwh_per_day, set_kwh] = useState();
+  const [powerType, setPowerType] = useState('Gas');
+  const [kwh_per_day, set_kwh] = useState(0);
   const [displayGenerators, setDisplayGenerators] = useState('No');
   const carTransportModes = ["Diesel Car", "Petrol Car", "Hybrid Car", "Plug-in Hybrid Car", "Motorcycle"];
-  const powerTypes = ["Coal", "Gas", "Solar Powered", "Biomass"];
+  const [transportEmissions, setTransportEmissions] = useState();
+  const [generatorEmissions, setGeneratorEmissions] = useState();
+  const [totalHours, setTotalHours] = useState(0);
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
@@ -46,6 +49,29 @@ export default function Scope1Report() {
     "Biomass":0.23
   }
 
+  function calculate() {
+    // Calculate team transports
+    let teamTotal = 0;
+
+    teamTransports.forEach(transport =>{
+      if (transport.transportMode && transport.milesTravelled) {
+        // Get the emission factor for the selected transport mode
+        const emissionFactor = emissionFactors[transport.transportMode];
+        // Calculate the emissions for this team member and add it to the total
+        teamTotal += emissionFactor * transport.milesTravelled;
+      }
+    });
+    
+    console.log(teamTotal)
+
+    // Check to make sure the team has a generator - if not, do not include in report
+    if (displayGenerators==="Yes"){
+      // activity * emission factor = total emissions
+      setGeneratorEmissions(((kwh_per_day * generatorEmissionFactors[powerType]) * (totalHours/24))  );
+      console.log("Generator emissions: ", generatorEmissions)
+    }
+  }
+
   const checkTeam = async () => {
     const userRef = doc(db, "Users", user.email);
     const userSnap = await getDoc(userRef);
@@ -63,6 +89,8 @@ export default function Scope1Report() {
       const start = startTimestamp.toDate();
       const due = dueTimestamp.toDate();
       setReportDates({startDate: start.toLocaleDateString(), dueDate: due.toLocaleDateString()})
+      const differenceInMilliseconds = Math.abs(startTimestamp - dueTimestamp);
+      setTotalHours(differenceInMilliseconds / 3600000);
     } else {
       console.log("No such document!");
     }
@@ -80,19 +108,13 @@ export default function Scope1Report() {
     setTeamTransports(newTransports);
 };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // TODO: add calculations
-    console.log('Team Transports:', teamTransports);
-  };
-
   useEffect(() => {
     if (user) {
       checkTeam();
     }
   }, [user]);
   
+
 
   return (
   <div>
@@ -168,15 +190,19 @@ export default function Scope1Report() {
                 </select>
 
                 <div style={{display: displayGenerators === "Yes" ? "block" : "none"}}>
-                    <p>Please select the type of generator your team use, and an estimate for how much electricity is generated per day in kWh:</p>
-                    <div className={reportStyles.dropdownAndInput}>
+                    <p>Please select the type of generator your team use, an estimate for how much electricity is generated per day in kWh, and how many days a week the generator is on:</p>
+                    
+                    <div className={reportStyles.dropdownAndInput} style={{width:'75%'}}>
+                      <div style={{display:'block', padding:'10px'}}>
+                        <p style={{width:'40%', display:'inline-block', margin:'5px', color:'black', fontWeight:'bold'}}>Generator Type:</p>
+                        <p style={{width:'40%', display:'inline-block', margin:'5px', color:'black', fontWeight:'bold'}}>Activity per Day</p>
+                      </div>
                       <select 
                         value={powerType} 
                         onChange={(e) => setPowerType(e.target.value)}
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
                       >
-                        <option value="">Generator type:</option>
                         {Object.keys(generatorEmissionFactors).map((type) => (
                           <option key={type} value={type}>
                             {type}
@@ -195,6 +221,8 @@ export default function Scope1Report() {
                 </div>
 
               </div>
+
+              <button onClick={calculate}>Calculate</button>
 
               <Link href="./scope2Report" 
               className={reportStyles.reportBtn} 

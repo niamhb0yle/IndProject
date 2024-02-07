@@ -100,7 +100,7 @@ export default function Scope2Report() {
               </div>
 
               <div className={reportStyles.headingText}>Purchased Electricity</div>
-
+                <p>Scope 2 covers indirect emissions from purchased electricity. </p>
                 <p>Does your team work in an office with an electricity supply?</p>
                 <select 
                   value={displayCountries} 
@@ -112,7 +112,7 @@ export default function Scope2Report() {
                 </select>
 
                 <div style={{display: displayCountries === "Yes" ? "block" : "none"}}>                
-                <p>Please input the location of your office space, along with its corresponding electricity usage from {reportDates.startDate} to {reportDates.dueDate} in kWh. If your team are spread internationally, you may add multiple office spaces.</p>
+                <p>Please input the location of your office space, along with the electricity used to power the office per day in kWh. If your team are spread internationally, you may add multiple office spaces.</p>
 
                 <div className={reportStyles.dropdownAndInput}>
   
@@ -137,7 +137,7 @@ export default function Scope2Report() {
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
                         type="number"
-                        placeholder="Activity data (kWh)"
+                        placeholder="Electricity usage per day (kWh)"
                       />
                       {offices.length > 1 && (
                         <button onClick={() => handleRemoveOffice(index)} className={reportStyles.removeItem}>
