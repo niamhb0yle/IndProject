@@ -111,40 +111,11 @@ export default function Scope2Report() {
                     <option value="Yes">Yes</option>
                 </select>
 
-                {/*
-                <div style={{display: displayCountries === "Yes" ? "block" : "none", }}>
-                  <p>Please input the location of your office space, along with its corresponding electricity usage from {reportDates.startDate} to {reportDates.dueDate} in kWh (if your team are spread internationally, you may add multiple office spaces)</p>
-                  
-                  <div style={{height:'fit-content', background:'#ededed', padding:'10px', marginBottom:'30px', borderRadius:'20px'}}>
-                    <select 
-                      value={selectedCountry} 
-                      onChange={handleCountryChange}
-                      className={reportStyles.inputBoxes}
-                      style={{width:'40%', display:'inline'}}>
-                      {Object.keys(emissionFactors).map((country) => (
-                        <option key={country} value={country}>
-                          {country}
-                        </option>
-                      ))}
-                    </select>
-                    <input
-                      className={reportStyles.inputBoxes}
-                      style={{width:'40%', display:'inline'}}
-                      type="number"
-                      placeholder="Activity data (kWh)"
-                    />
-                      
-                    <button className={reportStyles.addItem}>&#43;</button>
-
-                  </div>
-
-
-
-                </div>
-                */}
+                <div style={{display: displayCountries === "Yes" ? "block" : "none"}}>                
                 <p>Please input the location of your office space, along with its corresponding electricity usage from {reportDates.startDate} to {reportDates.dueDate} in kWh. If your team are spread internationally, you may add multiple office spaces.</p>
-                <div style={{display: displayCountries === "Yes" ? "block" : "none", height:'fit-content', background:'#ededed', padding:'10px', marginBottom:'30px', borderRadius:'20px'}}>
-                  
+
+                <div className={reportStyles.dropdownAndInput}>
+  
                   {offices.map((office, index) => (
                     <div key={index}>
                       <select 
@@ -178,6 +149,7 @@ export default function Scope2Report() {
                   <button onClick={handleAddOffice} className={reportStyles.addItem}>
                     &#43;
                   </button>
+                  </div>
                 </div>
 
                 <Link href="./scope3Report" 

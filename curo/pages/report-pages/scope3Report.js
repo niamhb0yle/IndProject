@@ -11,6 +11,8 @@ import 'firebase/firestore';
 import '../api/[...all]';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { auth, db } from '../../firebase';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 
 export default function Scope3Report() {
@@ -18,11 +20,12 @@ export default function Scope3Report() {
     const [providerRegions, setProviderRegions] = useState({});
     const [selectedProvider, setSelectedProvider] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
     const [totalHours, setTotalHours] = useState(0);
     const [calculateDisplay, setCalculateDisplay] = useState(false);
     const [totalEmissions, setTotalEmissions] = useState(0);
+    const [displayCloudservices, setDisplayCloudservices] = useState("No");
+    const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
+    const user = auth.currentUser;
 
 
     function tryAPICall() {
@@ -44,7 +47,36 @@ export default function Scope3Report() {
         .catch(error => console.error('Error fetching emissions factors:', error));
     }
 
+    const checkTeam = async () => {
+        const userRef = doc(db, "Users", user.email);
+        const userSnap = await getDoc(userRef);
+        const teamRef = userSnap.data().Team
+        const teamSnap = await getDoc(teamRef);
+        
     
+        if (teamSnap.exists()) {
+          const startTimestamp = teamSnap.data().CurrentReport.start;
+          const dueTimestamp = teamSnap.data().CurrentReport.due;
+          const start = startTimestamp.toDate();
+          const due = dueTimestamp.toDate();
+          const differenceInMilliseconds = Math.abs(startTimestamp - dueTimestamp);
+          setTotalHours(differenceInMilliseconds / 3600000);
+          console.log(Math.abs(startTimestamp - dueTimestamp))
+          setReportDates({startDate: start, dueDate: due})
+        } else {
+          console.log("No such document!");
+        }
+
+        
+        setCalculateDisplay(() => true);
+        
+    };
+    
+    useEffect(() => {
+        if (user) {
+          checkTeam();
+        }
+      }, [user]);
 
     function populateData(){
         console.log(regionalEmissions);
@@ -81,12 +113,6 @@ export default function Scope3Report() {
           }
     }, [regionalEmissions]);
 
-    useEffect(() => {
-        const differenceInMilliseconds = Math.abs(startDate - endDate);
-        setTotalHours(differenceInMilliseconds / 3600000);
-        setCalculateDisplay(() => true);
-    }, [startDate, endDate]);
-
     return (
     <div>
       <Head>
@@ -108,7 +134,19 @@ export default function Scope3Report() {
                         Scope 1 &rarr;  Scope 2  &rarr; <span style={{color:'black'}}> Scope 3</span>
                     </div>
 
-                    <div className={reportStyles.headingText}>Please enter all the details of your cloud computing resource to calculate the carbon emissions</div>
+                    <div className={reportStyles.headingText}>Cloud Computing services</div>
+                    <p>Scope 3 tracks indirect emissions from your value chain. Any outsourced cloud computing services for your software fall under this category. By gaining details of your cloud provider & the location of your services which are running, we can make an estimation of the carbon emitted over the period of your report.</p>
+                    <p>Do you use cloud computing services from the following three providers: AWS, GCP, AZURE ?</p>
+                    <select 
+                    value={displayCloudservices} 
+                    onChange={(e) => setDisplayCloudservices(e.target.value)}
+                    className={reportStyles.inputBoxes}
+                    style={{width:'50%'}}>
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+
+                    <div style={{display: displayCloudservices === "Yes" ? "block" : "none"}}>
                         <p>Select your cloud provider:</p>
                         <select
                             value={selectedProvider}
@@ -144,7 +182,7 @@ export default function Scope3Report() {
                     <br></br>
 
                     <div style={{display: selectedRegion != "" ? "block" : "none"}}>
-                        <p>Select a start/end date:</p>
+                        {/*<p>Select a start/end date:</p>
                         <div style={{width:'50%', padding:'10px', display:'inline'}}>
                             <DatePicker
                                 showIcon
@@ -160,8 +198,9 @@ export default function Scope3Report() {
                             onChange={(date) => setEndDate(date)} 
                             />
                         </div>
+                        */}
 
-                        <div style={{display: calculateDisplay == true ? 'block':'none'}}>
+                        <div style={{display: selectedRegion != '' ? 'block':'none'}}>
                             <button
                                 onClick={calculate}
                                 className={reportStyles.nextButton}>
@@ -170,7 +209,8 @@ export default function Scope3Report() {
                         </div>
                         
                         <div style={{display: totalEmissions == 0 ? 'none':'block'}}>
-                            {totalEmissions} metric ton co2e
+                            <p>{totalEmissions} metric ton co2e</p>
+                        </div>
                         </div>
 
                     </div>

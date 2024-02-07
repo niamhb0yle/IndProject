@@ -16,16 +16,17 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 import Link from 'next/link';
 
 
-
-// TODO: Styling for form, add in heating/utility usage part later
-
 export default function Scope1Report() {
   const user = auth.currentUser;
   const [teamSize, setTeamSize] = useState(0);
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
+  const [powerType, setPowerType] = useState('');
+  const [kwh_per_day, set_kwh] = useState();
+  const [displayGenerators, setDisplayGenerators] = useState('No');
   const carTransportModes = ["Diesel Car", "Petrol Car", "Hybrid Car", "Plug-in Hybrid Car", "Motorcycle"];
+  const powerTypes = ["Coal", "Gas", "Solar Powered", "Biomass"];
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
@@ -37,6 +38,13 @@ export default function Scope1Report() {
     "Public Transport": 0,
     "Bike": 0,
   };
+
+  const generatorEmissionFactors = {
+    "Coal": 0.82,
+    "Gas": 0.49,
+    "Solar Powered":0.041,
+    "Biomass":0.23
+  }
 
   const checkTeam = async () => {
     const userRef = doc(db, "Users", user.email);
@@ -147,7 +155,44 @@ export default function Scope1Report() {
                 </div>
 
               <div>
-                <div className={reportStyles.headingText2}>On site Energy Consumption</div>
+                <div className={reportStyles.headingText2}>On site Generators</div>
+                <p style={{color:'black'}}>Emissions from generators used owned and used directly by your team/company count towards scope 1 emissions.</p>
+                <p style={{color:'black'}}> Does your team own/use a generator?</p>
+                <select 
+                  value={displayGenerators} 
+                  onChange={(e) => setDisplayGenerators(e.target.value)}
+                  className={reportStyles.inputBoxes}
+                  style={{width:'20%', display:'inline'}}>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+
+                <div style={{display: displayGenerators === "Yes" ? "block" : "none"}}>
+                    <p>Please select the type of generator your team use, and an estimate for how much electricity is generated per day in kWh:</p>
+                    <div className={reportStyles.dropdownAndInput}>
+                      <select 
+                        value={powerType} 
+                        onChange={(e) => setPowerType(e.target.value)}
+                        className={reportStyles.inputBoxes}
+                        style={{width: '40%', display: 'inline'}}
+                      >
+                        <option value="">Generator type:</option>
+                        {Object.keys(generatorEmissionFactors).map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                      <input
+                        value={kwh_per_day}
+                        onChange={(e) => set_kwh(e.target.value)}
+                        className={reportStyles.inputBoxes}
+                        style={{width: '40%', display: 'inline'}}
+                        type="number"
+                        placeholder="Activity per day (kWh)"
+                      />
+                    </div>
+                </div>
 
               </div>
 
