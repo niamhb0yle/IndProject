@@ -94,12 +94,10 @@ export default function Scope1Report() {
         const reportNumber = String(teamSnap.data().CurrentReport.number);
         const reportRef = doc(teamRef, "Reports", reportNumber);
         await updateDoc(reportRef, {
-          GHG: {
-            "Scope 1": {
-              "Transport Emissions": transportEmissions,
-              "Generator Emissions": generatorEmissions,
-              "Transport Breakdown":transportBreakdown
-            }
+          "Scope 1": {
+            "Transport Emissions": transportEmissions,
+            "Generator Emissions": generatorEmissions,
+            "Transport Breakdown":transportBreakdown
           }
         });
       }
@@ -263,8 +261,8 @@ export default function Scope1Report() {
               </div>
 
               <Link href="./scope2Report" 
-              className={reportStyles.reportBtn}
-              onClick={calculate}
+                className={reportStyles.reportBtn}
+                onClick={calculate}
               >
                 Continue to scope 2 &rarr;
               </Link>

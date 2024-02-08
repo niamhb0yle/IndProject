@@ -90,14 +90,14 @@ export default function Dashboard() {
         </div>
 
         <div className={styles.dimensionParentFlex}>
-            <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/dashboard1.jpeg'} />
-            <DimensionTeaser dimension={'Economic'} bgUrl={'/images/dashboard6.jpeg'} />
-            <DimensionTeaser dimension={'Individual'} bgUrl={'/images/dashboard3.jpeg'} />
-            <DimensionTeaser dimension={'Environmental'} bgUrl={'/images/dashboard4.jpeg'} />
-            <DimensionTeaser dimension={'Social'} bgUrl={'/images/dashboard5.jpeg'} />
-            <DimensionTeaser dimension={'Technical'} bgUrl={'/images/dashboard7.jpeg'} />
-            <DimensionTeaser dimension={'SCI'} bgUrl={'/images/dashboard8.jpeg'} />
-            <DimensionTeaser dimension={'GHG'} bgUrl={'/images/dashboard1.jpeg'} />
+            <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/fuzzy_blue.jpeg'} />
+            <DimensionTeaser dimension={'Economic'} bgUrl={'/images/fuzzy_green.jpeg'} />
+            <DimensionTeaser dimension={'Individual'} bgUrl={'/images/fuzzy_orange.jpeg'} />
+            <DimensionTeaser dimension={'Environmental'} bgUrl={'/images/fuzzy_pink.jpeg'} />
+            <DimensionTeaser dimension={'Social'} bgUrl={'/images/fuzzy_blue.jpeg'} />
+            <DimensionTeaser dimension={'Technical'} bgUrl={'/images/fuzzy_green.jpeg'} />
+            <DimensionTeaser dimension={'SCI'} bgUrl={'/images/fuzzy_orange.jpeg'} />
+            <DimensionTeaser dimension={'GHG'} bgUrl={'/images/fuzzy_blue.jpeg'} />
         </div>
 
     </div>
