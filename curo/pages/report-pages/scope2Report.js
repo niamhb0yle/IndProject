@@ -16,12 +16,14 @@ import Link from 'next/link';
 import { db, auth } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
+// TODO: input validation - dont add more than number of people in team
 
 export default function Scope2Report() {
 
   const getEmissionFactor = (country) => emissionFactors[country];
   const [selectedCountry, setSelectedCountry] = useState('');
   const [displayCountries, setDisplayCountries] = useState('No');
+  const [inputValid, setInputValid ] = useState(false);
   const user = auth.currentUser;
   const [teamSize, setTeamSize] = useState(0);
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
@@ -77,7 +79,20 @@ export default function Scope2Report() {
     }
   }, [user]);
   
+  // This will update the state which allows the user to progress or not
+  useEffect(() =>{
+    if (displayCountries === "No"){
+      setInputValid(true);
+    } else {
+      setInputValid(true);
 
+      offices.forEach(office => {
+        if (office.activityData === "" || office.country === ""){
+          setInputValid(false);
+        }
+      });
+    }
+  })
 
   return (
   <div>
@@ -133,6 +148,7 @@ export default function Scope2Report() {
                       </select>
                       <input
                         value={office.activityData}
+                        min="0"
                         onChange={(e) => handleOfficeChange(index, 'activityData', e.target.value)}
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
@@ -154,6 +170,10 @@ export default function Scope2Report() {
 
                 <Link href="./scope3Report" 
                 className={reportStyles.reportBtn} 
+                style={{
+                  pointerEvents: inputValid ? 'auto' : 'none',
+                  opacity: inputValid ? '1' : '0.5'
+                }}
                 >
                   Continue to scope 3 &rarr;
                 </Link>
