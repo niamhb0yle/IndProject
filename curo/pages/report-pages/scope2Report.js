@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { db, auth } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
-// TODO: input validation - dont add more than number of people in team
+// TODO: send data to backend
 
 export default function Scope2Report() {
 
@@ -162,9 +162,9 @@ export default function Scope2Report() {
                       )}
                     </div>
                   ))}
-                  <button onClick={handleAddOffice} className={reportStyles.addItem}>
+                  {offices.length < teamSize && (<button onClick={handleAddOffice} className={reportStyles.addItem}>
                     &#43;
-                  </button>
+                  </button>)}
                   </div>
                 </div>
 
