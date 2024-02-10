@@ -28,7 +28,7 @@ export default function Scope2Report() {
   const [teamSize, setTeamSize] = useState(0);
   const [totalEmissions, setTotalEmissions] = useState(0);
   const [calculationComplete, setCalculationComplete] = useState(false);
-  const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
+  const [totalDays, setTotalDays] = useState(0);
 
   const [offices, setOffices] = useState([{ country: '', activityData: '' }]);
 
@@ -65,11 +65,10 @@ export default function Scope2Report() {
     if (teamSnap.exists()) {
       const newTeamSize = (teamSnap.data().Members.length || 0);
       setTeamSize(newTeamSize);      
-      const startTimestamp = teamSnap.data().CurrentReport.start;
-      const dueTimestamp = teamSnap.data().CurrentReport.due;
-      const start = startTimestamp.toDate();
-      const due = dueTimestamp.toDate();
-      setReportDates({startDate: start.toLocaleDateString(), dueDate: due.toLocaleDateString()})
+      const start = teamSnap.data().CurrentReport.start.toDate();
+      const due = teamSnap.data().CurrentReport.due.toDate();
+      const total = (due - start ) / (1000 * 60 * 60 * 24); // convert time from ms to days
+      setTotalDays(total);
     } else {
       console.log("No such document!");
     }
@@ -77,7 +76,7 @@ export default function Scope2Report() {
 
   const calculate = () => {
     offices.forEach(office => {
-      setTotalEmissions(totalEmissions + (emissionFactors[office.country] * office.activityData))
+      setTotalEmissions(totalEmissions + (emissionFactors[office.country] * office.activityData * totalDays))
     })
     setCalculationComplete(true);
     console.log("This happens")
