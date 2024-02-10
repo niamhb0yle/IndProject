@@ -26,6 +26,8 @@ export default function Scope2Report() {
   const [inputValid, setInputValid ] = useState(false);
   const user = auth.currentUser;
   const [teamSize, setTeamSize] = useState(0);
+  const [totalEmissions, setTotalEmissions] = useState(0);
+  const [calculationComplete, setCalculationComplete] = useState(false);
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
 
   const [offices, setOffices] = useState([{ country: '', activityData: '' }]);
@@ -72,6 +74,48 @@ export default function Scope2Report() {
       console.log("No such document!");
     }
   };
+
+  const calculate = () => {
+    offices.forEach(office => {
+      setTotalEmissions(totalEmissions + (emissionFactors[office.country] * office.activityData))
+    })
+    setCalculationComplete(true);
+    console.log("This happens")
+  }
+
+  useEffect(() => {
+    const sendToFirestore = async () => {
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      const teamRef = userSnap.data().Team
+      const teamSnap = await getDoc(teamRef);
+
+      if (calculationComplete && teamSnap.exists()) {
+
+        const officeBreakdown = offices.reduce((acc, office) => {
+          acc[office.country] = (acc[office.country] || 0) + 1;
+          return acc;
+        }, {});
+        
+        console.log('this is happening', totalEmissions, officeBreakdown)
+
+        const reportNumber = String(teamSnap.data().CurrentReport.number);
+        const reportRef = doc(teamRef, "Reports", reportNumber);
+        await updateDoc(reportRef, {
+          "Scope 2": {
+            "Office Emissions" : totalEmissions,
+            "Office Breakdown": officeBreakdown
+          }
+        });
+      }
+      // Reset calculationComplete to false after sending data
+      setCalculationComplete(false);
+    };
+  
+    if (calculationComplete) {
+      sendToFirestore();
+    }
+  }, [calculationComplete, totalEmissions, offices]);
 
   useEffect(() => {
     if (user) {
@@ -148,7 +192,7 @@ export default function Scope2Report() {
                       </select>
                       <input
                         value={office.activityData}
-                        min="0"
+                        min="1"
                         onChange={(e) => handleOfficeChange(index, 'activityData', e.target.value)}
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
@@ -169,13 +213,14 @@ export default function Scope2Report() {
                 </div>
 
                 <Link href="./scope3Report" 
-                className={reportStyles.reportBtn} 
-                style={{
-                  pointerEvents: inputValid ? 'auto' : 'none',
-                  opacity: inputValid ? '1' : '0.5'
-                }}
-                >
-                  Continue to scope 3 &rarr;
+                  className={reportStyles.reportBtn} 
+                  onClick={calculate}
+                  style={{
+                    pointerEvents: inputValid ? 'auto' : 'none',
+                    opacity: inputValid ? '1' : '0.5'
+                  }}
+                  >
+                    Continue to scope 3 &rarr;
                 </Link>
 
               </div>

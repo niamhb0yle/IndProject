@@ -45,7 +45,6 @@ export default function Scope3Report() {
             setRegionalEmissions(data);
         })
         .catch(error => console.error('Error fetching emissions factors:', error));
-        console.log("This happens");
     }
 
     useEffect(() => {
@@ -198,8 +197,7 @@ export default function Scope3Report() {
                         <input
                           value={cloudUsage}
                           onChange={(e) => setCloudUsage(e.target.value)}
-                          min="0"
-                          onKeyPress={preventMinus}
+                          min="1"
                           className={reportStyles.inputBoxes}
                           style={{width: '50%', display: 'inline'}}
                           type="number"

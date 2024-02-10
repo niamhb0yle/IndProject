@@ -204,6 +204,7 @@ export default function Scope1Report() {
                           className={reportStyles.inputBoxes}
                           style={{width:'200px'}}
                           type="number"
+                          min="1"
                           value={transport.milesTravelled}
                           onChange={(e) => handleMilesChange(index, e)}
                           placeholder="Miles"
@@ -250,6 +251,7 @@ export default function Scope1Report() {
                       </select>
                       <input
                         value={kwh_per_day}
+                        min="1"
                         onChange={(e) => set_kwh(e.target.value)}
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
