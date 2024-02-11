@@ -79,7 +79,6 @@ export default function Scope2Report() {
       setTotalEmissions(totalEmissions + (emissionFactors[office.country] * office.activityData * totalDays))
     })
     setCalculationComplete(true);
-    console.log("This happens")
   }
 
   useEffect(() => {

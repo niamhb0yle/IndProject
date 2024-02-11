@@ -23,8 +23,8 @@ export default function Scope1Report() {
   const [reportDates, setReportDates] = useState({startDate:'', dueDate:''});
   const initialTeamTransports = Array.from({ length: teamSize }, () => ({ transportMode: "", milesTravelled:0 }));
   const [teamTransports, setTeamTransports] = useState(initialTeamTransports);
-  const [powerType, setPowerType] = useState('Gas');
-  const [kwh_per_day, set_kwh] = useState(0);
+  const [powerType, setPowerType] = useState('');
+  const [kwh_per_day, set_kwh] = useState('');
   const [displayGenerators, setDisplayGenerators] = useState('No');
   const carTransportModes = ["Diesel Car", "Petrol Car", "Hybrid Car", "Plug-in Hybrid Car", "Motorcycle"];
   const [transportEmissions, setTransportEmissions] = useState(0);
@@ -32,6 +32,9 @@ export default function Scope1Report() {
   const [totalHours, setTotalHours] = useState(0);
   const [calculationComplete, setCalculationComplete] = useState(false);
   const [transportBreakdown, setTransportBreakdown] = useState({});
+  const [inputValid, setInputValid] = useState(false)
+
+  console.log(teamTransports);
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
@@ -97,7 +100,7 @@ export default function Scope1Report() {
           "Scope 1": {
             "Transport Emissions": transportEmissions,
             "Generator Emissions": generatorEmissions,
-            "Transport Breakdown":transportBreakdown
+            "Transport Breakdown": transportBreakdown
           }
         });
       }
@@ -121,7 +124,7 @@ export default function Scope1Report() {
     if (teamSnap.exists()) {
       const newTeamSize = (teamSnap.data().Members.length || 0);
       setTeamSize(newTeamSize);
-      setTeamTransports(Array.from({ length: newTeamSize }, () => ({ transportMode: "" })));
+      setTeamTransports(Array.from({ length: newTeamSize }, () => ({ transportMode: "", milesTravelled:'' })));
       
       const startTimestamp = teamSnap.data().CurrentReport.start;
       const dueTimestamp = teamSnap.data().CurrentReport.due;
@@ -153,7 +156,31 @@ export default function Scope1Report() {
     }
   }, [user]);
   
+  // This will update the state which allows the user to progress or not
+  //    all miles must be non-empty
+  //    all transports must be selected
+  //    if generator has been selected:
+  //      type must be selected
+  //      activity data must be non-empty
 
+  useEffect(() =>{
+      setInputValid(true);
+
+      if (displayGenerators){
+        if (powerType === "" || kwh_per_day === ""){
+          setInputValid(false);
+        }
+      }
+
+      teamTransports.forEach(member => {
+        if (member.transportMode === ""){
+          setInputValid(false);
+        }
+        else if (carTransportModes.includes(member.transportMode) && member.milesTravelled === ""){
+          setInputValid(false);
+        }
+      });
+  })
 
   return (
   <div>
@@ -243,6 +270,7 @@ export default function Scope1Report() {
                         className={reportStyles.inputBoxes}
                         style={{width: '40%', display: 'inline'}}
                       >
+                        <option value=''>Select type</option>
                         {Object.keys(generatorEmissionFactors).map((type) => (
                           <option key={type} value={type}>
                             {type}
@@ -265,6 +293,10 @@ export default function Scope1Report() {
               <Link href="./scope2Report" 
                 className={reportStyles.reportBtn}
                 onClick={calculate}
+                style={{
+                  pointerEvents: inputValid ? 'auto' : 'none',
+                  opacity: inputValid ? '1' : '0.5'
+                }}
               >
                 Continue to scope 2 &rarr;
               </Link>
