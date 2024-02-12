@@ -88,24 +88,36 @@ export default function Scope2Report() {
       const teamRef = userSnap.data().Team
       const teamSnap = await getDoc(teamRef);
 
-      if (calculationComplete && teamSnap.exists() && displayCountries) {
+      const reportNumber = String(teamSnap.data().CurrentReport.number);
+      const reportRef = doc(db, "Teams", teamSnap.id, "Reports", reportNumber);
 
-        const officeBreakdown = offices.reduce((acc, office) => {
-          acc[office.country] = (acc[office.country] || 0) + 1;
-          return acc;
-        }, {});
-        
-        console.log('this is happening', totalEmissions, officeBreakdown)
-
-        const reportNumber = String(teamSnap.data().CurrentReport.number);
-        const reportRef = doc(teamRef, "Reports", reportNumber);
+      if (calculationComplete && teamSnap.exists() && displayCountries === "Yes") {
+        // Filter out any offices that don't have both a country and activity data specified
+        const validOffices = offices.filter(office => office.country && office.activityData);
+  
+        // Proceed only if there's at least one valid office entry
+        if (validOffices.length > 0) {
+          let officeBreakdown = validOffices.reduce((acc, office) => {
+            // If the country is valid and not empty, add or increment the entry in the accumulator
+            if (office.country) {
+              acc[office.country] = (acc[office.country] || 0) + parseFloat(office.activityData);
+            }
+            return acc;
+          }, {});
+          
+          await updateDoc(reportRef, {
+            "Scope 2": {
+              "Office Emissions": totalEmissions,
+              "Office Breakdown": officeBreakdown
+            }
+          });
+        }
+      } else {
         await updateDoc(reportRef, {
           "Scope 2": {
-            "Office Emissions" : totalEmissions,
-            "Office Breakdown": officeBreakdown
+            "Office Emissions": 0,
           }
         });
-        
       }
       // Reset calculationComplete to false after sending data
       setCalculationComplete(false);
