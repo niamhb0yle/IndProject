@@ -34,8 +34,6 @@ export default function Scope1Report() {
   const [transportBreakdown, setTransportBreakdown] = useState({});
   const [inputValid, setInputValid] = useState(false)
 
-  console.log(teamTransports);
-
   const emissionFactors = {
     "Diesel Car": 0.27492,
     "Petrol Car": 0.27436,
@@ -164,23 +162,26 @@ export default function Scope1Report() {
   //      activity data must be non-empty
 
   useEffect(() =>{
-      setInputValid(true);
+    let isValid = true;
 
-      if (displayGenerators){
-        if (powerType === "" || kwh_per_day === ""){
-          setInputValid(false);
-        }
+    teamTransports.forEach(member => {
+      if (member.transportMode === ""){
+        isValid = false;
       }
+      else if (carTransportModes.includes(member.transportMode) && member.milesTravelled === ""){
+        isValid = false;
+      }
+    });
 
-      teamTransports.forEach(member => {
-        if (member.transportMode === ""){
-          setInputValid(false);
-        }
-        else if (carTransportModes.includes(member.transportMode) && member.milesTravelled === ""){
-          setInputValid(false);
-        }
-      });
-  })
+    if (displayGenerators === "Yes"){ // Corrected to match the string value
+      if (powerType === "" || kwh_per_day === ""){
+        isValid = false;
+      }
+    }
+
+    setInputValid(isValid); 
+}, [displayGenerators, teamTransports, powerType, kwh_per_day]); // Updated dependency list
+
 
   return (
   <div>

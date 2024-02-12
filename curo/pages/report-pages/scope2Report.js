@@ -88,7 +88,7 @@ export default function Scope2Report() {
       const teamRef = userSnap.data().Team
       const teamSnap = await getDoc(teamRef);
 
-      if (calculationComplete && teamSnap.exists()) {
+      if (calculationComplete && teamSnap.exists() && displayCountries) {
 
         const officeBreakdown = offices.reduce((acc, office) => {
           acc[office.country] = (acc[office.country] || 0) + 1;
@@ -105,6 +105,7 @@ export default function Scope2Report() {
             "Office Breakdown": officeBreakdown
           }
         });
+        
       }
       // Reset calculationComplete to false after sending data
       setCalculationComplete(false);

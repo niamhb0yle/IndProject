@@ -25,6 +25,7 @@ export default function Scope3Report() {
     const [totalEmissions, setTotalEmissions] = useState(0);
     const [displayCloudservices, setDisplayCloudservices] = useState("No");
     const [calculationComplete, setCalculationComplete] = useState(false);
+    const [inputValid, setInputValid] = useState(false);
     const user = auth.currentUser;
 
 
@@ -123,6 +124,14 @@ export default function Scope3Report() {
           }
     }, [regionalEmissions]);
 
+    useEffect(() =>{
+      setInputValid(false);
+
+      if (selectedProvider != '' && selectedRegion != '' && cloudUsage !=''){
+        setInputValid(true);
+      }
+  })
+
     return (
     <div>
       <Head>
@@ -205,18 +214,17 @@ export default function Scope3Report() {
                         />
                     </div>
                     <br></br>
-                    
 
-                    <div style={{display: cloudUsage != 0 ? "block" : "none"}}>
-
-                      <Link href='../dimension-pages/GHG' 
-                        className={reportStyles.reportBtn}
-                        onClick={calculate}
-                      >
-                        Complete report &rarr;
-                      </Link>
-                        
-                    </div>
+                    <Link href='../dimension-pages/GHG' 
+                      className={reportStyles.reportBtn}
+                      onClick={calculate}
+                      style={{
+                        pointerEvents: inputValid ? 'auto' : 'none',
+                        opacity: inputValid ? '1' : '0.5'
+                      }}
+                    >
+                      Complete report &rarr;
+                    </Link>
 
                   </div>
                 </div>
