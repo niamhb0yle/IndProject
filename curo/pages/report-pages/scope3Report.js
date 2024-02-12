@@ -54,15 +54,21 @@ export default function Scope3Report() {
         const userSnap = await getDoc(userRef);
         const teamRef = userSnap.data().Team
         const teamSnap = await getDoc(teamRef);
+        const reportNumber = String(teamSnap.data().CurrentReport.number);
+        const reportRef = doc(teamRef, "Reports", reportNumber);
   
-        if (calculationComplete && teamSnap.exists()) {
-          const reportNumber = String(teamSnap.data().CurrentReport.number);
-          const reportRef = doc(teamRef, "Reports", reportNumber);
+        if (calculationComplete && teamSnap.exists() && displayCloudservices==="Yes") {
           await updateDoc(reportRef, {
             "Scope 3": {
               "Cloud provider": selectedProvider,
               "Region": selectedRegion,
               "Cloud emissions":totalEmissions
+            }
+          });
+        } else {
+          await updateDoc(reportRef, {
+            "Scope 3": {
+              "Cloud emissions":0
             }
           });
         }
@@ -88,7 +94,6 @@ export default function Scope3Report() {
     };
 
     function populateData(){
-        console.log(regionalEmissions);
         const tempProviderRegions = {};
 
         // loop through each entry in regionalEmissions
@@ -124,10 +129,13 @@ export default function Scope3Report() {
           }
     }, [regionalEmissions]);
 
+    // Input validation
     useEffect(() =>{
       setInputValid(false);
 
       if (selectedProvider != '' && selectedRegion != '' && cloudUsage !=''){
+        setInputValid(true);
+      } else if (displayCloudservices === "No"){
         setInputValid(true);
       }
   })
@@ -215,7 +223,8 @@ export default function Scope3Report() {
                     </div>
                     <br></br>
 
-                    <Link href='../dimension-pages/GHG' 
+                  </div>
+                  <Link href='../dimension-pages/GHG' 
                       className={reportStyles.reportBtn}
                       onClick={calculate}
                       style={{
@@ -225,9 +234,8 @@ export default function Scope3Report() {
                     >
                       Complete report &rarr;
                     </Link>
-
-                  </div>
                 </div>
+                
             </div>
 
           </div>
