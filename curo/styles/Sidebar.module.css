@@ -1,19 +1,20 @@
 .sidebarContainer {
   background:#18392B;
-  width:190px;
+  width:fit-content;
   margin:0;
   padding-top: 50px;
   display: flex;
   flex-direction: column;
   position:sticky;
   padding-left: 30px;
+  padding-right:1vw;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #sidebarLogo{
   color: #E8F1FF;
   font-family: Montserrat;
-  font-size: 75px;
+  font-size: 4vw;
   font-style:normal;
   font-weight: 900;
   line-height: normal;
@@ -23,7 +24,7 @@
 #sidebarNavElements {
   color: #E8F1FF;
   font-family: Manrope;
-  font-size: 18px;
+  font-size: calc(12px + 0.5vw);
   font-style: normal;
   font-weight: 600;
   letter-spacing: 1.3px;
