@@ -161,7 +161,7 @@ export default function Scope2Report() {
         <SideBar/>
 
         <div className={styles.dashboard}> 
-          <Header title=""/>
+          <div style={{height:'5vh'}}></div>
           
           <div className={styles.dashboardContent}>
               <div className={reportStyles.reportContainer}>

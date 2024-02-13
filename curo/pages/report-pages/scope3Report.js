@@ -152,7 +152,7 @@ export default function Scope3Report() {
           <SideBar/>
 
           <div className={styles.dashboard}> 
-            <Header title=""/>
+          <div style={{height:'5vh'}}></div>
             
             <div className={styles.dashboardContent}>
                 <div className={reportStyles.reportContainer}>

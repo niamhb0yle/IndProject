@@ -1,6 +1,7 @@
 .infoContent {
     padding-left:3vw;
     padding-right: 6vw;
+    padding-bottom: 4vw;;
 }
 
 .infoContent h1 {
@@ -66,9 +67,14 @@
 }
 
 .nav {
-    padding-left: 3vw;
+    margin-left: 2vw;
+    padding-left: 1vw;
     padding-top: 0.8vw;
     padding-bottom: 0.8vw;
+    width:fit-content;
+    border-radius: 40px;
+    background: #ededed;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .navElts {
@@ -84,7 +90,22 @@
     border-radius: 30px;
     padding:0.5vh;
     letter-spacing: 0.8px;
-    /*box-shadow: 25px 25px 50px 0 white inset, -25px -25px 50px 0 white inset;*/
+    display:inline;
+}
+
+.navEltsBar {
+    font-family:'Manrope';
+    font-weight:bold;
+    font-size:calc(22px + 0.8vw);
+    border:none;
+    background:none;
+    margin-right:1vw;
+    text-decoration: none;
+    color:black;
+    border-radius: 30px;
+    padding:0.5vh;
+    display:inline;
+    cursor: default;
 }
 
 .navElts:hover {

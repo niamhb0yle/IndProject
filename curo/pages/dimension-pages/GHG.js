@@ -16,8 +16,6 @@ import GHGStats from '../../components/ghgStats';
 export default function GHG() {
   const [ghgView, setGhgView] = useState('Overview');
 
-  console.log(ghgView);
-
   return (
     <div>
       <Head>
@@ -33,8 +31,10 @@ export default function GHG() {
             <Header title="GHG Protocol"/>
 
             <div className={infoStyles.nav}>
-              <button className={infoStyles.navElts} style={{background: ghgView === "Overview" ? "#d1d7d5" : "none"}} onClick={() => setGhgView("Overview")}>Overview</button>
-              <button className={infoStyles.navElts} style={{background: ghgView === "Stats" ? "#d1d7d5" : "none"}} onClick={() => setGhgView("Stats")}>Team Stats</button>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("Overview")}>Overview</button>
+              <p className={infoStyles.navEltsBar}>|</p>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("Stats")}>Team Stats</button>
+              <p className={infoStyles.navEltsBar}>|</p>
               <Link href='../report-pages/scope1Report' className={infoStyles.navElts}>Start Report &rarr;</Link>  
             </div>
 

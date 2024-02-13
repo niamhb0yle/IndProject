@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import dashboardStyles from '../../styles/Dashboard.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -24,8 +25,7 @@ export default function Homepage() {
         <div className={styles.mainContainer}>
           <SideBar/>
 
-          <div className={styles.dashboard}>
-            <Header title="Dashboard"/>
+          <div className={dashboardStyles.dashboard}>
             <Dashboard/>
             
           </div>
