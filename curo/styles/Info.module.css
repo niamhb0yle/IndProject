@@ -5,10 +5,10 @@
 
 .infoContent h1 {
     font-family: 'Manrope';
-    color: #444444;
-    font-size: 1.5vw;
+    color: black;
+    font-size: calc(20px + 0.1vw);
     font-style: normal;
-    font-weight: bold;
+    font-weight:600;
     line-height: normal;
     letter-spacing: 0.3px;
 }
@@ -16,7 +16,7 @@
 .infoContent p {
     font-family: 'Manrope';
     color: #444444;
-    font-size: 0.8vw;
+    font-size: calc(16px + 0.1vw);
     font-style: normal;
     font-weight: 50;
     line-height: normal;
@@ -25,10 +25,20 @@
 .infoContent li {
     font-family: 'Manrope';
     color: #444444;
-    font-size: 0.8vw;
-    font-style: normal;
+    font-size: calc(16px + 0.1vw);
     font-weight: 50;
-    line-height: normal;
+    margin:1vh;
+}
+
+.infoContent li b {
+    font-family: 'Manrope';
+    color: #18392B;
+    font-size: calc(16px + 0.1vw);
+    margin:1vh;
+}
+
+.infoContent ul {
+    padding-left: 2vw;
 }
 
 .scopeBox{
@@ -42,7 +52,7 @@
 
 .scopeBox h1 {
     font-family: 'Manrope';
-    font-size: 1.5vw;
+    font-size: calc(22px + 0.1vw);
     font-weight: bold;
     letter-spacing: 0.5px;
     text-align: center;
@@ -50,7 +60,33 @@
 
 .scopeBox p {
     font-family: 'Manrope';
-    font-size: 0.8vw;
+    font-size: calc(16px + 0.1vw);
     font-weight:lighter;
     text-align: left;
+}
+
+.nav {
+    padding-left: 3vw;
+    padding-top: 0.8vw;
+    padding-bottom: 0.8vw;
+}
+
+.navElts {
+    font-family:'Manrope';
+    font-weight:bold;
+    font-size:calc(22px + 0.8vw);
+    border:none;
+    background:none;
+    margin-right:1vw;
+    cursor: pointer;
+    text-decoration: none;
+    color:black;
+    border-radius: 30px;
+    padding:0.5vh;
+    letter-spacing: 0.8px;
+    /*box-shadow: 25px 25px 50px 0 white inset, -25px -25px 50px 0 white inset;*/
+}
+
+.navElts:hover {
+    color:#3b7a5f;
 }
