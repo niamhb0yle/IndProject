@@ -95,10 +95,10 @@ export default function Scope1Report() {
         const reportNumber = String(teamSnap.data().CurrentReport.number);
         const reportRef = doc(teamRef, "Reports", reportNumber);
         await updateDoc(reportRef, {
-          "Scope 1": {
-            "Transport Emissions": transportEmissions,
-            "Generator Emissions": generatorEmissions,
-            "Transport Breakdown": transportBreakdown
+          "Scope1": {
+            "TransportEmissions": transportEmissions,
+            "GeneratorEmissions": generatorEmissions,
+            "TransportBreakdown": transportBreakdown
           }
         });
       }

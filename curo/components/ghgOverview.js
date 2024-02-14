@@ -13,7 +13,7 @@ export default function GHGOverview() {
     <div className={infoStyles.infoContent}>
         
         <div style={{display:'flex', flex:1, flexDirection:'row'}}>
-        <div style={{flex:0.5}}>
+        <div style={{flex:0.5, marginRight:'1vw'}}>
             <h1>What is GHG Reporting?</h1>
             <p>Greenhouse Gas (GHG) reporting involves the quantification of emissions released by an entity, which are contributing to global warming. This reporting is crucial for understanding environmental impacts and is the first step towards implementing strategies for reducing carbon footprints.</p>
         </div>
@@ -27,21 +27,20 @@ export default function GHGOverview() {
         <p>GHG emissions are categorized into three scopes by the Greenhouse Gas Protocol, a global standardized framework for measuring and managing emissions. Each scope represents different sources of emissions, helping organizations to identify where they can most effectively reduce their greenhouse gas output.</p>
         
         <div style={{display:'flex', flex:1, flexDirection:'row', flexWrap:'wrap', alignContent:'flex-start'}}>
-        <div className={infoStyles.scopeBox}>
+        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 1</h1>
-            <p>Direct Emissions</p>
-            <p>Definition: Emissions from sources that are directly owned or controlled by the entity.</p>
-            <p>Examples: Emissions from combustion in owned or controlled boilers, furnaces, vehicles; emissions from chemical production in owned or controlled process equipment.</p>
+            <p>This scope covers Direct Emissions from the reporting entity.</p>
+            <p></p>
+            <p>Emissions from combustion in owned or controlled boilers, furnaces, vehicles; emissions from chemical production in owned or controlled process equipment.</p>
         </div>
         
-        <div className={infoStyles.scopeBox}>
+        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 2</h1>
-            <p>Indirect Emissions from Purchased Electricity</p>
-            <p>Definition: Emissions from the generation of purchased electricity consumed by the entity.</p>
-            <p>Examples: Emissions stemming from electricity used to power computers, lights, and machinery in a facility that the reporting entity does not own or control.</p>
+            <p>This scope covers Indirect Emissions from Purchased Electricity purchased by the entity</p>
+            <p>These emissions typically stem from electricity used to power computers, lights, and machinery in a facility that the reporting team does not own or control.</p>
         </div>
         
-        <div className={infoStyles.scopeBox}>
+        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 3</h1>
             <p>Other Indirect Emissions</p>
             <p>Definition: Emissions that are a consequence of the activities of the entity but occur from sources not owned or controlled by the entity.</p>

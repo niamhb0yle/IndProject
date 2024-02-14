@@ -1,13 +1,20 @@
 .infoContent {
-    padding-left:3vw;
-    padding-right: 6vw;
-    padding-bottom: 4vw;;
+    margin-left:2vw;
+    margin-right: 8vw;
+    margin-bottom: 4vw;
+    background:#fcfcff;
+    border-radius: 30px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 0.6vw;
+    padding-bottom: 0.6vw;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
 }
 
 .infoContent h1 {
     font-family: 'Manrope';
-    color: black;
-    font-size: calc(20px + 0.1vw);
+    color: #4325a9;
+    font-size: calc(20px + 0.2vw);
     font-style: normal;
     font-weight:600;
     line-height: normal;
@@ -16,8 +23,8 @@
 
 .infoContent p {
     font-family: 'Manrope';
-    color: #444444;
-    font-size: calc(16px + 0.1vw);
+    color: black;
+    font-size: calc(14px + 0.2vw);
     font-style: normal;
     font-weight: 50;
     line-height: normal;
@@ -25,7 +32,7 @@
 
 .infoContent li {
     font-family: 'Manrope';
-    color: #444444;
+    color: black;
     font-size: calc(16px + 0.1vw);
     font-weight: 50;
     margin:1vh;
@@ -33,7 +40,7 @@
 
 .infoContent li b {
     font-family: 'Manrope';
-    color: #18392B;
+    color: #4325a9;
     font-size: calc(16px + 0.1vw);
     margin:1vh;
 }
@@ -42,45 +49,22 @@
     padding-left: 2vw;
 }
 
-.scopeBox{
-    background-color: #ededed;
-    font-family: 'Manrope';
-    flex:0.33;
-    padding:10px;
-    margin:10px;
-    border-radius: 30px;
-}
-
-.scopeBox h1 {
-    font-family: 'Manrope';
-    font-size: calc(22px + 0.1vw);
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    text-align: center;
-}
-
-.scopeBox p {
-    font-family: 'Manrope';
-    font-size: calc(16px + 0.1vw);
-    font-weight:lighter;
-    text-align: left;
-}
-
 .nav {
     margin-left: 2vw;
     padding-left: 1vw;
-    padding-top: 0.8vw;
-    padding-bottom: 0.8vw;
+    padding-top: 0.6vw;
+    padding-bottom: 0.6vw;
+    margin-bottom: 1vh;;
     width:fit-content;
     border-radius: 40px;
-    background: #ededed;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    background: #fcfcff;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
 }
 
 .navElts {
     font-family:'Manrope';
     font-weight:bold;
-    font-size:calc(22px + 0.8vw);
+    font-size:calc(20px + 0.3vw);
     border:none;
     background:none;
     margin-right:1vw;
@@ -109,5 +93,41 @@
 }
 
 .navElts:hover {
-    color:#3b7a5f;
+    color:#354cfc;
+}
+
+.scopeBox{
+    font-family: 'Manrope';
+    flex:0.33;
+    padding:calc(10px + 0.2vw);
+    margin:calc(10px + 0.2vw);
+    border-radius: 30px;
+    box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.2);
+}
+
+.scopeBox h1 {
+    font-family: 'Manrope';
+    font-size: calc(22px + 0.3vw);
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0.5px;
+    text-align: center;
+    text-shadow: 2px 2px 40px #1f124b;
+}
+
+.scopeBox p {
+    font-family: 'Manrope';
+    color: #F1F1FD;
+    font-size: calc(14px + 0.2vw);
+    font-weight:lighter;
+    text-align: left;
+}
+
+.statsView{
+    flex:0.5;
+    background: #F1F1FD;
+    padding:calc(10px + 0.2vw);
+    margin:calc(15px + 0.2vw);
+    border-radius: 30px;
+    box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.2);
 }

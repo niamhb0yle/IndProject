@@ -106,16 +106,16 @@ export default function Scope2Report() {
           }, {});
           
           await updateDoc(reportRef, {
-            "Scope 2": {
-              "Office Emissions": totalEmissions,
-              "Office Breakdown": officeBreakdown
+            "Scope2": {
+              "OfficeEmissions": totalEmissions,
+              "OfficeBreakdown": officeBreakdown
             }
           });
         }
       } else {
         await updateDoc(reportRef, {
-          "Scope 2": {
-            "Office Emissions": 0,
+          "Scope2": {
+            "OfficeEmissions": 0,
           }
         });
       }

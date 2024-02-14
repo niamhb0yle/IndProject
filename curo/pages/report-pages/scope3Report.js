@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import 'firebase/firestore';
 import '../api/[...all]';
 import DatePicker from "react-datepicker";
+import cloudEmissions from './cloudEmissions.json';
 import "react-datepicker/dist/react-datepicker.css";
 import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
@@ -17,7 +18,7 @@ import Link from 'next/link';
 
 
 export default function Scope3Report() {
-    const [regionalEmissions, setRegionalEmissions] = useState([]);
+    const [regionalEmissions, setRegionalEmissions] = useState(cloudEmissions);
     const [providerRegions, setProviderRegions] = useState({});
     const [selectedProvider, setSelectedProvider] = useState('');
     const [selectedRegion, setSelectedRegion] = useState('');
@@ -27,7 +28,6 @@ export default function Scope3Report() {
     const [calculationComplete, setCalculationComplete] = useState(false);
     const [inputValid, setInputValid] = useState(false);
     const user = auth.currentUser;
-
 
     function tryAPICall() {
         fetch('/api/regions/emissions-factors', {
@@ -59,16 +59,16 @@ export default function Scope3Report() {
   
         if (calculationComplete && teamSnap.exists() && displayCloudservices==="Yes") {
           await updateDoc(reportRef, {
-            "Scope 3": {
-              "Cloud provider": selectedProvider,
+            "Scope3": {
+              "CloudProvider": selectedProvider,
               "Region": selectedRegion,
-              "Cloud emissions":totalEmissions
+              "CloudEmissions":totalEmissions
             }
           });
         } else {
           await updateDoc(reportRef, {
-            "Scope 3": {
-              "Cloud emissions":0
+            "Scope3": {
+              "CloudEmissions":0
             }
           });
         }
