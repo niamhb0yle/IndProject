@@ -137,20 +137,26 @@ export default function Dashboard() {
             </div>
 
             <div className={styles.membersInfo}>
-                
+                <h1>Members</h1>
+                <p><b>Team Lead: </b></p>
+                <p style={{paddingLeft:'0.8vw'}}>{dashboardInfo.Lead}</p>
+                <p><b>Developers: </b></p>
+                {dashboardInfo.Members.map((member) => (
+                    <p style={{paddingLeft:'0.8vw'}}>{member}</p>
+                ))}
             </div>
             </div>
 
 
             <div className={styles.dimensionParentFlex}>
-                <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/fuzzy_blue.jpeg'} />
-                <DimensionTeaser dimension={'Economic'} bgUrl={'/images/fuzzy_green.jpeg'} />
-                <DimensionTeaser dimension={'Individual'} bgUrl={'/images/fuzzy_orange.jpeg'} />
-                <DimensionTeaser dimension={'Environmental'} bgUrl={'/images/fuzzy_pink.jpeg'} />
-                <DimensionTeaser dimension={'Social'} bgUrl={'/images/fuzzy_blue.jpeg'} />
-                <DimensionTeaser dimension={'Technical'} bgUrl={'/images/fuzzy_green.jpeg'} />
-                <DimensionTeaser dimension={'SCI'} bgUrl={'/images/fuzzy_orange.jpeg'} />
-                <DimensionTeaser dimension={'GHG'} bgUrl={'/images/fuzzy_blue.jpeg'} />
+                <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#aeb7fe'}/>
+                <DimensionTeaser dimension={'Economic'} bgUrl={'/images/fuzzy_green.jpeg'} bgColor={'#7282fd'} />
+                <DimensionTeaser dimension={'Individual'} bgUrl={'/images/fuzzy_orange.jpeg'} bgColor={'#d8beeb'}/>
+                <DimensionTeaser dimension={'Environmental'} bgUrl={'/images/fuzzy_pink.jpeg'} bgColor={'#ba8edd'}/>
+                <DimensionTeaser dimension={'Social'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#835ffe'}/>
+                <DimensionTeaser dimension={'Technical'} bgUrl={'/images/fuzzy_green.jpeg'} bgColor={'#aeb7fe'}/>
+                <DimensionTeaser dimension={'SCI'} bgUrl={'/images/fuzzy_orange.jpeg'} bgColor={'#835ffe'}/>
+                <DimensionTeaser dimension={'GHG'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#3c2198'}/>
             </div>
 
         </div>

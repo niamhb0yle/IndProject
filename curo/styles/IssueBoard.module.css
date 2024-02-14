@@ -9,7 +9,8 @@
 .issueColumn {
     width: 400px;
     min-height: 600px;
-    background:#ebf5eb;
+    background:white;
+    box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.2);
     margin-right:30px;
     border-radius:20px;
     display:flex;
@@ -31,7 +32,7 @@
 .issueDiv {
     width:350px;
     height:fit-content;
-    background:linear-gradient(180deg, white 0%, white 60%, #b8dcb8 60%, #b8dcb8 100%);
+    background:linear-gradient(180deg, #F1F1FD 0%, #F1F1FD 60%, #321c7f 60%, #321c7f 100%);
     border-radius:20px;
     margin-bottom: 18px;
     transition: transform 0.3s;
@@ -39,7 +40,7 @@
 
 .issueDiv:hover{
     transform: scale(1.01);
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 1px 10px rgba(100, 55, 254, 0.4);
 }
 
 .issueDiv h1 {
@@ -52,4 +53,5 @@
 .issueDiv p {
     margin-left:7px;
     font-size:15px;
+    color: #F1F1FD;
 }

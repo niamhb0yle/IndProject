@@ -32,26 +32,14 @@
 
   .dashboardInfo {
     display:flex;
-    flex:0.6;
+    flex:0.7;
     flex-direction:row;
     flex-wrap:wrap;
-    background:#ededed;
+    background:white;
     border-radius:30px;
-    box-shadow:2px 2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow:2px 2px 10px rgba(100, 55, 254, 0.2);
     margin-top:2vh;
     height:calc(180px + 0.8vh);
-    margin:1vw;
-  }
-
-  .membersInfo {
-    display:flex;
-    flex:0.4;
-    background:#ededed;
-    border-radius:30px;
-    box-shadow:2px 2px 10px rgba(0, 0, 0, 0.3);
-    margin-top:2vh;
-    height:calc(180px + 0.8vh);
-    margin:1vw;
   }
 
   .dashboardInfo p {
@@ -62,9 +50,38 @@
   }
 
   .dashboardInfo h1 {
-    color: black;
+    color: #354CFC;
     margin:0px;
     font-size: calc(40px + 0.4vw);
+  }
+  
+  .membersInfo {
+    display:flex;
+    flex:0.3;
+    flex-direction:column;
+    flex-wrap:wrap;
+    padding: calc(10px + 0.2vw);
+    background:#4325a9;
+    border-radius:30px;
+    box-shadow:2px 2px 10px rgba(100, 55, 254, 0.2);
+    margin-top:2vh;
+    height:calc(180px + 0.8vh);
+    margin:1vw;
+    height:fit-content
+  }
+
+  .membersInfo h1 {
+    color: #F1F1FD;
+    font-weight: 100;
+    font-size: calc(18px + 0.8vh);
+    display: block;
+  }
+
+  .membersInfo p {
+    color: #F1F1FD;
+    font-size: calc(12px + 0.5vh);
+    font-weight: 100;
+    margin: 0.1vh;
   }
   
   .dimensionParentFlex {
@@ -81,7 +98,7 @@
     margin: 20px;
     border-radius: 30px;
     text-decoration: none;
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 6px rgba(100, 55, 254, 0.2);
     background: white;
     overflow: hidden;
     transition: transform 0.3s;
@@ -89,7 +106,7 @@
   
   .dimensionTeaser:hover {
     transform: scale(1.03);
-    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 1px 1px 10px rgba(100, 55, 254, 0.4);
   }
   
   .teaserText {
@@ -110,7 +127,7 @@
     font-family: 'Montserrat';
     font-weight: 700;
     font-size: 35px;
-    color: #FFFFFF;
+    color: white;
   }
   
   .expandBtn {
@@ -118,7 +135,7 @@
     background: none;
     display:inline;
     font-weight:bold;
-    color:black;
+    color: #354CFC;
     font-family:'Manrope';
     font-size:calc(18px + 0.4vw);
     border: none;

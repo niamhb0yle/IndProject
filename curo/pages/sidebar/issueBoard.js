@@ -8,6 +8,8 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import IssueBoard from '../../components/issueBoard';
 
+// TODO: Add an 'add issue' funciton here
+
 export default function Homepage() {
 
   return (
@@ -25,7 +27,7 @@ export default function Homepage() {
             <Header title="Issue Board"/>
 
             <div className={styles.dashboardContent}>
-              <p>This page is to track the teams current sustainable goals</p>
+              <p>This page is to track the teams current sustainable goals.</p>
               <IssueBoard/>
             </div>
 

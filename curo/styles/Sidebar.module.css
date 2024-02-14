@@ -1,5 +1,5 @@
 .sidebarContainer {
-  background:#18392B;
+  background:#321c7f;
   width:fit-content;
   margin:0;
   padding-top: 50px;
@@ -8,7 +8,7 @@
   position:sticky;
   padding-left: 30px;
   padding-right:1vw;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.2);
 }
 
 #sidebarLogo{
@@ -19,10 +19,11 @@
   font-weight: 900;
   line-height: normal;
   letter-spacing: 2.25px;
+  align-self: center;
 }
 
 #sidebarNavElements {
-  color: #E8F1FF;
+  color: #F1F1FD;
   font-family: Manrope;
   font-size: calc(12px + 0.5vw);
   font-style: normal;
@@ -39,5 +40,5 @@
 
 #sidebarNavElements:hover {
   transform: scale(1.03);
-  color: #24FFA2;
+  color: #d1c3ff;
 }
