@@ -13,31 +13,55 @@ import Header from './Header';
 
  
 export default function Dashboard() {
-    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', ReportDue:'', Progress:'', Members:[], reportNo:''})
-    const [progress, setProgress] = useState(0);
+    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:[], reportNo:''})
+    const [progress, setProgress] = useState('');
+    const [todoList, setTodoList] = useState([]);
+    const [doneList, setDoneList] = useState([]);
+    const [expandReports, setExpandReports] = useState({todo:false, done:false})
 
     const user = auth.currentUser;
 
     const checkProgress = async () => {
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
+
+        let tempTodo = 0;
+        let tempDone = 0;
         
         if (userSnap.exists()) {
             const progressData = userSnap.data().progress;
 
             if (progressData) {
-                let counter = 0;
+                let tempTodo = [];
+                let tempDone = [];
+                
                 Object.keys(progressData).forEach((key) => {
                     if (progressData[key] === true) {
-                        counter++;
+                        tempDone.push(key);
+                    } else {
+                        tempTodo.push(key);
                     }
                 });
+    
+                // Update state once after constructing the full lists
+                setTodoList(tempTodo);
+                setDoneList(tempDone);
 
-                console.log("Number of true values:", counter);
-                setProgress(Math.round((counter/6)*100));
+                //setProgress(Math.round((counter/6)*100));
             }
         } else {
             console.log("No such document!");
+        }
+
+        setProgress({todo:tempTodo, done:tempDone});
+    }
+
+    const expand = (e) => {
+        if (e === "done"){
+            setExpandReports({...expandReports, done:!expandReports.done})
+        }
+        if (e === "todo"){
+            setExpandReports({...expandReports, todo:!expandReports.todo})
         }
     }
 
@@ -55,8 +79,6 @@ export default function Dashboard() {
         }
 
         const teamSnap = await getDoc(teamRef);
-
-        console.log(teamSnap.data().CurrentReport.number);
 
         if (teamSnap.exists()) {
             setDashboardInfo({
@@ -82,21 +104,43 @@ export default function Dashboard() {
     <div>
         <Header title={headerText} />
         <div className={styles.dashboardContent}>
+            <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
             <div className={styles.dashboardInfo}>
-                <div style={{flex:0.33, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                     <p>You are on report:</p>
                     <h1>{dashboardInfo.ReportNo}</h1>
                 </div>
-                <div style={{flex:0.33, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    <p><b>Team:</b> {dashboardInfo.Team}</p>
-                    <p><b>Lead:</b> {dashboardInfo.Lead}</p> {/* TODO: change this to coach display name instead of the email */}
-                    <p><b>Organisation:</b> {dashboardInfo.Organisation}</p>
-                </div>
-                <div style={{flex:0.33, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    <p><b>Progress:</b> {progress}%</p>
-                    <p><b>Members:</b> {dashboardInfo.Members.length}</p>
+                <div style={{flex: 0.6, display: 'flex', flexDirection:'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding:'3vh'}}>
+                    <div style={{display:'block', marginBottom:'1vh'}}>
+                        <p>Reports completed: <b>{doneList.length}</b></p>
+                        <button onClick={()=>expand('done')} className={styles.expandBtn}>{expandReports.done ? '↑' : '↓'}</button>
+                        <div style={{display: expandReports.done ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
+                            {doneList.map((item, index) => (
+                                <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
+                                   {index===doneList.length-1 ? item : item + ', '}
+                                </p>
+                            ))}
+                        </div>
+                    </div>
+                    <div style={{display:'block'}}>
+                        <p>Reports to complete: <b>{todoList.length}</b></p>
+                        <button onClick={()=>expand('todo')} className={styles.expandBtn}>&darr;</button>
+                        <div style={{display: expandReports.todo ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
+                            {todoList.map((item, index) => (
+                                <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
+                                   {index===todoList.length-1 ? item : item + ', '}
+                                </p>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div className={styles.membersInfo}>
+                
+            </div>
+            </div>
+
 
             <div className={styles.dimensionParentFlex}>
                 <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/fuzzy_blue.jpeg'} />

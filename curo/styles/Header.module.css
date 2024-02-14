@@ -17,7 +17,7 @@
 #headerTitle {
     color: black;
     font-family: 'Montserrat';
-    font-size: 4vw;
+    font-size: calc(40px + 0.8vh);
     font-weight: 900;
     line-height: normal;
 }
