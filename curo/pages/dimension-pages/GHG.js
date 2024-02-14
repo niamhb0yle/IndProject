@@ -33,7 +33,7 @@ export default function GHG() {
             <div className={infoStyles.nav}>
               <button className={infoStyles.navElts} onClick={() => setGhgView("Overview")}>Overview</button>
               <p className={infoStyles.navEltsBar}>|</p>
-              <button className={infoStyles.navElts} onClick={() => setGhgView("Stats")}>Team Stats</button>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("Stats")}>GHG Stats</button>
               <p className={infoStyles.navEltsBar}>|</p>
               <Link href='../report-pages/scope1Report' className={infoStyles.navElts}>Start Report &rarr;</Link>  
             </div>

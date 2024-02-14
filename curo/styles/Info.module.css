@@ -9,6 +9,7 @@
     padding-top: 0.6vw;
     padding-bottom: 0.6vw;
     box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+    min-height:calc(70vh - 20px + 0.3vw);
 }
 
 .infoContent h1 {
@@ -80,7 +81,7 @@
 .navEltsBar {
     font-family:'Manrope';
     font-weight:bold;
-    font-size:calc(22px + 0.8vw);
+    font-size:calc(20px + 0.3vw);
     border:none;
     background:none;
     margin-right:1vw;
@@ -94,6 +95,7 @@
 
 .navElts:hover {
     color:#354cfc;
+    text-shadow: 2px 2px 20px rgba(100, 55, 254, 0.4);
 }
 
 .scopeBox{
@@ -124,7 +126,6 @@
 }
 
 .statsView{
-    flex:0.5;
     background: #F1F1FD;
     padding:calc(10px + 0.2vw);
     margin:calc(15px + 0.2vw);

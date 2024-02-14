@@ -36,15 +36,14 @@ export default function GHGOverview() {
         
         <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 2</h1>
-            <p>This scope covers Indirect Emissions from Purchased Electricity purchased by the entity</p>
+            <p>This scope covers <b><u>'Indirect Emissions'</u></b> from Purchased Electricity purchased by the entity</p>
             <p>These emissions typically stem from electricity used to power computers, lights, and machinery in a facility that the reporting team does not own or control.</p>
         </div>
         
         <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 3</h1>
-            <p>Other Indirect Emissions</p>
-            <p>Definition: Emissions that are a consequence of the activities of the entity but occur from sources not owned or controlled by the entity.</p>
-            <p>Examples: Emissions associated with business travel, procurement, waste disposal, and the use of sold products and services.</p>
+            <p>This scope covers other Indirect emissions, or <b><u>'trickle-down emissions'</u></b> - emissions that are a consequence of the activities of the entity, but occur from sources not owned or controlled by the entity.</p>
+            <p>For example, emissions associated with outsourced cloud computing services.</p>
         </div>
         
         </div>

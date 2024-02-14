@@ -40,5 +40,6 @@
 
 #sidebarNavElements:hover {
   transform: scale(1.03);
-  color: #d1c3ff;
+  color: #d7dbfe;
+  text-shadow: 2px 2px 20px rgba(53, 76, 252, 2);
 }
