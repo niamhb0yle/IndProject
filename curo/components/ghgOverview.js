@@ -27,14 +27,14 @@ export default function GHGOverview() {
         <p>GHG emissions are categorized into three scopes by the Greenhouse Gas Protocol, a global standardized framework for measuring and managing emissions. Each scope represents different sources of emissions, helping organizations to identify where they can most effectively reduce their greenhouse gas output.</p>
         
         <div style={{display:'flex', flex:1, flexDirection:'row', flexWrap:'wrap', alignContent:'flex-start'}}>
-        <div className={infoStyles.scopeBox} style={{background:'#2535b0'}}>
+        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
             <h1>Scope 1</h1>
             <p>This scope covers Direct Emissions from the reporting entity.</p>
             <p></p>
             <p>Emissions from combustion in owned or controlled boilers, furnaces, vehicles; emissions from chemical production in owned or controlled process equipment.</p>
         </div>
         
-        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
+        <div className={infoStyles.scopeBox} style={{background:'#2535b0'}}>
             <h1>Scope 2</h1>
             <p>This scope covers <b><u>'Indirect Emissions'</u></b> from Purchased Electricity purchased by the entity</p>
             <p>These emissions typically stem from electricity used to power computers, lights, and machinery in a facility that the reporting team does not own or control.</p>

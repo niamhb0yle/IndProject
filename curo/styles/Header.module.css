@@ -1,9 +1,9 @@
 .header {
     display: flex;
     justify-content: space-between;
-    padding-left: 30px;
-    padding-right:70px;
-    padding-top: 50px;
+    margin-left:2.5vw;
+    margin-right: 8vw;
+    margin-top: 4vh;
     padding-bottom: 15px;
 }
   
@@ -13,9 +13,9 @@
     flex-wrap: wrap;
     justify-content: flex-end;
 }
-  
+
 #headerTitle {
-    color: #1e104c;
+    color: black;
     font-family: 'Montserrat';
     font-size: calc(40px + 0.8vh);
     font-weight: 900;

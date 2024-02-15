@@ -11,6 +11,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieCha
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import cloudEmissions from '../pages/report-pages/cloudEmissions.json';
+import electricityGridEmissions from '../pages/report-pages/scope2emissionFactors.json';
 
 export default function GHGStats() {
   const [selectedProvider, setSelectedProvider] = useState('AWS');
@@ -22,6 +23,10 @@ export default function GHGStats() {
     setFilteredData(providerData);
   }, [selectedProvider]);
 
+  const countryData = Object.entries(electricityGridEmissions).map(([country, mtPerKwHour]) => ({
+    country,
+    mtPerKwHour,
+  }));
   
 
 
@@ -48,9 +53,25 @@ export default function GHGStats() {
             </ResponsiveContainer>
             
           </div>
+
+          
         
         </div>
-
+          <div className={infoStyles.statsView} style={{flex:1, padding:'1.5vw', background:'#ebedff'}}>
+          <div className={infoStyles.statsHeading} style={{color:'#354cfc'}}>Electricity Grid Emission Factor by Country</div>
+            <ResponsiveContainer width="100%" height={500}>
+              <BarChart
+                data={countryData}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="country" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="mtPerKwHour" name="Metric Tons of CO2 per KiloWatt Hour (mt/kWh)" fill="#495efc" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
     </div>
     )
 }
