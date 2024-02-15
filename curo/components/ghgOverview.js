@@ -27,7 +27,7 @@ export default function GHGOverview() {
         <p>GHG emissions are categorized into three scopes by the Greenhouse Gas Protocol, a global standardized framework for measuring and managing emissions. Each scope represents different sources of emissions, helping organizations to identify where they can most effectively reduce their greenhouse gas output.</p>
         
         <div style={{display:'flex', flex:1, flexDirection:'row', flexWrap:'wrap', alignContent:'flex-start'}}>
-        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
+        <div className={infoStyles.scopeBox} style={{background:'#2535b0'}}>
             <h1>Scope 1</h1>
             <p>This scope covers Direct Emissions from the reporting entity.</p>
             <p></p>
@@ -40,7 +40,7 @@ export default function GHGOverview() {
             <p>These emissions typically stem from electricity used to power computers, lights, and machinery in a facility that the reporting team does not own or control.</p>
         </div>
         
-        <div className={infoStyles.scopeBox} style={{background:'#3c2198'}}>
+        <div className={infoStyles.scopeBox} style={{background:'#4627b2'}}>
             <h1>Scope 3</h1>
             <p>This scope covers other Indirect emissions, or <b><u>'trickle-down emissions'</u></b> - emissions that are a consequence of the activities of the entity, but occur from sources not owned or controlled by the entity.</p>
             <p>For example, emissions associated with outsourced cloud computing services.</p>

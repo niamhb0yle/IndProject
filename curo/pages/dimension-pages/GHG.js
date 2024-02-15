@@ -11,7 +11,8 @@ import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
 import GHGOverview from '../../components/ghgOverview';
 import { useState } from 'react';
-import GHGStats from '../../components/ghgStats';
+import TeamGHGStats from '../../components/TeamGHGStats';
+import GHGStats from '../../components/GHGStats';
 
 export default function GHG() {
   const [ghgView, setGhgView] = useState('Overview');
@@ -31,9 +32,11 @@ export default function GHG() {
             <Header title="GHG Protocol"/>
 
             <div className={infoStyles.nav}>
-              <button className={infoStyles.navElts} onClick={() => setGhgView("Overview")}>Overview</button>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("Overview")} style={{color: ghgView === "Overview" ? "#354cfc" : "black"}}>Overview</button>
               <p className={infoStyles.navEltsBar}>|</p>
-              <button className={infoStyles.navElts} onClick={() => setGhgView("Stats")}>GHG Stats</button>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("Team Stats")} style={{color: ghgView === "Team Stats" ? "#354cfc" : "black"}}>Team Stats</button>
+              <p className={infoStyles.navEltsBar}>|</p>
+              <button className={infoStyles.navElts} onClick={() => setGhgView("GHG Stats")} style={{color: ghgView === "GHG Stats" ? "#354cfc" : "black"}}>GHG Stats</button>
               <p className={infoStyles.navEltsBar}>|</p>
               <Link href='../report-pages/scope1Report' className={infoStyles.navElts}>Start Report &rarr;</Link>  
             </div>
@@ -42,7 +45,11 @@ export default function GHG() {
               <GHGOverview/>
             </div>
 
-            <div style={{display: ghgView === "Stats" ? "block" : "none"}}>
+            <div style={{display: ghgView === "Team Stats" ? "block" : "none"}}>
+              <TeamGHGStats/>
+            </div>
+            
+            <div style={{display: ghgView === "GHG Stats" ? "block" : "none"}}>
               <GHGStats/>
             </div>
 

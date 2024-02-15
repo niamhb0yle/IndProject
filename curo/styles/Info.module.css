@@ -132,3 +132,14 @@
     border-radius: 30px;
     box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.2);
 }
+
+.statsHeading {
+    font-family: 'Manrope';
+    color: #4325a9;
+    font-size: calc(24px + 0.3vw);
+    font-style: normal;
+    font-weight:600;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    margin-bottom: 2vh;
+}

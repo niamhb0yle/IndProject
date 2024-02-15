@@ -26,7 +26,6 @@
     {"cloudProvider":"AWS","region":"me-south-1","mtPerKwHour":0.0005059},
     {"cloudProvider":"AWS","region":"me-central-1","mtPerKwHour":0.0004041},
     {"cloudProvider":"AWS","region":"sa-east-1","mtPerKwHour":0.0000617},
-    {"cloudProvider":"AWS","region":"Unknown","mtPerKwHour":0.00039278188},
     {"cloudProvider":"GCP","region":"us-central1","mtPerKwHour":0.000456},
     {"cloudProvider":"GCP","region":"us-central2","mtPerKwHour":0.000456},
     {"cloudProvider":"GCP","region":"us-east1","mtPerKwHour":0.000434},
@@ -68,7 +67,6 @@
     {"cloudProvider":"GCP","region":"asia","mtPerKwHour":0.001676},
     {"cloudProvider":"GCP","region":"europe","mtPerKwHour":0.001843},
     {"cloudProvider":"GCP","region":"us","mtPerKwHour":0.002805},
-    {"cloudProvider":"GCP","region":"Unknown","mtPerKwHour":0.0003171470588},
     {"cloudProvider":"AZURE","region":"southafrica","mtPerKwHour":0.0009006},
     {"cloudProvider":"AZURE","region":"southafricanorth","mtPerKwHour":0.0009006},
     {"cloudProvider":"AZURE","region":"southafricawest","mtPerKwHour":0.0009006},
@@ -145,6 +143,5 @@
     {"cloudProvider":"AZURE","region":"westus3","mtPerKwHour":0.000322167},
     {"cloudProvider":"AZURE","region":"brazil","mtPerKwHour":0.0000617},
     {"cloudProvider":"AZURE","region":"brazilsouth","mtPerKwHour":0.0000617},
-    {"cloudProvider":"AZURE","region":"brazilsoutheast","mtPerKwHour":0.0000617},
-    {"cloudProvider":"AZURE","region":"Unknown","mtPerKwHour":0.0003512799615}
+    {"cloudProvider":"AZURE","region":"brazilsoutheast","mtPerKwHour":0.0000617}
 ]
