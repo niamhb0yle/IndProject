@@ -1,14 +1,15 @@
 .sidebarContainer {
-  background:#321c7f;
-  width:fit-content;
+  background:#281666;
   margin:0;
   padding-top: 50px;
   display: flex;
+  flex:0.1;
   flex-direction: column;
   position:sticky;
   padding-left: 30px;
   padding-right:1vw;
   box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.2);
+  
 }
 
 #sidebarLogo{

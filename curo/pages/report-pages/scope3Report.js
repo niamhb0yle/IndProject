@@ -56,6 +56,12 @@ export default function Scope3Report() {
         const teamSnap = await getDoc(teamRef);
         const reportNumber = String(teamSnap.data().CurrentReport.number);
         const reportRef = doc(teamRef, "Reports", reportNumber);
+
+        await setDoc(
+          userRef,
+          { progress: { GHG: true } },
+          { merge: true }
+        );
   
         if (calculationComplete && teamSnap.exists() && displayCloudservices==="Yes") {
           await updateDoc(reportRef, {

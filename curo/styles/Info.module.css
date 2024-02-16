@@ -10,6 +10,7 @@
     padding-bottom: 0.6vw;
     box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
     min-height:calc(70vh - 20px + 0.3vw);
+    max-width:80vw;
 }
 
 .infoContent h1 {
@@ -61,7 +62,6 @@
     padding-top: 2vh;
     padding-bottom: 4vh;
     box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
-    min-height:'fit-content'
 }
 
 .reportViewContent h1 {
@@ -104,6 +104,23 @@
 }
 
 .pastReportContainer:hover {
+    background: #e0d7ff;
+}
+
+.reportPageBtn {
+    background: #f0ebff;
+    border-radius: 30px;
+    padding:2vh;
+    width:fit-content;
+    font-size: calc(14px + 0.2vw);
+    border:none;
+    box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.3);
+    cursor: pointer;
+    margin:1vw;
+    height:fit-content;
+}
+
+.reportPageBtn:hover {
     background: #e0d7ff;
 }
 

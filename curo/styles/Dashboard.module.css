@@ -1,7 +1,7 @@
 .dashboard {
-display: flex;
-flex:1;
-flex-direction: column;
+  display: flex;
+  flex:1;
+  flex-direction: column;
 }
 
 .dashboardContent {
