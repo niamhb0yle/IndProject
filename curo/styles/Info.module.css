@@ -50,6 +50,63 @@
     padding-left: 2vw;
 }
 
+.reportViewContent {
+    margin-left:2vw;
+    margin-right: 8vw;
+    margin-bottom: 4vh;
+    background:#fcfcff;
+    border-radius: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+    min-height:'fit-content'
+}
+
+.reportViewContent h1 {
+    font-family: 'Manrope';
+    color: #4325a9;
+    font-size: calc(24px + 0.3vw);
+    font-style: normal;
+    font-weight:600;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    margin-bottom: 2vh;
+    display:block;
+}
+
+.reportViewContent p {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(14px + 0.2vw);
+    font-weight:bold;
+    text-align: left;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+}
+
+.pastReportContainer {
+    background: #f0ebff;
+    border-radius: 30px;
+    padding:1.5vw;
+    display:flex;
+    flex:1;
+    flex-direction: row;
+    margin-bottom: 2vh;
+}
+
+.pastReportElt {
+    display: flex;
+    flex: 0.25;
+    align-items: center;
+    margin-left: 1vw;
+}
+
+.pastReportContainer:hover {
+    background: #e0d7ff;
+}
+
 .nav {
     margin-left: 2vw;
     padding-left: 1vw;
@@ -100,6 +157,7 @@
 
 .scopeBox{
     font-family: 'Manrope';
+    background: #d1c3ff;
     flex:0.33;
     padding:calc(10px + 0.2vw);
     margin:calc(10px + 0.2vw);
@@ -111,7 +169,7 @@
     font-family: 'Manrope';
     font-size: calc(22px + 0.3vw);
     font-weight: bold;
-    color: white;
+    color: black;
     letter-spacing: 0.5px;
     text-align: center;
     text-shadow: 2px 2px 40px #1f124b;
@@ -119,7 +177,7 @@
 
 .scopeBox p {
     font-family: 'Manrope';
-    color: #F1F1FD;
+    color: black;
     font-size: calc(14px + 0.2vw);
     font-weight:lighter;
     text-align: left;
@@ -128,7 +186,7 @@
 .statsView{
     background: #F1F1FD;
     padding:calc(10px + 0.2vw);
-    margin:calc(15px + 0.2vw);
+    margin:calc(20px + 0.3vw);
     border-radius: 30px;
     box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.2);
 }
@@ -142,4 +200,5 @@
     line-height: normal;
     letter-spacing: 0.3px;
     margin-bottom: 2vh;
+    display:block;
 }

@@ -10,12 +10,32 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
 import GHGOverview from '../../components/ghgOverview';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { auth, db } from '../../firebase';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import TeamGHGStats from '../../components/TeamGHGStats';
-import GHGStats from '../../components/GHGStats';
+import GHGStats from '../../components/ghgStats';
 
 export default function GHG() {
   const [ghgView, setGhgView] = useState('Overview');
+  const [userType, setUserType] = useState('');
+  const [ghgDone, setghgDone] = useState(false);
+  const user = auth.currentUser;
+
+  const getFirestoreData = async () => {
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    setUserType(userSnap.data().userType);
+    if (userSnap.data().userType === "lead"){
+      if (userSnap.data().progress['GHG'] === true){
+        setghgDone(true);
+      }
+    }
+  }
+
+  useEffect(() => {
+    getFirestoreData();
+  }, []);
 
   return (
     <div>
@@ -38,7 +58,7 @@ export default function GHG() {
               <p className={infoStyles.navEltsBar}>|</p>
               <button className={infoStyles.navElts} onClick={() => setGhgView("GHG Stats")} style={{color: ghgView === "GHG Stats" ? "#354cfc" : "black"}}>GHG Stats</button>
               <p className={infoStyles.navEltsBar}>|</p>
-              <Link href='../report-pages/scope1Report' className={infoStyles.navElts}>Start Report &rarr;</Link>  
+              <Link href='../report-pages/scope1Report' className={infoStyles.navElts} style={{pointerEvents: userType === "lead" && ghgDone ? 'auto' : 'none', opacity: userType === "lead" && ghgDone ? '1' : '0.5'}} title='Only available for team leads'>Start Report &rarr;</Link>  
             </div>
 
             <div style={{display: ghgView === "Overview" ? "block" : "none"}}>

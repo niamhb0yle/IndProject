@@ -31,19 +31,35 @@ export default function SignUp() {
 
         // creating firestore doc
         const userDocRef = doc(db, 'Users', userProfile.email);
-        await setDoc(userDocRef, {
-          email: userProfile.email,
-          username: userProfile.username,
-          progress: {
-            Economic: false,
-            Technical: false,
-            Individual: false,
-            Social: false,
-            Environmental: false,
-            SCI: false,
-            GHG: false,
-          }
-        });
+
+        if (role === 'sm'){
+          await setDoc(userDocRef, {
+            email: userProfile.email,
+            username: userProfile.username,
+            progress: {
+              Economic: false,
+              Technical: false,
+              Individual: false,
+              Social: false,
+              Environmental: false,
+              SCI: false,
+              GHG: false
+            }
+          });
+        } else {
+          await setDoc(userDocRef, {
+            email: userProfile.email,
+            username: userProfile.username,
+            progress: {
+              Economic: false,
+              Technical: false,
+              Individual: false,
+              Social: false,
+              Environmental: false
+            }
+          });
+        }
+        
 
         // create a subcollection named 'Reports' for first report
         const reportRef = doc(userDocRef, 'Reports', '1');
