@@ -6,12 +6,152 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useState, useEffect } from 'react';
-import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 
 Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
+
+const fetchReports = async (teamRef, reportNumber) => {
+  const quantitativeCategories = ['SocialQuant', 'EconomicQuant', 'TechnicalQuant', 'IndividualQuant', 'EnvironmentalQuant'];
+  const qualitativeCategories = ['SocialQual', 'EconomicQual', 'TechnicalQual', 'IndividualQual', 'EnvironmentalQual'];
+
+  const reports = {
+    quantitative: quantitativeCategories.reduce((acc, category) => ({ ...acc, [category]: [] }), {}),
+    qualitative: qualitativeCategories.reduce((acc, category) => ({ ...acc, [category]: {} }), {})
+  };
+
+  const teamSnap = await getDoc(teamRef);
+  if (!teamSnap.exists()) {
+    console.log('Team document not found');
+    return reports;
+  }
+
+  const memberIds = teamSnap.data().Members || [];
+  await Promise.all(
+    memberIds.map(async (memberId) => {
+      const reportRef = doc(db, `Users/${memberId}/Reports`, reportNumber);
+      const reportSnap = await getDoc(reportRef);
+      if (reportSnap.exists()) {
+        const data = reportSnap.data();
+        quantitativeCategories.forEach((category) => {
+          if (data[category]) {
+            reports.quantitative[category].push(data[category]);
+          }
+        });
+        qualitativeCategories.forEach((category) => {
+          if (data[category]) {
+            Object.keys(data[category]).forEach((question) => {
+              reports.qualitative[category][question] = reports.qualitative[category][question] || [];
+              reports.qualitative[category][question].push(data[category][question]);
+            });
+          }
+        });
+      }
+    })
+  );
+
+  return reports;
+};
+
+// Calculate mean values for quantitative data and aggregate qualitative responses
+const processReports = (reports) => {
+  const results = {
+    quantitativeMeans: {},
+    qualitativeResponses: reports.qualitative
+  };
+
+  Object.keys(reports.quantitative).forEach((category) => {
+    const categoryData = reports.quantitative[category];
+    const summary = {};
+    categoryData.forEach((response) => {
+      Object.keys(response).forEach((question) => {
+        summary[question] = (summary[question] || 0) + response[question];
+      });
+    });
+    const means = {};
+    Object.keys(summary).forEach((question) => {
+      means[question] = parseFloat((summary[question] / categoryData.length).toFixed(2));
+    });
+    results.quantitativeMeans[category] = means;
+  });
+
+  return results;
+};
+
+const uploadReportDataToFirestore = async (teamId, reportNumber, processedData) => {
+  const firestoreData = {};
+
+  Object.entries(processedData.quantitativeMeans).forEach(([category, values]) => {
+    firestoreData[`${category}`] = values;
+  });
+
+  Object.entries(processedData.qualitativeResponses).forEach(([category, responses]) => {
+    firestoreData[`${category}`] = responses;
+  });
+  
+  const reportRef = doc(db, `Teams/${teamId}/Reports/${reportNumber}`);
+
+  try {
+    await updateDoc(reportRef, firestoreData);
+    console.log('Report data successfully uploaded to Firestore.');
+  } catch (error) {
+    console.error('Error uploading report data to Firestore:', error);
+  }
+}; 
+
+const updateCurrentReport = async (teamId, reportNumber, nextDueDate) => {
+  const teamRef = doc(db, "Teams", teamId);
+  const teamSnap = await getDoc(teamRef);
+
+  // update teams 'CurrentReport' status with:
+  // new due date (from params)
+  // start date (taken from old report)
+  let oldDueDate = teamSnap.data().CurrentReport.due;
+  // new report number
+  let newReportNumber = parseInt(reportNumber, 10) + 1;
+
+  // access current report and update:
+  await updateDoc(teamRef, {
+    CurrentReport: {
+      due: nextDueDate,
+      number: newReportNumber,
+      start: oldDueDate
+    }
+  })
+
+  // initialise the new 'report' doc for this report
+  const newReportCollectionRef = doc(db, `Teams/${teamId}/Reports/${newReportNumber}`);
+  await setDoc(newReportCollectionRef, {
+    due: nextDueDate,
+    number: newReportNumber,
+    start: oldDueDate
+  })
+}
+
+const resetMembersProgress = async (memberIds) => {
+  
+  await Promise.all(
+    memberIds.map(async (memberId) => {
+      const userRef = doc(db, `Users/${memberId}`);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists() && userSnap.data().progress) {
+        const currentProgress = userSnap.data().progress;
+        
+        const resetProgress = Object.keys(currentProgress).reduce((acc, key) => {
+          acc[key] = false;
+          return acc;
+        }, {});
+
+        await updateDoc(userRef, {
+          progress: resetProgress
+        });
+      }
+    })
+  );
+}
 
 export default function CurrentReport() {
   const user = auth.currentUser;
@@ -21,14 +161,17 @@ export default function CurrentReport() {
   const [progress, setProgress] = useState('Complete');
   const [incompleteMembers, setIncompleteMembers] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [nextDueDate, setNextDueDate] = useState(new Date());
+  const [nextDueDate, setNextDueDate] = useState('');
+  const [teamRef, setTeamRef] = useState();
+  const [memberIds, setMemberIds] = useState([]);
 
   const getData = async () => {
     const userRef = doc(db, "Users", user.email);
     const userSnap = await getDoc(userRef);
     setUserType(userSnap.data().userType);
-    const teamRef = userSnap.data().Team;
-    const teamSnap = await getDoc(teamRef);
+    const tempTeamRef = userSnap.data().Team;
+    setTeamRef(tempTeamRef);
+    const teamSnap = await getDoc(tempTeamRef);
     const start = teamSnap.data().CurrentReport.start.toDate();
     const due = teamSnap.data().CurrentReport.due.toDate();
     setDates({start: start.toLocaleDateString(), due: due.toLocaleDateString()});
@@ -39,6 +182,7 @@ export default function CurrentReport() {
     setIncompleteMembers([]);
   
     const members = teamSnap.data().Members || [];
+    setMemberIds(members);
 
     // using Promise.all to wait for all member data to be fetched
     const memberProgresses = await Promise.all(members.map(async (member) => {
@@ -68,7 +212,15 @@ export default function CurrentReport() {
 
   const handleSubmitDueDate = async () => {
     console.log('Next due date:', nextDueDate);
+    const date = new Date(nextDueDate + 'T00:00:00');
     setShowModal(false);
+
+    fetchReports(teamRef, reportNumber).then((reports) => {
+      const processedData = processReports(reports);
+      uploadReportDataToFirestore(teamRef.id, reportNumber, processedData);
+      updateCurrentReport(teamRef.id, reportNumber, date);
+      resetMembersProgress(memberIds);
+    });
   };
 
   const customStyles = {
@@ -117,12 +269,12 @@ export default function CurrentReport() {
 
           <div style={{display:'flex', minWidth:'fit-content', flex:0.33,  marginRight:'2vw'}}>
             <button className={infoStyles.reportPageBtn}
-            onClick={handleFinishReport} /*
+            onClick={handleFinishReport} 
               style={{
               pointerEvents: userType === "lead" && progress === "Complete" ? 'auto' : 'none',
               opacity: userType === "lead" && progress === "Complete" ? '1' : '0.5',
               display:'block'
-            }} */
+            }} 
             >Finish report</button>
             <Modal
               isOpen={showModal}
