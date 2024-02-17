@@ -10,6 +10,7 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc, getDocs, query, whe
 import { auth, db } from '../firebase';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
+import { useRouter } from 'next/router';
 
 Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
 
@@ -131,7 +132,7 @@ const updateCurrentReport = async (teamId, reportNumber, nextDueDate) => {
 }
 
 const resetMembersProgress = async (memberIds) => {
-  
+
   await Promise.all(
     memberIds.map(async (memberId) => {
       const userRef = doc(db, `Users/${memberId}`);
@@ -164,6 +165,7 @@ export default function CurrentReport() {
   const [nextDueDate, setNextDueDate] = useState('');
   const [teamRef, setTeamRef] = useState();
   const [memberIds, setMemberIds] = useState([]);
+  const router = useRouter();
 
   const getData = async () => {
     const userRef = doc(db, "Users", user.email);
@@ -220,7 +222,9 @@ export default function CurrentReport() {
       uploadReportDataToFirestore(teamRef.id, reportNumber, processedData);
       updateCurrentReport(teamRef.id, reportNumber, date);
       resetMembersProgress(memberIds);
+      
     });
+    router.push('./dashboard');
   };
 
   const customStyles = {
@@ -274,7 +278,7 @@ export default function CurrentReport() {
               pointerEvents: userType === "lead" && progress === "Complete" ? 'auto' : 'none',
               opacity: userType === "lead" && progress === "Complete" ? '1' : '0.5',
               display:'block'
-            }} 
+            }}
             >Finish report</button>
             <Modal
               isOpen={showModal}
