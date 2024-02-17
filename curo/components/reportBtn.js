@@ -14,18 +14,17 @@ const ReportBtn = ({ dimension, reportDone }) => {
     router.push(`/report-pages/${dimension}Report`);
   };
   
-    return (
-
-      <button 
-        className={styles.reportBtn} 
-        style={{
-          pointerEvents: reportDone ? 'none' : 'auto',
-          opacity: reportDone ? '0.5' : '1'
-        }}
-        onClick={handleClick}>
-          Complete report for {dimension} sustainability &rarr;
-      </button>
-    );
-  };
+  return (
+    <button 
+      className={styles.reportBtn} 
+      style={{
+        pointerEvents: reportDone ? 'none' : 'auto',
+        opacity: reportDone ? '0.5' : '1'
+      }}
+      onClick={handleClick}>
+        Complete report for {dimension} sustainability &rarr;
+    </button>
+  );
+};
   
 export default ReportBtn;

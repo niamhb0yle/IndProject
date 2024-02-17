@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import infoStyles from '../styles/Info.module.css';
+import reportStyles from '../styles/Reports.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
 
 export default function CurrentReport() {
   const user = auth.currentUser;
@@ -15,6 +20,8 @@ export default function CurrentReport() {
   const [dates, setDates] = useState({start:'', due:''});
   const [progress, setProgress] = useState('Complete');
   const [incompleteMembers, setIncompleteMembers] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [nextDueDate, setNextDueDate] = useState(new Date());
 
   const getData = async () => {
     const userRef = doc(db, "Users", user.email);
@@ -53,8 +60,28 @@ export default function CurrentReport() {
         setIncompleteMembers((prevMembers) => [...prevMembers, member.member]);
       }
     });
-
   }
+  
+  const handleFinishReport = () => {
+    setShowModal(true);
+  };
+
+  const handleSubmitDueDate = async () => {
+    console.log('Next due date:', nextDueDate);
+    setShowModal(false);
+  };
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      width:'400px',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   useEffect(() => {
     getData();
@@ -64,7 +91,7 @@ export default function CurrentReport() {
     <div>
       <div className={infoStyles.reportViewContent}>
         <h1>Current Report</h1>
-        <div style={{display:'flex', flex:1, flexDirection:'row'}}>
+        <div style={{display:'flex', flex:1, flexDirection:'row', flexWrap:'wrap'}}>
           
           <div style={{display:'flex', minWidth:'fit-content', flex:0.3, flexDirection:'column', marginRight:'2vw'}}>
             <p>Report number: {reportNumber}</p>
@@ -90,11 +117,24 @@ export default function CurrentReport() {
 
           <div style={{display:'flex', minWidth:'fit-content', flex:0.33,  marginRight:'2vw'}}>
             <button className={infoStyles.reportPageBtn}
+            onClick={handleFinishReport} /*
               style={{
               pointerEvents: userType === "lead" && progress === "Complete" ? 'auto' : 'none',
               opacity: userType === "lead" && progress === "Complete" ? '1' : '0.5',
               display:'block'
-            }}>Finish report</button>
+            }} */
+            >Finish report</button>
+            <Modal
+              isOpen={showModal}
+              onRequestClose={() => setShowModal(false)}
+              style={customStyles}
+              contentLabel="Select Next Due Date"
+            >
+              <h1 className={reportStyles.headingText} style={{marginBottom:'0'}}>Due date for next report</h1>
+              <p>Please select a due date for your teams next report before we compile your current one!</p>
+              <input type="date" style={{fontFamily:'Manrope', justifySelf:'center'}} value={nextDueDate} onChange={(e) => setNextDueDate(e.target.value)} />
+              <button className={infoStyles.reportPageBtn} style={{float:'right'}} onClick={handleSubmitDueDate}>Submit</button>
+            </Modal>
         </div>
       </div>
     </div>

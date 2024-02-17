@@ -3,7 +3,7 @@
   margin:0;
   padding-top: 50px;
   display: flex;
-  flex:0.1;
+  flex:0.125;
   flex-direction: column;
   position:sticky;
   padding-left: 30px;
