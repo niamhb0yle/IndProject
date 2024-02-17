@@ -17,9 +17,7 @@ import { useRouter } from 'next/router';
 export default function EnvironmentalReport() {
     const [quantResponses, setQuantResponses] = useState({});
     const [qualResponses, setQualResponses] = useState({});
-    const [nextAvailable, setNextAvailable] = useState(true);
     const [questionView, setQuestionView] = useState("quantitative");
-    const responsesCount = Object.keys(quantResponses).length + 1;
     const router = useRouter();
     const user = auth.currentUser;
     
@@ -38,10 +36,7 @@ export default function EnvironmentalReport() {
         ...prevResponses,
         [questionId]: val
       }));
-      console.log(responsesCount);
-      if (responsesCount >= 15) {
-        setNextAvailable(false);
-      }
+      
     };
 
     const handleSubmitNew = async () => {
@@ -155,12 +150,11 @@ export default function EnvironmentalReport() {
                           <Likert {...likertOptions} id='15' onChange={(val) => handleLikertChange(val.value, "q15")} />
                       </div>
                       <button
-                          disabled={nextAvailable}
                           onClick={handleSubmitNew}
                           className={reportStyles.nextButton}
                           style={{
-                            background: !nextAvailable ? "#18392B" : "gray",
-                            cursor: !nextAvailable ? "pointer" : "default",
+                            background: Object.keys(quantResponses).length < 15 ? "gray" : "#18392B",
+                            cursor: Object.keys(quantResponses).length < 15 ? "default" : "pointer",
                           }}>
                           Continue &rarr;
                       </button>

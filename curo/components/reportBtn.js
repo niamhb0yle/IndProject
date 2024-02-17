@@ -4,20 +4,26 @@ import styles from '../styles/Reports.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
-import { useRouter } from 'next/router';
-
+import { useRouter } from 'next/router'
  
-const ReportBtn = ({ dimension }) => {
-    const router = useRouter();
+const ReportBtn = ({ dimension, reportDone }) => {
+  const router = useRouter();
 
-    const handleClick = () => {
-      console.log(`Button clicked for ${dimension}`);
-      router.push(`/report-pages/${dimension}Report`);
-    };
+  const handleClick = () => {
+    console.log(`Button clicked for ${dimension}`);
+    router.push(`/report-pages/${dimension}Report`);
+  };
   
     return (
-      <button className={styles.reportBtn} onClick={handleClick}>
-        Complete report for {dimension} sustainability &rarr;
+
+      <button 
+        className={styles.reportBtn} 
+        style={{
+          pointerEvents: reportDone ? 'none' : 'auto',
+          opacity: reportDone ? '0.5' : '1'
+        }}
+        onClick={handleClick}>
+          Complete report for {dimension} sustainability &rarr;
       </button>
     );
   };

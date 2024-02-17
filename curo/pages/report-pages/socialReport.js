@@ -17,9 +17,7 @@ import { useRouter } from 'next/router';
 export default function SocialReport() {
     const [quantResponses, setQuantResponses] = useState({});
     const [qualResponses, setQualResponses] = useState({});
-    const [nextAvailable, setNextAvailable] = useState(true);
     const [questionView, setQuestionView] = useState("quantitative");
-    const responsesCount = Object.keys(quantResponses).length + 1;
     const router = useRouter();
     const user = auth.currentUser;
     
@@ -38,10 +36,6 @@ export default function SocialReport() {
         ...prevResponses,
         [questionId]: val
       }));
-      console.log(responsesCount);
-      if (responsesCount >= 14) {
-        setNextAvailable(false);
-      }
     };
 
     const handleSubmitNew = async () => {
@@ -152,12 +146,12 @@ export default function SocialReport() {
                           <Likert {...likertOptions} id='14' onChange={(val) => handleLikertChange(val.value, "q14")} />
                       </div>
                       <button
-                          disabled={nextAvailable}
                           onClick={handleSubmitNew}
                           className={reportStyles.nextButton}
                           style={{
-                            background: !nextAvailable ? "#18392B" : "gray",
-                            cursor: !nextAvailable ? "pointer" : "default",
+                            background: Object.keys(quantResponses).length < 14 ? "gray" : "#18392B",
+                            cursor: Object.keys(quantResponses).length < 14 ? "default" : "pointer",
+                            pointerEvents: Object.keys(quantResponses).length < 14 ? "none" : "auto",
                           }}>
                           Continue &rarr;
                       </button>

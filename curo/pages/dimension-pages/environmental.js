@@ -7,8 +7,27 @@ import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
+import { auth, db } from '../../firebase';
+import { useState, useEffect } from 'react';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function Environmental() {
+  const user = auth.currentUser;
+  const [reportDone, setReportDone] = useState(false);
+  
+
+  const getFirestoreData = async () => {
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    
+    if (userSnap.data().progress['Environmental'] === true){
+      setReportDone(true);
+    }
+  }
+
+  useEffect(() => {
+    getFirestoreData();
+  }, []);
 
   return (
     <div>
@@ -26,7 +45,7 @@ export default function Environmental() {
 
             <div className={styles.dashboardContent}>
               <p>Environmental page.</p>
-              <ReportBtn dimension={'environmental'}/>
+              <ReportBtn dimension={'environmental'} reportDone={reportDone}/>
 
             </div>
 

@@ -7,8 +7,27 @@ import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
+import { auth, db } from '../../firebase';
+import { useState, useEffect } from 'react';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function Ecconomic() {
+  const user = auth.currentUser;
+  const [reportDone, setReportDone] = useState(false);
+  
+
+  const getFirestoreData = async () => {
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    
+    if (userSnap.data().progress['Economic'] === true){
+      setReportDone(true);
+    }
+  }
+
+  useEffect(() => {
+    getFirestoreData();
+  }, []);
 
   return (
     <div>
@@ -30,7 +49,7 @@ export default function Ecconomic() {
               <p>Customer satisfaction, a direct outcome of software free from technical debt, contributes to user loyalty and retention, supporting economic sustainability by ensuring a stable user base. Additionally, addressing technical debt positions software systems to be adaptable to change, allowing organizations to stay competitive and respond effectively to evolving business needs.</p>
               <p>Lastly, considering the environmental impact is not overlooked. Optimized and well-maintained code consumes fewer computational resources, aligning with broader goals of energy efficiency and environmental sustainability in computing. In essence, reducing technical debt is a comprehensive economic strategy that enhances efficiency, reduces costs, and aligns software development practices with broader economic and environmental sustainability goals.</p>
               
-              <ReportBtn dimension="economic"/>
+              <ReportBtn dimension="economic" reportDone={reportDone}/>
 
             </div>
 

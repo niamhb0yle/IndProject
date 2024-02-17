@@ -7,8 +7,27 @@ import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
+import { auth, db } from '../../firebase';
+import { useState, useEffect } from 'react';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
-export default function Homepage() {
+export default function Social() {
+  const user = auth.currentUser;
+  const [reportDone, setReportDone] = useState(false);
+  
+
+  const getFirestoreData = async () => {
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    
+    if (userSnap.data().progress['Social'] === true){
+      setReportDone(true);
+    }
+  }
+
+  useEffect(() => {
+    getFirestoreData();
+  }, []);
 
   return (
     <div>
@@ -26,7 +45,7 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <p>Social page.</p>
-              <ReportBtn dimension="social"/> 
+              <ReportBtn dimension="social" reportDone={reportDone}/> 
 
             </div>
           </div>
