@@ -215,15 +215,14 @@ export default function CurrentReport() {
   const handleSubmitDueDate = async () => {
     console.log('Next due date:', nextDueDate);
     const date = new Date(nextDueDate + 'T00:00:00');
+    let reports = {};
     setShowModal(false);
 
-    fetchReports(teamRef, reportNumber).then((reports) => {
-      const processedData = processReports(reports);
-      uploadReportDataToFirestore(teamRef.id, reportNumber, processedData);
-      updateCurrentReport(teamRef.id, reportNumber, date);
-      resetMembersProgress(memberIds);
-      
-    });
+    reports = await fetchReports(teamRef, reportNumber)
+    const processedData = await processReports(reports);
+    await uploadReportDataToFirestore(teamRef.id, reportNumber, processedData);
+    await updateCurrentReport(teamRef.id, reportNumber, date);
+    await resetMembersProgress(memberIds);
     router.push('./dashboard');
   };
 
