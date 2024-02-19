@@ -13,6 +13,7 @@ import { auth, db } from '../../firebase';
 import { isNotFoundError } from 'next/dist/client/components/not-found';
 import PastReport from '../../components/pastReport';
 import CurrentReport from '../../components/currentReport';
+import ViewReport from '../../components/viewReport';
 
 export default function Reports() {
   const user = auth.currentUser;
@@ -46,6 +47,8 @@ export default function Reports() {
                 <PastReport/>
                 
               </div>
+
+              <ViewReport reportNumber={'1'}/>
             
             </div>
 

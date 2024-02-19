@@ -81,7 +81,7 @@ const processReports = (reports) => {
   return results;
 };
 
-const uploadReportDataToFirestore = async (teamId, reportNumber, processedData) => {
+const uploadReportDataToFirestore = async (teamId, reportNumber, processedData, memberCount) => {
   const firestoreData = {};
 
   Object.entries(processedData.quantitativeMeans).forEach(([category, values]) => {
@@ -96,6 +96,9 @@ const uploadReportDataToFirestore = async (teamId, reportNumber, processedData) 
 
   try {
     await updateDoc(reportRef, firestoreData);
+    await updateDoc(reportRef, {
+      memberCount: memberCount
+    });
     console.log('Report data successfully uploaded to Firestore.');
   } catch (error) {
     console.error('Error uploading report data to Firestore:', error);
@@ -220,7 +223,7 @@ export default function CurrentReport() {
 
     reports = await fetchReports(teamRef, reportNumber)
     const processedData = await processReports(reports);
-    await uploadReportDataToFirestore(teamRef.id, reportNumber, processedData);
+    await uploadReportDataToFirestore(teamRef.id, reportNumber, processedData, memberIds.length);
     await updateCurrentReport(teamRef.id, reportNumber, date);
     await resetMembersProgress(memberIds);
     router.push('./dashboard');

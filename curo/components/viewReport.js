@@ -10,19 +10,39 @@ import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/fir
 import { auth, db } from '../firebase';
 
 export default function ViewReport({reportNumber}) {
-  const [reportData, setReportData] = useState(null);
+  const [reportData, setReportData] = useState({});
+  const [dates, setDates] = useState({start:'', due:''})
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [socialData, setSocialData] = useState({});
+  const [indData, setIndData] = useState({});
+  const [techData, setTechData] = useState({});
+  const [envData, setEnvData] = useState({});
+  const [econData, setEconData] = useState({});
+  const [ghgData, setGhgData] = useState({});
+  const user = auth.currentUser;
 
   useEffect(() => {
     const fetchReportData = async () => {
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      const teamRef = userSnap.data().Team;
+  
       setLoading(true);
       try {
-        const reportRef = doc(db, `Teams/${teamId}/Reports/${reportNumber}`);
+        const reportRef = doc(db, `Teams/${teamRef.id}/Reports/${reportNumber}`);
         const docSnap = await getDoc(reportRef);
-
+  
         if (docSnap.exists()) {
-          setReportData(docSnap.data());
+          const data = docSnap.data();
+          setReportData(data);
+  
+          // Now that reportData is set, format the dates using the newly fetched data
+          if (data.start && data.due) {
+            const start = data.start.toDate();
+            const due = data.due.toDate();
+            setDates({start: start.toLocaleDateString(), due: due.toLocaleDateString()});
+          }
         } else {
           setError('No such report found');
         }
@@ -33,41 +53,73 @@ export default function ViewReport({reportNumber}) {
         setLoading(false);
       }
     };
-
+  
     fetchReportData();
-  }, [reportNumber]);
+  }, [reportNumber, user.email]);
+  
+  const renderData = (data, title) => (
+    <>
+      <h4>{title}</h4>
+      <ul>
+        {Object.entries(data).map(([question, value]) => (
+          <li key={question}>{`${question}: ${Array.isArray(value) ? value.join(', ') : value}`}</li>
+        ))}
+      </ul>
+    </>
+  );
 
+  // Function to render each category's data, including handling GHG scopes under a main GHG heading
+  const renderCategoryData = () => (
+    <>
+      {Object.keys(reportData).map((category) => {
+        if (['Scope1', 'Scope2', 'Scope3'].includes(category)) return null;
+
+        // Check if category is one of the GHG scopes, render them under GHG heading
+        if (category === 'EconomicQuant' || category === 'EconomicQual') {
+          return (
+            <div key={category}>
+              <h3>{category.includes('Quant') ? 'Economic Quantitative' : 'Economic Qualitative'}</h3>
+              {renderData(reportData[category], '')}
+            </div>
+          );
+        } else {
+          // Render other categories normally
+          return (
+            <div key={category}>
+              <h3>{category.replace('Quant', ' Quantitative').replace('Qual', ' Qualitative')}</h3>
+              {renderData(reportData[category], '')}
+            </div>
+          );
+        }
+      })}
+
+      <div>
+        <h2>GHG</h2>
+        {['Scope1', 'Scope2', 'Scope3'].map((scope) => (
+          <div key={scope}>
+            {reportData[scope] && (
+              <>
+                <h3>{scope}</h3>
+                {renderData(reportData[scope], 'Quantitative')}
+                {reportData[`${scope}Qual`] && renderData(reportData[`${scope}Qual`], 'Qualitative')}
+              </>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
+  );
 
 
   return (
     <div>
       <div className={infoStyles.reportViewContent}>
         <h1>Report {reportNumber}</h1>
+        <p>Started reporting on: {dates.start}</p>
+        <p>Finished report on: {dates.due}</p>
         {reportData ? (
         <div>
-          <h2>Quantitative Data</h2>
-          {Object.entries(reportData.quantitativeMeans || {}).map(([category, values]) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              {Object.entries(values).map(([question, mean]) => (
-                <p key={question}>{`Question ${question}: ${mean}`}</p>
-              ))}
-            </div>
-          ))}
-          <h2>Qualitative Data</h2>
-          {Object.entries(reportData.qualitativeResponses || {}).map(([category, responses]) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              {Object.entries(responses).map(([question, responseList]) => (
-                <div key={question}>
-                  <h4>Question {question}</h4>
-                  {responseList.map((response, index) => (
-                    <p key={index}>{response}</p>
-                  ))}
-                </div>
-              ))}
-            </div>
-          ))}
+          {renderCategoryData()}
         </div>
       ) : (
         <p>No report data available</p>
