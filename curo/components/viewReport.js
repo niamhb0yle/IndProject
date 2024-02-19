@@ -36,6 +36,7 @@ export default function ViewReport({reportNumber}) {
         if (docSnap.exists()) {
           const data = docSnap.data();
           setReportData(data);
+          processAndCategorizeData(data); // Correctly placed call
   
           // Now that reportData is set, format the dates using the newly fetched data
           if (data.start && data.due) {
@@ -54,62 +55,49 @@ export default function ViewReport({reportNumber}) {
       }
     };
   
-    fetchReportData();
-  }, [reportNumber, user.email]);
+    if (user && reportNumber) { // Ensure user and reportNumber are defined before fetching
+      fetchReportData();
+    }
+  }, [reportNumber, user]); // Make sure to include all dependencies here
   
-  const renderData = (data, title) => (
-    <>
-      <h4>{title}</h4>
-      <ul>
-        {Object.entries(data).map(([question, value]) => (
-          <li key={question}>{`${question}: ${Array.isArray(value) ? value.join(', ') : value}`}</li>
-        ))}
-      </ul>
-    </>
-  );
+  
+  const processAndCategorizeData = (data) => {
+    const ghgCategories = ['Scope1', 'Scope2', 'Scope3'];
+  
+    // Temporary objects to hold categorized data
+    const tempSocialData = {};
+    const tempIndData = {};
+    const tempTechData = {};
+    const tempEnvData = {};
+    const tempEconData = {};
+    const tempGhgData = {};
+  
+    Object.keys(data).forEach((key) => {
+      if (key.includes('SocialQuant') || key.includes('SocialQual')) {
+        tempSocialData[key] = data[key];
+      } else if (key.includes('IndividualQuant') || key.includes('IndividualQual')) {
+        tempIndData[key] = data[key];
+      } else if (key.includes('TechnicalQuant') || key.includes('TechnicalQual')) {
+        tempTechData[key] = data[key];
+      } else if (key.includes('EnvironmentalQuant') || key.includes('EnvironmentalQual')) {
+        tempEnvData[key] = data[key];
+      } else if (key.includes('EconomicQuant') || key.includes('EconomicQual')) {
+        tempEconData[key] = data[key];
+      } else if (ghgCategories.some(category => key.includes(category))) {
+        tempGhgData[key] = data[key];
+      }
+    });
+  
+    // Update state with categorized data
+    setSocialData(tempSocialData);
+    setIndData(tempIndData);
+    setTechData(tempTechData);
+    setEnvData(tempEnvData);
+    setEconData(tempEconData);
+    setGhgData(tempGhgData);
+  };
 
-  // Function to render each category's data, including handling GHG scopes under a main GHG heading
-  const renderCategoryData = () => (
-    <>
-      {Object.keys(reportData).map((category) => {
-        if (['Scope1', 'Scope2', 'Scope3'].includes(category)) return null;
-
-        // Check if category is one of the GHG scopes, render them under GHG heading
-        if (category === 'EconomicQuant' || category === 'EconomicQual') {
-          return (
-            <div key={category}>
-              <h3>{category.includes('Quant') ? 'Economic Quantitative' : 'Economic Qualitative'}</h3>
-              {renderData(reportData[category], '')}
-            </div>
-          );
-        } else {
-          // Render other categories normally
-          return (
-            <div key={category}>
-              <h3>{category.replace('Quant', ' Quantitative').replace('Qual', ' Qualitative')}</h3>
-              {renderData(reportData[category], '')}
-            </div>
-          );
-        }
-      })}
-
-      <div>
-        <h2>GHG</h2>
-        {['Scope1', 'Scope2', 'Scope3'].map((scope) => (
-          <div key={scope}>
-            {reportData[scope] && (
-              <>
-                <h3>{scope}</h3>
-                {renderData(reportData[scope], 'Quantitative')}
-                {reportData[`${scope}Qual`] && renderData(reportData[`${scope}Qual`], 'Qualitative')}
-              </>
-            )}
-          </div>
-        ))}
-      </div>
-    </>
-  );
-
+  console.log(socialData)
 
   return (
     <div>
@@ -117,9 +105,10 @@ export default function ViewReport({reportNumber}) {
         <h1>Report {reportNumber}</h1>
         <p>Started reporting on: {dates.start}</p>
         <p>Finished report on: {dates.due}</p>
+        <p>Number of members: {reportData.memberCount}</p>
         {reportData ? (
         <div>
-          {renderCategoryData()}
+          
         </div>
       ) : (
         <p>No report data available</p>
