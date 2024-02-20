@@ -147,16 +147,12 @@ export default function EconomicReport() {
                           <p>14. The team prioritizes activities with a positive cost-benefit ratio</p>
                           <Likert {...likertOptions} id='14' onChange={(val) => handleLikertChange(val.value, "q14")} />
                       </div>
-                      <div>
-                          <p>15. Decisions were made with a focus on maximizing the project's economic benefits</p>
-                          <Likert {...likertOptions} id='15' onChange={(val) => handleLikertChange(val.value, "q15")} />
-                      </div>
                       <button
                           onClick={handleSubmitNew}
                           className={reportStyles.nextButton}
                           style={{
-                            background: Object.keys(quantResponses).length < 15 ? "gray" : "#18392B",
-                            cursor: Object.keys(quantResponses).length < 15 ? "default" : "pointer",
+                            background: Object.keys(quantResponses).length < 14 ? "gray" : "#18392B",
+                            cursor: Object.keys(quantResponses).length < 14 ? "default" : "pointer",
                           }}>
                           Continue &rarr;
                       </button>

@@ -21,6 +21,17 @@ export default function Reports() {
   const [reportNumber, setReportNumber] = useState('');
   const [dates, setDates] = useState({start:'', due:''});
   const [progress, setProgress] = useState('Complete');
+  const [reportView, setReportView] = useState(false);
+  const [selectedReport, setSelectedReport] = useState('');
+
+  const handleReportSelect = (selectedReport) => {
+    setSelectedReport(selectedReport);
+    setReportView(true);
+  }
+
+  const handleCloseReport = () => {
+    setReportView(false);
+  }
 
   return (
     <div>
@@ -38,18 +49,20 @@ export default function Reports() {
 
             <div className={styles.dashboardContent}>
 
-              <CurrentReport/>
+              <div style={{display: reportView ? "none": "block"}}>
+                <CurrentReport/>
+              </div>
 
-              <div className={infoStyles.reportViewContent}>
+              <div className={infoStyles.reportViewContent} style={{display: reportView ? "none": "block"}}>
                 <h1>Past Reports</h1>
-                <PastReport/>
-                <PastReport/>
-                <PastReport/>
+                <PastReport onSelectReport={handleReportSelect} reportNumber={'1'}/>
                 
               </div>
 
-              <ViewReport reportNumber={'1'}/>
-            
+              <div style={{display: reportView ? "block": "none"}}>
+                <ViewReport reportNumber={selectedReport} onCloseReport={handleCloseReport}/>
+              </div>
+
             </div>
 
           </div>

@@ -8,8 +8,7 @@ import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
-export default function PastReport() {
-  const [reportNumber, setReportNumber] = useState('');
+export default function PastReport({ onSelectReport, reportNumber }) {
   const [dates, setDates] = useState({start:'', due:''})
 
   const getData = async () => {
@@ -32,7 +31,7 @@ export default function PastReport() {
             <p>01/01/2024</p>
         </div>
         <div className={infoStyles.pastReportElt}>
-            <p>View report</p>
+            <button onClick={() => onSelectReport(reportNumber)}>View report</button>
         </div>
         <div className={infoStyles.pastReportElt}>
             <p>Export report</p>

@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 
-export default function ViewReport({reportNumber}) {
+export default function ViewReport({reportNumber, onCloseReport}) {
   const [reportData, setReportData] = useState({});
   const [dates, setDates] = useState({start:'', due:''})
   const [loading, setLoading] = useState(true);
@@ -101,23 +101,78 @@ export default function ViewReport({reportNumber}) {
 
   return (
     <div>
-      <div className={infoStyles.reportViewContent}>
-        <h1>Report {reportNumber}</h1>
+      <div className={infoStyles.reportViewContent} style={{paddingRight:'8vw'}}>
+        
+        <h1>Report {reportNumber}<button style={{float:'right'}} onClick={() => onCloseReport()}>Close</button></h1>
         <p>Started reporting on: {dates.start}</p>
         <p>Finished report on: {dates.due}</p>
         <p>Number of members: {reportData.memberCount}</p>
+
+        <div>
+          <h1>Social Sustainability</h1>
+          {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
+              <div>
+                {Object.entries(socialData.SocialQuant).map(([key, value]) => (
+                  <p key={key}>{`${key}: ${value}`}</p>
+                ))}
+              </div>
+            ) : (
+              <p>No Social Sustainability Data Available</p>
+          )}
+        </div>
         
-        <h1>Social Sustainability</h1>
-        {/* Ensure socialData.SocialQuant is an object before trying to map over it */}
-        {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
-            <div>
-              {Object.entries(socialData.SocialQuant).map(([key, value]) => (
-                <p key={key}>{`${key}: ${value}`}</p>
-              ))}
-            </div>
-          ) : (
-            <p>No Social Sustainability Data Available</p>
-        )}
+        <div>
+          <h1>Economic Sustainability</h1>
+          {econData.EconomicQuant && Object.entries(econData.EconomicQuant).length > 0 ? (
+              <div>
+                {Object.entries(econData.EconomicQuant).map(([key, value]) => (
+                  <p key={key}>{`${key}: ${value}`}</p>
+                ))}
+              </div>
+            ) : (
+              <p>No Economic Sustainability Data Available</p>
+          )}
+        </div>
+
+        <div>
+          <h1>Individual Sustainability</h1>
+          {indData.IndividualQuant && Object.entries(indData.IndividualQuant).length > 0 ? (
+              <div>
+                {Object.entries(indData.IndividualQuant).map(([key, value]) => (
+                  <p key={key}>{`${key}: ${value}`}</p>
+                ))}
+              </div>
+            ) : (
+              <p>No Individual Sustainability Data Available</p>
+          )}
+        </div>
+
+        <div>
+          <h1>Technical Sustainability</h1>
+          {techData.TechnicalQuant && Object.entries(techData.TechnicalQuant).length > 0 ? (
+              <div>
+                {Object.entries(techData.TechnicalQuant).map(([key, value]) => (
+                  <p key={key}>{`${key}: ${value}`}</p>
+                ))}
+              </div>
+            ) : (
+              <p>No Technical Sustainability Data Available</p>
+          )}
+        </div>
+        
+        <div>
+          <h1>Environmental Sustainability</h1>
+          {envData.EnvironmentalQuant && Object.entries(envData.EnvironmentalQuant).length > 0 ? (
+              <div>
+                {Object.entries(envData.EnvironmentalQuant).map(([key, value]) => (
+                  <p key={key}>{`${key}: ${value}`}</p>
+                ))}
+              </div>
+            ) : (
+              <p>No Environmental Sustainability Data Available</p>
+          )}
+        </div>
+        
     </div>
 
       <style jsx>{`
