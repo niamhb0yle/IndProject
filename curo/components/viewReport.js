@@ -8,6 +8,7 @@ import "@fontsource/manrope";
 import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import questions from './questions.json';
 
 export default function ViewReport({reportNumber, onCloseReport}) {
   const [reportData, setReportData] = useState({});
@@ -97,7 +98,15 @@ export default function ViewReport({reportNumber, onCloseReport}) {
     setGhgData(tempGhgData);
   };
 
-  console.log(socialData)
+  // ability to find and display question header instead of random 'q' key
+  const findQuestionText = (category, questionKey) => {
+    const categoryObject = questions.find((cat) => Object.keys(cat)[0] === category);
+    if (categoryObject) {
+      const categoryQuestions = categoryObject[category];
+      return categoryQuestions[`${questionKey}`] || "Question text not found";
+    }
+    return "Category not found";
+  };
 
   return (
     <div>
@@ -113,7 +122,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
               <div>
                 {Object.entries(socialData.SocialQuant).map(([key, value]) => (
-                  <p key={key}>{`${key}: ${value}`}</p>
+                  <p key={key}>{`${findQuestionText('Social', key)}: ${value}`}</p>
                 ))}
               </div>
             ) : (
@@ -126,7 +135,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {econData.EconomicQuant && Object.entries(econData.EconomicQuant).length > 0 ? (
               <div>
                 {Object.entries(econData.EconomicQuant).map(([key, value]) => (
-                  <p key={key}>{`${key}: ${value}`}</p>
+                  <p key={key}>{`${findQuestionText('Economic', key)}: ${value}`}</p>
                 ))}
               </div>
             ) : (
@@ -139,7 +148,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {indData.IndividualQuant && Object.entries(indData.IndividualQuant).length > 0 ? (
               <div>
                 {Object.entries(indData.IndividualQuant).map(([key, value]) => (
-                  <p key={key}>{`${key}: ${value}`}</p>
+                  <p key={key}>{`${findQuestionText('Individual', key)}: ${value}`}</p>
                 ))}
               </div>
             ) : (
@@ -152,7 +161,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {techData.TechnicalQuant && Object.entries(techData.TechnicalQuant).length > 0 ? (
               <div>
                 {Object.entries(techData.TechnicalQuant).map(([key, value]) => (
-                  <p key={key}>{`${key}: ${value}`}</p>
+                  <p key={key}>{`${findQuestionText('Technical', key)}: ${value}`}</p>
                 ))}
               </div>
             ) : (
@@ -165,7 +174,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {envData.EnvironmentalQuant && Object.entries(envData.EnvironmentalQuant).length > 0 ? (
               <div>
                 {Object.entries(envData.EnvironmentalQuant).map(([key, value]) => (
-                  <p key={key}>{`${key}: ${value}`}</p>
+                  <p key={key}>{`${findQuestionText('Environmental', key)}: ${value}`}</p>
                 ))}
               </div>
             ) : (
