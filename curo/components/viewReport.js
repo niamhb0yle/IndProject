@@ -106,13 +106,18 @@ export default function ViewReport({reportNumber}) {
         <p>Started reporting on: {dates.start}</p>
         <p>Finished report on: {dates.due}</p>
         <p>Number of members: {reportData.memberCount}</p>
-        {reportData ? (
-        <div>
-          
-        </div>
-      ) : (
-        <p>No report data available</p>
-      )}
+        
+        <h1>Social Sustainability</h1>
+        {/* Ensure socialData.SocialQuant is an object before trying to map over it */}
+        {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
+            <div>
+              {Object.entries(socialData.SocialQuant).map(([key, value]) => (
+                <p key={key}>{`${key}: ${value}`}</p>
+              ))}
+            </div>
+          ) : (
+            <p>No Social Sustainability Data Available</p>
+        )}
     </div>
 
       <style jsx>{`

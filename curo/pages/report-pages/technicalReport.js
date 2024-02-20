@@ -148,24 +148,12 @@ export default function TechnicalReport() {
                           <p>15. Error messages are included in the software where appropriate</p>
                           <Likert {...likertOptions} id='15' onChange={(val) => handleLikertChange(val.value, "q15")} />
                       </div>
-                      <div>
-                          <p>16. Error messages are included in the software where appropriate</p>
-                          <Likert {...likertOptions} id='16' onChange={(val) => handleLikertChange(val.value, "q16")} />
-                      </div>
-                      <div>
-                          <p>17. Error messages are included in the software where appropriate</p>
-                          <Likert {...likertOptions} id='17' onChange={(val) => handleLikertChange(val.value, "q17")} />
-                      </div>
-                      <div>
-                          <p>18. Error messages are included in the software where appropriate</p>
-                          <Likert {...likertOptions} id='18' onChange={(val) => handleLikertChange(val.value, "q18")} />
-                      </div>
                       <button
                           onClick={handleSubmitNew}
                           className={reportStyles.nextButton}
                           style={{
-                            background: Object.keys(quantResponses).length < 18 ? "gray" : "#18392B",
-                            cursor: Object.keys(quantResponses).length < 18 ? "default" : "pointer",
+                            background: Object.keys(quantResponses).length < 15 ? "gray" : "#18392B",
+                            cursor: Object.keys(quantResponses).length < 15 ? "default" : "pointer",
                           }}>
                           Continue &rarr;
                       </button>
