@@ -8,7 +8,7 @@ import "@fontsource/manrope";
 import Header from '../../components/Header';
 import SideBar from '../../components/sidebar';
 import { useState, useEffect } from 'react';
-import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc, query, getDocs, orderBy } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
 import { isNotFoundError } from 'next/dist/client/components/not-found';
 import PastReport from '../../components/pastReport';
@@ -17,12 +17,9 @@ import ViewReport from '../../components/viewReport';
 
 export default function Reports() {
   const user = auth.currentUser;
-  const [userType, setUserType] = useState('');
-  const [reportNumber, setReportNumber] = useState('');
-  const [dates, setDates] = useState({start:'', due:''});
-  const [progress, setProgress] = useState('Complete');
   const [reportView, setReportView] = useState(false);
   const [selectedReport, setSelectedReport] = useState('');
+  const [docCount, setDocCount] = useState(0);
 
   const handleReportSelect = (selectedReport) => {
     setSelectedReport(selectedReport);
@@ -32,6 +29,24 @@ export default function Reports() {
   const handleCloseReport = () => {
     setReportView(false);
   }
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      if (!user) return; // Ensure the user is defined
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      if (!userSnap.exists()) return; // Ensure user data exists
+      const teamRef = userSnap.data().Team;
+      const reportsCollectionRef = collection(db, `Teams/${teamRef.id}/Reports`);
+      const querySnapshot = await getDocs(reportsCollectionRef);
+      setDocCount(querySnapshot.docs.length);
+      console.log(querySnapshot)
+    };
+  
+    fetchReports();
+    console.log(docCount)
+  }, [user]);
+  
 
   return (
     <div>
@@ -55,8 +70,15 @@ export default function Reports() {
 
               <div className={infoStyles.reportViewContent} style={{display: reportView ? "none": "block"}}>
                 <h1>Past Reports</h1>
-                <PastReport onSelectReport={handleReportSelect} reportNumber={'1'}/>
-                
+                <div>
+                  {Array.from({ length: docCount - 1 }, (_, index) => (
+                    <PastReport
+                      key={index}
+                      onSelectReport={() => handleReportSelect(index+1)}
+                      reportNumber={String(index + 1)}
+                    />
+                  ))}
+                </div>
               </div>
 
               <div style={{display: reportView ? "block": "none"}}>

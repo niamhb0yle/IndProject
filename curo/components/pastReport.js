@@ -25,7 +25,7 @@ export default function PastReport({ onSelectReport, reportNumber }) {
     <div>
       <div className={infoStyles.pastReportContainer}>
         <div className={infoStyles.pastReportElt}>
-            <p>Report 1</p>
+            <p>Report {reportNumber}</p>
         </div>
         <div className={infoStyles.pastReportElt}>
             <p>01/01/2024</p>
