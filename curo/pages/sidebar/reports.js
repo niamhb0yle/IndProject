@@ -8,9 +8,8 @@ import "@fontsource/manrope";
 import Header from '../../components/Header';
 import SideBar from '../../components/sidebar';
 import { useState, useEffect } from 'react';
-import { collection, addDoc, doc, updateDoc, setDoc, getDoc, query, getDocs, orderBy } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc, getDocs, query, where, Timestamp } from 'firebase/firestore';
 import { auth, db } from '../../firebase';
-import { isNotFoundError } from 'next/dist/client/components/not-found';
 import PastReport from '../../components/pastReport';
 import CurrentReport from '../../components/currentReport';
 import ViewReport from '../../components/viewReport';
@@ -21,8 +20,8 @@ export default function Reports() {
   const [selectedReport, setSelectedReport] = useState('');
   const [docCount, setDocCount] = useState(0);
 
-  const handleReportSelect = (selectedReport) => {
-    setSelectedReport(selectedReport);
+  const handleReportSelect = (reportId) => {
+    setSelectedReport(reportId);
     setReportView(true);
   }
 
@@ -39,8 +38,8 @@ export default function Reports() {
       const teamRef = userSnap.data().Team;
       const reportsCollectionRef = collection(db, `Teams/${teamRef.id}/Reports`);
       const querySnapshot = await getDocs(reportsCollectionRef);
-      setDocCount(querySnapshot.docs.length);
-      console.log(querySnapshot)
+      // Assuming the last document is the 'current report', so subtract one from count
+      setDocCount(querySnapshot.docs.length -1); 
     };
   
     fetchReports();
@@ -71,13 +70,17 @@ export default function Reports() {
               <div className={infoStyles.reportViewContent} style={{display: reportView ? "none": "block"}}>
                 <h1>Past Reports</h1>
                 <div>
-                  {Array.from({ length: docCount - 1 }, (_, index) => (
+                {docCount > 0 ? (
+                  Array.from({ length: docCount }, (_, index) => (
                     <PastReport
                       key={index}
-                      onSelectReport={() => handleReportSelect(index+1)}
+                      onSelectReport={() => handleReportSelect(String(index + 1))}
                       reportNumber={String(index + 1)}
                     />
-                  ))}
+                  ))
+                ) : (
+                  <p>No past reports available.</p> // Display this message if no past reports are found
+                )}
                 </div>
               </div>
 
@@ -122,4 +125,3 @@ export default function Reports() {
     </div>
   );
 }
-
