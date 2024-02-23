@@ -6,8 +6,32 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
+import infoStyles from '../../styles/Info.module.css';
+import { useState, useEffect } from 'react';
+import { auth, db } from '../../firebase';
+import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
 
 export default function Homepage() {
+  const [teamInfo, setTeamInfo] = useState({name:'', lead:'', org:'', key:'', members:[], currentReport:{}});
+
+  useEffect(() => {
+    const setTeamData = async () => {
+      const user = auth.currentUser;
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      const teamRef = userSnap.data().Team;
+      const teamSnap = await getDoc(teamRef);
+      setTeamInfo({
+        name: teamSnap.data().name,
+        org: teamSnap.data().org,
+        lead: teamSnap.data().coach,
+        members: teamSnap.data().Members || [],
+        currentReport: teamSnap.data().CurrentReport,
+        key: teamSnap.id,
+      })
+    }
+    setTeamData();
+  }, []);
 
   return (
     <div>
@@ -24,8 +48,24 @@ export default function Homepage() {
             <Header title="Team Settings"/>
 
             <div className={styles.dashboardContent}>
-              <p>Team settings</p>
-              
+
+              <div className={infoStyles.reportViewContent} >
+                <h1>Team info</h1>
+                <p>Team name: {teamInfo.name}</p>
+                <p>Organisation: {teamInfo.org}</p>
+                <p>Team Lead: {teamInfo.lead}</p>
+                <p>Special key: {teamInfo.key}</p>
+                
+              </div>
+
+              <div className={infoStyles.reportViewContent} >
+                <h1>Members</h1>
+                {
+                  teamInfo.members.map((member, index) => (
+                    <p key={index}>{member}</p>
+                  ))
+                }
+              </div>
 
             </div>
 
