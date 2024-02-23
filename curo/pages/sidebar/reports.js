@@ -79,7 +79,7 @@ export default function Reports() {
                     />
                   ))
                 ) : (
-                  <p>No past reports available.</p> // Display this message if no past reports are found
+                  <p>No past reports available.</p>
                 )}
                 </div>
               </div>

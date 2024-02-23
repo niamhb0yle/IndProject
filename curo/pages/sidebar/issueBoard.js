@@ -27,7 +27,6 @@ export default function Homepage() {
             <Header title="Issue Board"/>
 
             <div className={styles.dashboardContent}>
-              <p>This page is to track the teams current sustainable goals.</p>
               <IssueBoard/>
             </div>
 

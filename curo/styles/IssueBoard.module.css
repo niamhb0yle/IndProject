@@ -4,22 +4,38 @@
     flex-direction: row;
     flex-wrap:wrap;
     align-content: flex-start;
+    max-width: 1600px;
 }
 
 .issueColumn {
-    width: 400px;
-    min-height: 600px;
+    min-height: 75vh;
     background:white;
-    box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.2);
-    margin-right:30px;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+    margin-right:2vw;
     border-radius:20px;
     display:flex;
-    flex:1;
+    flex:0.33;
     align-items:center;
     flex-direction:column;
     justify-content:flex-start;
     border-left:10px;
     border-top:10px;
+}
+
+.issueInfoContainer {
+    margin-bottom: 2vh;
+    background:#f7f8ff;
+    border-radius: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+    flex-wrap: wrap;
+}
+
+.issueInfoContainer p {
+    color: black;
 }
 
 .columnHeader {
@@ -30,7 +46,7 @@
 }
 
 .issueDiv {
-    width:350px;
+    width:90%;
     height:fit-content;
     background:linear-gradient(180deg, #F1F1FD 0%, #F1F1FD 60%, #321c7f 60%, #321c7f 100%);
     border-radius:20px;

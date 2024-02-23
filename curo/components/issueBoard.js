@@ -5,12 +5,30 @@ import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import Header from './Header';
 import SideBar from './sidebar';
+import reportStyles from '../styles/Reports.module.css';
 import { useState, useEffect } from 'react';
 import styles from '../styles/IssueBoard.module.css';
 import ibStyles from '../styles/IssueBoard.module.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import Modal from 'react-modal';
+import AddIssue from './addIssue';
+
+
+Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    width:'400px',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '30px',
+  },
+};
 
 const fetchIssues = async () => {
   const user = auth.currentUser;
@@ -37,6 +55,8 @@ const fetchIssues = async () => {
 
 export default function IssueBoard() {
   const [tasks, setTasks] = useState({ 'To Do': [], 'In Progress': [], 'Complete': [] });
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => {
     const loadIssues = async () => {
@@ -88,7 +108,13 @@ export default function IssueBoard() {
           <div className={styles.dashboard}>
 
             <div className={styles.dashboardContent}>
+              
             <div className={ibStyles.boardContainer}>
+              <div className={ibStyles.issueInfoContainer}>
+                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions</p>
+                <AddIssue />
+              </div>
+                
             <DragDropContext onDragEnd={onDragEnd}>
               {Object.keys(tasks).map((columnId) => (
                 <Droppable key={columnId} droppableId={columnId}>

@@ -32,7 +32,6 @@ export default function PastReport({ onSelectReport, reportNumber }) {
   }
 
   getDates();
-      
   }, [])
 
   return (

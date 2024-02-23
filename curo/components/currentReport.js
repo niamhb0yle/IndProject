@@ -238,6 +238,7 @@ export default function CurrentReport() {
       marginRight: '-50%',
       width:'400px',
       transform: 'translate(-50%, -50%)',
+      borderRadius: '30px',
     },
   };
 
