@@ -78,7 +78,7 @@ export default function AddView ({ onIssueAdded }) {
 
     return (
         <div>
-            <button onClick={() => setShowModal(true)}>Create Issue</button>
+            <button className={ibStyles.addIssue} onClick={() => setShowModal(true)}>Add a new Issue</button>
             <Modal
               isOpen={showModal}
               onRequestClose={() => setShowModal(false)}

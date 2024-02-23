@@ -29,10 +29,12 @@ const fetchIssues = async () => {
     issues[issueData.Status].push({
       title: issueData.Title,
       assignee: issueData.Assignee,
-      description: issueData.Description
+      description: issueData.Description,
+      id: doc.id,
     });
   });
 
+  console.log(issues)
   return issues;
 };
 
@@ -63,8 +65,7 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <div className={ibStyles.issueInfoContainer}>
-                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions</p>
-                <AddIssue onIssueAdded={handleIssueAdded}/>
+                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions!  <AddIssue onIssueAdded={handleIssueAdded}/></p>
               </div>
               <IssueBoard issues={issues} setIssues={setIssues}/>
             </div>

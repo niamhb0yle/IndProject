@@ -11,7 +11,7 @@ import styles from '../styles/IssueBoard.module.css';
 import ibStyles from '../styles/IssueBoard.module.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { auth, db } from '../firebase';
-import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 {/*
 const fetchIssues = async () => {
@@ -40,33 +40,55 @@ const fetchIssues = async () => {
 
 export default function IssueBoard({ issues, setIssues }) {
 
-  const onDragEnd = result => {
+  const onDragEnd = async (result) => {
     const { source, destination } = result;
-
+  
     // Dropped outside the list
     if (!destination) {
       return;
     }
-
+  
+    // Identifying the moved item
+    const movedItem = issues[source.droppableId][source.index];
+  
     if (source.droppableId === destination.droppableId) {
       const items = Array.from(issues[source.droppableId]);
       const [reorderedItem] = items.splice(source.index, 1);
       items.splice(destination.index, 0, reorderedItem);
-
+  
       setIssues({ ...issues, [source.droppableId]: items });
     } else {
+      // Remove item from source column
       const sourceItems = Array.from(issues[source.droppableId]);
-      const [movedItem] = sourceItems.splice(source.index, 1);
-      const destinationItems = Array.from(issues[destination.droppableId]);
+      sourceItems.splice(source.index, 1);
+  
+      // Add item to destination column
+      const destinationItems = Array.from(issues[destination.droppableId] || []);
       destinationItems.splice(destination.index, 0, movedItem);
-
+  
       setIssues({ 
         ...issues, 
         [source.droppableId]: sourceItems,
         [destination.droppableId]: destinationItems 
       });
+  
+      // Update issue status in Firestore
+      try {
+        const user = auth.currentUser;
+        const userRef = doc(db, "Users", user.email);
+        const userSnap = await getDoc(userRef);
+        const teamRef = userSnap.data().Team;
+        const issueRef = doc(db, `Teams/${teamRef.id}/Issues`, movedItem.id);
+        await updateDoc(issueRef, {
+          Status: destination.droppableId
+        });
+        console.log("Issue status updated successfully.");
+      } catch (error) {
+        console.error("Error updating issue status: ", error);
+      }
     }
   };
+  
 
   return (
     <div>
@@ -94,7 +116,7 @@ export default function IssueBoard({ issues, setIssues }) {
                     >
                       <h3 className={ibStyles.columnHeader}>{columnId}</h3>
                       {issues[columnId].map((item, index) => (
-                        <Draggable key={item.title} draggableId={item.title} index={index}>
+                        <Draggable key={item.id} draggableId={item.id} index={index}>
                           {(provided, snapshot) => (
                             <div
                               className={ibStyles.issueDiv}
