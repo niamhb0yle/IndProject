@@ -12,24 +12,8 @@ import ibStyles from '../styles/IssueBoard.module.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
-import Modal from 'react-modal';
-import AddIssue from './addIssue';
 
-
-Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    width:'400px',
-    transform: 'translate(-50%, -50%)',
-    borderRadius: '30px',
-  },
-};
-
+{/*
 const fetchIssues = async () => {
   const user = auth.currentUser;
   const userRef = doc(db, "Users", user.email);
@@ -52,20 +36,9 @@ const fetchIssues = async () => {
 
   return issues;
 };
+*/}
 
-export default function IssueBoard() {
-  const [tasks, setTasks] = useState({ 'To Do': [], 'In Progress': [], 'Complete': [] });
-  const [showModal, setShowModal] = useState(false);
-
-
-  useEffect(() => {
-    const loadIssues = async () => {
-      const fetchedIssues = await fetchIssues();
-      setTasks(fetchedIssues);
-    };
-
-    loadIssues();
-  }, []);
+export default function IssueBoard({ issues, setIssues }) {
 
   const onDragEnd = result => {
     const { source, destination } = result;
@@ -76,19 +49,19 @@ export default function IssueBoard() {
     }
 
     if (source.droppableId === destination.droppableId) {
-      const items = Array.from(tasks[source.droppableId]);
+      const items = Array.from(issues[source.droppableId]);
       const [reorderedItem] = items.splice(source.index, 1);
       items.splice(destination.index, 0, reorderedItem);
 
-      setTasks({ ...tasks, [source.droppableId]: items });
+      setIssues({ ...issues, [source.droppableId]: items });
     } else {
-      const sourceItems = Array.from(tasks[source.droppableId]);
+      const sourceItems = Array.from(issues[source.droppableId]);
       const [movedItem] = sourceItems.splice(source.index, 1);
-      const destinationItems = Array.from(tasks[destination.droppableId]);
+      const destinationItems = Array.from(issues[destination.droppableId]);
       destinationItems.splice(destination.index, 0, movedItem);
 
-      setTasks({ 
-        ...tasks, 
+      setIssues({ 
+        ...issues, 
         [source.droppableId]: sourceItems,
         [destination.droppableId]: destinationItems 
       });
@@ -110,13 +83,8 @@ export default function IssueBoard() {
             <div className={styles.dashboardContent}>
               
             <div className={ibStyles.boardContainer}>
-              <div className={ibStyles.issueInfoContainer}>
-                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions</p>
-                <AddIssue />
-              </div>
-                
             <DragDropContext onDragEnd={onDragEnd}>
-              {Object.keys(tasks).map((columnId) => (
+              {Object.keys(issues).map((columnId) => (
                 <Droppable key={columnId} droppableId={columnId}>
                   {(provided, snapshot) => (
                     <div
@@ -125,7 +93,7 @@ export default function IssueBoard() {
                       {...provided.droppableProps}
                     >
                       <h3 className={ibStyles.columnHeader}>{columnId}</h3>
-                      {tasks[columnId].map((item, index) => (
+                      {issues[columnId].map((item, index) => (
                         <Draggable key={item.title} draggableId={item.title} index={index}>
                           {(provided, snapshot) => (
                             <div

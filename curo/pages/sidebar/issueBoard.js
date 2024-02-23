@@ -1,16 +1,51 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import ibStyles from '../../styles/IssueBoard.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import IssueBoard from '../../components/issueBoard';
+import AddIssue from '../../components/addIssue';
+import {useState, useEffect} from 'react';
+import { auth, db } from '../../firebase';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc, query, where, getDocs } from 'firebase/firestore';
 
-// TODO: Add an 'add issue' funciton here
+const fetchIssues = async () => {
+  const user = auth.currentUser;
+  const userRef = doc(db, "Users", user.email);
+  const userSnap = await getDoc(userRef);
+  const teamRef = userSnap.data().Team
+  const issuesRef = collection(teamRef, "Issues");
+
+  const q = query(issuesRef, where('Status', 'in', ['To Do', 'In Progress', 'Complete']));
+  const querySnapshot = await getDocs(q);
+  let issues = { 'To Do': [], 'In Progress': [], 'Complete': [] };
+
+  querySnapshot.forEach((doc) => {
+    const issueData = doc.data();
+    issues[issueData.Status].push({
+      title: issueData.Title,
+      assignee: issueData.Assignee,
+      description: issueData.Description
+    });
+  });
+
+  return issues;
+};
 
 export default function Homepage() {
+  const [issues, setIssues] = useState({ 'To Do': [], 'In Progress': [], 'Complete': [] });
+
+  useEffect(() => {
+    fetchIssues().then(setIssues);
+  }, []);
+
+  const handleIssueAdded = () => {
+    fetchIssues().then(setIssues); // Re-fetch issues after adding
+  };
 
   return (
     <div>
@@ -27,7 +62,11 @@ export default function Homepage() {
             <Header title="Issue Board"/>
 
             <div className={styles.dashboardContent}>
-              <IssueBoard/>
+              <div className={ibStyles.issueInfoContainer}>
+                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions</p>
+                <AddIssue onIssueAdded={handleIssueAdded}/>
+              </div>
+              <IssueBoard issues={issues} setIssues={setIssues}/>
             </div>
 
           </div>

@@ -28,7 +28,7 @@ const customStyles = {
   },
 };
 
-export default function AddView ({reportNumber, onCloseReport}) {
+export default function AddView ({ onIssueAdded }) {
     const [showModal, setShowModal] = useState(false);
     const [assignees, setAssignees] = useState([]);
     const [issueData, setIssueData] = useState({assignee: '', title: '', description: '', storyPoints: ''});
@@ -71,6 +71,9 @@ export default function AddView ({reportNumber, onCloseReport}) {
             StoryPoints: issueData.storyPoints,
             Status: 'To Do'
         });
+
+        setShowModal(false);
+        onIssueAdded();
     }
 
     return (
@@ -103,8 +106,8 @@ export default function AddView ({reportNumber, onCloseReport}) {
                 />
                 <p>Please select an assignee from your team:</p>
                 <select 
-                    value={issueData.storyPoints} 
-                    onChange={(e) => setIssueData({...issueData, storyPoints:e.target.value})}
+                    value={issueData.assignee} 
+                    onChange={(e) => setIssueData({...issueData, assignee:e.target.value})}
                     className={reportStyles.inputBoxes}
                     style={{width:'90%'}}
                 >
@@ -117,8 +120,8 @@ export default function AddView ({reportNumber, onCloseReport}) {
                 </select>
                 <p>Please enter story points for your issue:</p>
                 <select 
-                    value={issueData.assignee} 
-                    onChange={(e) => setIssueData({...issueData, assignee:e.target.value})}
+                    value={issueData.storyPoints} 
+                    onChange={(e) => setIssueData({...issueData, storyPoints:e.target.value})}
                     className={reportStyles.inputBoxes}
                     style={{width:'90%'}}
                 >

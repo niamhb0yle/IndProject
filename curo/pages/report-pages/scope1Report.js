@@ -32,7 +32,7 @@ export default function Scope1Report() {
   const [totalHours, setTotalHours] = useState(0);
   const [calculationComplete, setCalculationComplete] = useState(false);
   const [transportBreakdown, setTransportBreakdown] = useState({});
-  const [inputValid, setInputValid] = useState(false)
+  const [inputValid, setInputValid] = useState(false);
 
   const emissionFactors = {
     "Diesel Car": 0.27492,
