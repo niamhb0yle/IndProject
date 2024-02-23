@@ -6,39 +6,37 @@ import "@fontsource/manrope";
 import Header from './Header';
 import SideBar from './sidebar';
 import reportStyles from '../styles/Reports.module.css';
+import infoStyles from '../styles/Info.module.css';
 import { useState, useEffect } from 'react';
 import styles from '../styles/IssueBoard.module.css';
 import ibStyles from '../styles/IssueBoard.module.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import Modal from 'react-modal';
 
-{/*
-const fetchIssues = async () => {
-  const user = auth.currentUser;
-  const userRef = doc(db, "Users", user.email);
-  const userSnap = await getDoc(userRef);
-  const teamRef = userSnap.data().Team
-  const issuesRef = collection(teamRef, "Issues");
 
-  const q = query(issuesRef, where('Status', 'in', ['To Do', 'In Progress', 'Complete']));
-  const querySnapshot = await getDocs(q);
-  let issues = { 'To Do': [], 'In Progress': [], 'Complete': [] };
-
-  querySnapshot.forEach((doc) => {
-    const issueData = doc.data();
-    issues[issueData.Status].push({
-      title: issueData.Title,
-      assignee: issueData.Assignee,
-      description: issueData.Description
-    });
-  });
-
-  return issues;
+Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    minWidth: '400px',
+    width:'fit-content',
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '30px',
+    padding:0
+  },
 };
-*/}
+
 
 export default function IssueBoard({ issues, setIssues }) {
+  const [showModal, setShowModal] = useState(false);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [selectedIssueStatus, setSelectedIssueStatus] = useState('')
 
   const onDragEnd = async (result) => {
     const { source, destination } = result;
@@ -89,6 +87,14 @@ export default function IssueBoard({ issues, setIssues }) {
     }
   };
   
+  const viewIssue = (item, status) => {
+    setSelectedIssue(item);
+    setSelectedIssueStatus(status);
+  }
+
+  const closeModal = () => {
+    setSelectedIssue(null); // Reset the selected issue when closing the modal
+  };
 
   return (
     <div>
@@ -123,6 +129,7 @@ export default function IssueBoard({ issues, setIssues }) {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
+                              onClick={() => viewIssue(item, columnId)}
                             >
                               <h1>{item.title}</h1>
                               <p>Assignee: {item.assignee}</p>
@@ -134,9 +141,27 @@ export default function IssueBoard({ issues, setIssues }) {
                     </div>
                   )}
                 </Droppable>
-      ))}
-    </DragDropContext>
-    </div>
+              ))}
+            </DragDropContext>
+            </div>
+
+            {selectedIssue && (
+              <Modal
+                isOpen={!!selectedIssue}
+                onRequestClose={closeModal}
+                style={customStyles}
+              >
+                <h1 className={reportStyles.headingText} style={{margin:'0', background:'#321c7f', color:'white', padding:'2vh'}}>{selectedIssue.title}</h1>
+                <div style={{marginRight:'2vh', marginLeft:'2vh'}}>
+                  <p style={{fontSize:'20px'}}>{selectedIssue.description}</p>
+                  <p>Assignee: {selectedIssue.assignee}</p>
+                  <p>Story points: {selectedIssue.storyPoints}</p>
+                  <p>Status: {selectedIssueStatus}</p>
+                </div>
+                
+                <button className={infoStyles.reportPageBtn} style={{float:'right'}} onClick={closeModal}>Close</button>
+              </Modal>
+            )}
             </div>
 
           </div>

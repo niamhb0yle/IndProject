@@ -30,6 +30,7 @@ const fetchIssues = async () => {
       title: issueData.Title,
       assignee: issueData.Assignee,
       description: issueData.Description,
+      storyPoints: issueData.StoryPoints,
       id: doc.id,
     });
   });
@@ -46,7 +47,7 @@ export default function Homepage() {
   }, []);
 
   const handleIssueAdded = () => {
-    fetchIssues().then(setIssues); // Re-fetch issues after adding
+    fetchIssues().then(setIssues);
   };
 
   return (
