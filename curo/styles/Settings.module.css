@@ -1,0 +1,90 @@
+.settingsContainer {
+    margin-left:2vw;
+    margin-right: 8vw;
+    margin-bottom: 4vh;
+    background:#fcfcff;
+    border-radius: 30px;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+}
+
+.settingsContainer h1 {
+    font-family: 'Manrope';
+    color: #4325a9;
+    font-size: calc(24px + 0.4vw);
+    font-style: normal;
+    font-weight:600;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    margin-bottom: 2vh;
+    display:block;
+}
+
+.settingsContainer p {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(11px + 0.4vw);
+    text-align: left;
+    margin-bottom: 2vh;
+    margin-top: 1vh;
+}
+
+.settingsContainer li {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(11px + 0.4vw);
+    text-align: left;
+    margin-bottom: 2vh;
+    margin-top: 1vh;
+}
+
+
+.settingsContentParent {
+    flex-wrap: wrap;
+    flex-direction: row;
+    display:flex;
+    flex:1;
+}
+
+.specialKey {
+    font-size: calc(20px + 0.2vw);
+    font-family: 'Manrope';
+    filter: blur(5px);
+    user-select: none;
+}
+
+.specialKey p {
+    font-size: calc(20px + 0.2vw);
+    font-family: 'Manrope';
+    filter: none;
+    user-select: none;
+
+}
+
+.specialKey:hover {
+    filter: none;
+    user-select: auto;
+}
+
+.settingsBtn {
+    background: #f0ebff;
+    border-radius: 30px;
+    padding:2vh;
+    width:fit-content;
+    font-size: calc(14px + 0.2vw);
+    border:none;
+    box-shadow: 2px 2px 10px rgba(100, 55, 254, 0.3);
+    cursor: pointer;
+    margin-right: 20%;
+    margin-top: 1vw;;
+    height:fit-content;
+    float: right;
+    font-family: 'Manrope';
+}
+
+.settingsBtn:hover {
+    background: #e0d7ff;
+}
