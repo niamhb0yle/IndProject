@@ -88,3 +88,10 @@
 .settingsBtn:hover {
     background: #e0d7ff;
 }
+
+.vl {
+    width: 1px;
+    background-color: rgb(161, 161, 161);
+    margin: 2vw;
+    align-self: stretch;
+  }
