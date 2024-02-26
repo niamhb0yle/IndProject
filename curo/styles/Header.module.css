@@ -45,4 +45,12 @@
     box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.3);
     object-fit: cover;
 }
+
+.helloText{
+    color: #2a3dca;
+    font-family: 'Manrope';
+    font-size: calc(14px + 0.2vw);
+    font-weight: 600;
+    margin-right: 1vw;
+}
   

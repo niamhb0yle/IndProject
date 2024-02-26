@@ -17,8 +17,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 
 export default function Dashboard() {
-    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:[], reportNo:''})
+    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:{}, reportNo:''})
     const [progress, setProgress] = useState('');
+    const [memberProfiles, setMemberProfiles] = useState({});
     const [teamProgress, setTeamProgress] = useState('');
     const [progressView, setProgressView] = useState('personal');
     const [todoList, setTodoList] = useState([]);
@@ -81,26 +82,22 @@ export default function Dashboard() {
         const teamSnap = await getDoc(teamRef);
         const members = teamSnap.data().Members || [];
 
-        if (teamSnap.exists()) {
-            setDashboardInfo({
-                Team:teamSnap.data().name,
-                Lead:teamSnap.data().coach,
-                Organisation:teamSnap.data().org,
-                Members: teamSnap.data().Members || [],
-                ReportNo: teamSnap.data().CurrentReport.number,
-            })
-        } else {
-            console.log("No such document!");
-        }
-
         // calculating the overall team progress
         let tempTotalReports = 0;
         let tempTotalReportsCompleted = 0;
+        let membersNames = {};
+        let memberProfiles = {};
 
         await Promise.all(members.map(async (member) => {
             const memberRef = doc(db, "Users", member);
             const memberSnap = await getDoc(memberRef);
             const memberProgress = memberSnap.data().progress;
+            membersNames[member] = memberSnap.data().username;
+            if (memberSnap.data().photoUrl){
+                memberProfiles[member] = memberSnap.data().photoUrl;
+            } else {
+                memberProfiles[member] = '/images/user.png';
+            }
             Object.keys(memberProgress).forEach((key) => {
                 if (memberProgress[key] === true) {
                     tempTotalReportsCompleted++;
@@ -110,7 +107,20 @@ export default function Dashboard() {
         }));
 
         let tempTeamProgress = Math.round((tempTotalReportsCompleted/tempTotalReports)*100);
-        setTeamProgress(tempTeamProgress);
+        await setTeamProgress(tempTeamProgress);
+        await setMemberProfiles(memberProfiles);
+
+        if (teamSnap.exists()) {
+            setDashboardInfo({
+                Team:teamSnap.data().name,
+                Lead:teamSnap.data().coach,
+                Organisation:teamSnap.data().org,
+                ReportNo: teamSnap.data().CurrentReport.number,
+                Members: membersNames,
+            })
+        } else {
+            console.log("No such document!");
+        }
     };
 
     useEffect(() => {
@@ -163,7 +173,7 @@ export default function Dashboard() {
                       <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
                             <div style={{marginBottom:'2vh'}}>
-                                <p style={{display:'inline'}}>{progressView === 'personal' ? 'Your progress: ' : 'Teams progress: '} </p><FontAwesomeIcon icon={faShuffle} style={{display:'inline', cursor:'pointer', width:'18px'}} onClick={triggerProgressView} />
+                                <p style={{display:'inline'}}>{progressView === 'personal' ? 'Your progress: ' : 'Teams progress: '} <FontAwesomeIcon icon={faShuffle} className={styles.shuffle} onClick={triggerProgressView} /></p>
                             </div>
                             
                             <div style={{width:'8vw', height:'8vw'}}>
@@ -184,11 +194,15 @@ export default function Dashboard() {
                   </div>
 
                   <div style={{display:'flex', flexDirection:'column', flex:0.5, background:'#354CFC', borderRadius:'30px', margin:'20px'}}>
-                    <h1 style={{color:'white', fontFamily:'Montserrat', margin:'3vh', marginBottom:'2vh'}}>Members</h1>
-                      {dashboardInfo.Members.map((member) => (
-                        <p style={{marginTop:'0.5vh', marginBottom:'0.5vh', marginLeft:'3vh', color:'white'}}>{member}</p>
-                      ))}
-                     
+                    <h1 style={{color:'white', fontFamily:'Montserrat', margin:'3vh', marginBottom:'2vh'}}>Members ({Object.keys(dashboardInfo.Members).length})</h1>
+                    {dashboardInfo.Members && Object.entries(dashboardInfo.Members).map(([email, name]) => (
+                        <div key={email} className={styles.memberContainer}>
+                            <div className={styles.memberProfilePics}>
+                                <img src={memberProfiles[email]} alt='Profile' />
+                            </div>
+                            <p style={{ marginTop: '0.5vh', marginBottom: '0.5vh', marginLeft: '1vh', color: 'white', display:'inline'}}>{name}</p>
+                        </div>
+                    ))}
                   </div>
 
               </div>

@@ -87,7 +87,7 @@ export default function Homepage() {
     const userRef = doc(db, "Users", user.email);
 
     let newName = '';
-    let newPassword = '';
+    let newOrg = '';
 
     if (newUserInfo.name === ''){
       newName = userInfo.name;
@@ -102,7 +102,7 @@ export default function Homepage() {
     }
 
     await updateDoc(userRef, {
-        name: newName
+        username: newName
     });
 
     await setShowModal(false);

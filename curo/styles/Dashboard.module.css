@@ -148,3 +148,39 @@ padding-bottom: 20px;
 .expandBtn:hover {
   transform: translate(1px, 2px);
 }
+
+.shuffle {
+  display: inline;
+  cursor: pointer;
+  width: calc(16px + 0.2vh);
+  transition: transform 0.1s ease-in-out;
+}
+
+.shuffle:hover {
+  transform: rotate(10deg);
+  color:#354CFC;
+}
+
+.memberContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+.memberProfilePics {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-left: 1vw;
+}
+
+.memberProfilePics img {
+  width: auto;
+  height: 100%;
+  box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.3);
+  object-fit: cover;
+}

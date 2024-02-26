@@ -3,13 +3,17 @@
   margin:0;
   padding-top: 50px;
   display: flex;
-  flex:0.125;
+  height:100vh;
   flex-direction: column;
   position:sticky;
   padding-left: 30px;
   padding-right:1vw;
   box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.2);
-  
+  position: fixed;
+  top:0;
+  left:0;
+  width:16vw;
+  overflow-y: auto;
 }
 
 #sidebarLogo{
@@ -43,4 +47,52 @@
   transform: scale(1.03);
   color: #d7dbfe;
   text-shadow: 2px 2px 20px rgba(53, 76, 252, 2);
+}
+
+.logoutWrapper {
+  margin-top: auto;
+  padding: 10px;
+  margin-bottom: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.logoutButton {
+  cursor: pointer;
+  color: #F1F1FD;
+  font-family: Manrope;
+  font-size: calc(12px + 0.5vw);
+  font-style: normal;
+  font-weight: 600;
+  letter-spacing: 1.3px;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.logoutButton:hover {
+  transform: scale(1.03);
+  color: #d7dbfe;
+  text-shadow: 2px 2px 20px rgba(53, 76, 252, 2);
+}
+
+.modalButtons {
+  background: #ebedff;
+  border-radius: 30px;
+  padding:2vh;
+  width:fit-content;
+  font-size: calc(14px + 0.2vw);
+  border:none;
+  cursor: pointer;
+  margin:1vw;
+  height:fit-content;
+}
+
+.modalButtons:hover {
+  background: #d7dbfe;
 }

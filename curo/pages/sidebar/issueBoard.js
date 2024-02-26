@@ -71,11 +71,11 @@ export default function Homepage() {
                   <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions!</p>
                 </div>
                 <div className={ibStyles.vl}></div>
-                <div style={{alignItems:'center', justifyContent:'center'}}>
-                  <p><AddIssue onIssueAdded={handleIssueAdded} type='createIssue'/></p>
+                <div style={{flex:0.25}}>
+                  <AddIssue onIssueAdded={handleIssueAdded} type='createIssue'/>
                 </div>
-                <div >
-                <p><AddIssue onIssueAdded={handleIssueAdded} type='fromSuggestions'/></p>
+                <div style={{flex:0.25}}>
+                  <AddIssue onIssueAdded={handleIssueAdded} type='fromSuggestions'/>
                 </div>
               </div>
               <IssueBoard issues={issues} setIssues={setIssues}/>
