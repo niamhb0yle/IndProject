@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import ibStyles from '../../styles/IssueBoard.module.css';
+import settingsStyles from '../../styles/Settings.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -66,7 +67,16 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <div className={ibStyles.issueInfoContainer}>
-                <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions!  <AddIssue onIssueAdded={handleIssueAdded}/></p>
+                <div style={{flex:0.5}}>
+                  <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions!</p>
+                </div>
+                <div className={ibStyles.vl}></div>
+                <div style={{alignItems:'center', justifyContent:'center'}}>
+                  <p><AddIssue onIssueAdded={handleIssueAdded} type='createIssue'/></p>
+                </div>
+                <div >
+                <p><AddIssue onIssueAdded={handleIssueAdded} type='fromSuggestions'/></p>
+                </div>
               </div>
               <IssueBoard issues={issues} setIssues={setIssues}/>
             </div>

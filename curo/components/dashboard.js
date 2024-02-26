@@ -11,24 +11,33 @@ import { auth, db } from '../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import DimensionTeaser from './dimensionTeaser';
 import Header from './Header';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 
- 
 export default function Dashboard() {
     const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:[], reportNo:''})
     const [progress, setProgress] = useState('');
+    const [teamProgress, setTeamProgress] = useState('');
+    const [progressView, setProgressView] = useState('personal');
     const [todoList, setTodoList] = useState([]);
     const [doneList, setDoneList] = useState([]);
-    const [expandReports, setExpandReports] = useState({todo:false, done:false})
+    const [expandReports, setExpandReports] = useState({todo:false, done:false});
+    const user = auth.currentUser;    
 
-    const user = auth.currentUser;
+    const updateProgress = async (todo, done) => {
+        let total = todo.length + done.length;
+        let progress = Math.round((done.length/total)*100);
+        console.log(done, todo, total, progress)
+
+        setProgress(progress);
+    }
 
     const checkProgress = async () => {
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
 
-        let tempTodo = 0;
-        let tempDone = 0;
-        
         if (userSnap.exists()) {
             const progressData = userSnap.data().progress;
 
@@ -45,16 +54,14 @@ export default function Dashboard() {
                 });
     
                 // Update state once after constructing the full lists
-                setTodoList(tempTodo);
-                setDoneList(tempDone);
+                await setTodoList(tempTodo);
+                await setDoneList(tempDone);
 
-                //setProgress(Math.round((counter/6)*100));
+                await updateProgress(tempTodo, tempDone);
             }
         } else {
             console.log("No such document!");
         }
-
-        setProgress({todo:tempTodo, done:tempDone});
     }
 
     const expand = (e) => {
@@ -70,16 +77,9 @@ export default function Dashboard() {
 
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
-        const teamRef = userSnap.data().Team
-
-        if (userSnap.exists()) {
-            const teamRef = userSnap.data().Team;
-            setProgress(userSnap.data().progress);
-        } else {
-            console.log("No such document!");
-        }
-
+        const teamRef = userSnap.data().Team;
         const teamSnap = await getDoc(teamRef);
+        const members = teamSnap.data().Members || [];
 
         if (teamSnap.exists()) {
             setDashboardInfo({
@@ -92,12 +92,39 @@ export default function Dashboard() {
         } else {
             console.log("No such document!");
         }
+
+        // calculating the overall team progress
+        let tempTotalReports = 0;
+        let tempTotalReportsCompleted = 0;
+
+        await Promise.all(members.map(async (member) => {
+            const memberRef = doc(db, "Users", member);
+            const memberSnap = await getDoc(memberRef);
+            const memberProgress = memberSnap.data().progress;
+            Object.keys(memberProgress).forEach((key) => {
+                if (memberProgress[key] === true) {
+                    tempTotalReportsCompleted++;
+                }
+                tempTotalReports++;
+            });
+        }));
+
+        let tempTeamProgress = Math.round((tempTotalReportsCompleted/tempTotalReports)*100);
+        setTeamProgress(tempTeamProgress);
     };
 
     useEffect(() => {
         checkTeam();
         checkProgress();
     }, []);
+
+    const triggerProgressView = () => {
+        if (progressView === 'personal') {
+            setProgressView('team');
+        } else {
+            setProgressView('personal');
+        }
+    }
 
     const headerText = `${dashboardInfo.Team} Dashboard`
 
@@ -106,62 +133,66 @@ export default function Dashboard() {
         <Header title={headerText} />
         <div className={styles.dashboardContent}>
             
-            
-            
 
             <div className={styles.dimensionParentFlex}>
-                <div className={styles.dashboardInfo}>
-                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <p>You are on report:</p>
-                        <h1>{dashboardInfo.ReportNo}</h1>
-                    </div>
-                    <div className={settingsStyles.vl} style={{marginTop:'3vh', marginBottom:'3vh',  marginRight:'0vh', marginLeft:'0vh'}}></div>
-                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <p>Reports Completed:</p>
-                        <h1>{doneList.length}</h1>
-                    </div>
-                    <div className={settingsStyles.vl} style={{marginTop:'3vh',  marginBottom:'3vh', marginRight:'0vh', marginLeft:'0vh'}}></div>
-                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                        <p>Reports to do:</p>
-                        <h1>{todoList.length}</h1>
-                    </div>
-                    {/*
-                    <div style={{flex: 0.6, display: 'flex', flexDirection:'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding:'3vh'}}>
-                        <div style={{display:'block', marginBottom:'1vh'}}>
-                            <p>Reports completed: <b>{doneList.length}</b></p>
-                            <button onClick={()=>expand('done')} className={styles.expandBtn}>{expandReports.done ? '↑' : '↓'}</button>
-                            <div style={{display: expandReports.done ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
-                                {doneList.map((item, index) => (
-                                    <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
-                                    {index===doneList.length-1 ? item : item + ', '}
-                                    </p>
-                                ))}
-                            </div>
-                        </div>
-                        <div style={{display:'block'}}>
-                            <p>Reports to complete: <b>{todoList.length}</b></p>
-                            <button onClick={()=>expand('todo')} className={styles.expandBtn}>&darr;</button>
-                            <div style={{display: expandReports.todo ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
-                                {todoList.map((item, index) => (
-                                    <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
-                                    {index===todoList.length-1 ? item : item + ', '}
-                                    </p>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                            */}
-                </div>
+            <div style={{display:'flex', flexDirection:'row', flex:1, height:'fit-content'}}>
+                  <div style={{display:'flex', flexDirection:'column', flex:1, flexWrap:'wrap'}}>
 
-                <div className={styles.membersInfo}>
-                    <h1>Members</h1>
-                    <p><b>Team Lead: </b></p>
-                    <p style={{paddingLeft:'0.8vw'}}>{dashboardInfo.Lead}</p>
-                    <p><b>Developers: </b></p>
-                    {dashboardInfo.Members.map((member) => (
-                        <p style={{paddingLeft:'0.8vw'}}>{member}</p>
-                    ))}
-                </div>
+                    <div style={{display:'flex', flexDirection:'row', flex:1}}>
+
+                    <div className={styles.dashboardInfo}>
+                      <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                          <p>Your team is on report:</p>
+                          <h1>{dashboardInfo.ReportNo}</h1>
+                      </div>
+                      <div className={settingsStyles.vl} style={{marginTop:'3vh', marginBottom:'3vh',  marginRight:'0vh', marginLeft:'0vh'}}></div>
+                      <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                          <p>Your tasks completed:</p>
+                          <h1>{doneList.length}</h1>
+                      </div>
+                      <div className={settingsStyles.vl} style={{marginTop:'3vh',  marginBottom:'3vh', marginRight:'0vh', marginLeft:'0vh'}}></div>
+                      <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                          <p>Your tasks to do:</p>
+                          <h1>{todoList.length}</h1>
+                      </div>
+                    </div>
+
+                    </div>
+
+                    <div style={{display:'flex', flexDirection:'row', flex:1}}>
+                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
+                            <div style={{marginBottom:'2vh'}}>
+                                <p style={{display:'inline'}}>{progressView === 'personal' ? 'Your progress: ' : 'Teams progress: '} </p><FontAwesomeIcon icon={faShuffle} style={{display:'inline', cursor:'pointer', width:'18px'}} onClick={triggerProgressView} />
+                            </div>
+                            
+                            <div style={{width:'8vw', height:'8vw'}}>
+                                <CircularProgressbar value={progressView === 'personal' ? progress : teamProgress} text={`${progressView === 'personal' ? progress : teamProgress}%`} styles={buildStyles({pathColor: `#354CFC`, textColor: '#354CFC',trailColor: '#d6d6d6'})}/>
+                            </div>
+                        </div>
+                      </div>
+                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
+                          <p style={{marginBottom:'2vh'}}>Whole team progress:</p>
+                          <div style={{width:'8vw', height:'8vw'}}>
+                              <CircularProgressbar value={teamProgress} text={`${teamProgress}%`} styles={buildStyles({pathColor: `#354CFC`, textColor: '#354CFC',trailColor: '#d6d6d6'})}/>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+
+                  <div style={{display:'flex', flexDirection:'column', flex:0.5, background:'#354CFC', borderRadius:'30px', margin:'20px'}}>
+                    <h1 style={{color:'white', fontFamily:'Montserrat', margin:'3vh', marginBottom:'2vh'}}>Members</h1>
+                      {dashboardInfo.Members.map((member) => (
+                        <p style={{marginTop:'0.5vh', marginBottom:'0.5vh', marginLeft:'3vh', color:'white'}}>{member}</p>
+                      ))}
+                     
+                  </div>
+
+              </div>
+
             </div>
 
 
@@ -178,8 +209,8 @@ export default function Dashboard() {
             <div className={styles.dimensionParentFlex}>
                 <DimensionTeaser dimension={'SCI'} bgUrl={'/images/fuzzy_orange.jpeg'} bgColor={'#835ffe'}/>
                 <DimensionTeaser dimension={'GHG'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#3c2198'}/>
+                <div style={{flex:0.333, margin: '20px', pointerEvents:'none'}}></div>
             </div>
-
         </div>
     </div>
   )

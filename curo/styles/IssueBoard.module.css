@@ -29,17 +29,34 @@
     padding-right: 2vw;
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
-    box-shadow: 2px 2px 30px rgba(100, 55, 254, 0.3);
-    flex-wrap: wrap;
+    box-shadow: 2px 2px 30px rgba(100, 55, 254, 0.1);
+    background: #1b267e;
+    display:flex;
+    flex-direction: row;
 }
 
 .issueInfoContainer p {
-    color: black;
+    color: white;
+    font-family: 'Manrope';
+    font-size: calc(16px + 0.3vh);
 }
 
 .addIssue {
-    background: none;
-    border-radius: 3px;
+    background: white;
+    border-radius: 30px;
+    display: inline;
+    text-decoration: none;
+    border:none;
+    color:#354cfc;
+    font-family: 'Manrope';
+    font-size: large;
+    transition: transform 0.3s;
+    cursor: pointer;
+    padding:1vh;
+}
+
+.addIssue:hover {
+    transform: scale(1.05);
 }
 
 .columnHeader {
@@ -52,7 +69,7 @@
 .issueDiv {
     width:90%;
     height:fit-content;
-    background:linear-gradient(180deg, #F1F1FD 0%, #F1F1FD 60%, #321c7f 60%, #321c7f 100%);
+    background:linear-gradient(180deg, #f7f8ff 0%, #f7f8ff 60%, #354cfc 60%, #354cfc 100%);
     border-radius:20px;
     margin-bottom: 18px;
     transition: transform 0.3s;
@@ -74,4 +91,14 @@
     margin-left:7px;
     font-size:15px;
     color: #F1F1FD;
+}
+
+.vl {
+    width: 1px;
+    background-color: white;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    align-self: stretch;
 }

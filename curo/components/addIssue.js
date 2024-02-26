@@ -28,7 +28,7 @@ const customStyles = {
   },
 };
 
-export default function AddView ({ onIssueAdded }) {
+export default function AddView ({ onIssueAdded, type }) {
     const [showModal, setShowModal] = useState(false);
     const [assignees, setAssignees] = useState([]);
     const [issueData, setIssueData] = useState({assignee: '', title: '', description: '', storyPoints: ''});
@@ -78,7 +78,7 @@ export default function AddView ({ onIssueAdded }) {
 
     return (
         <div>
-            <button className={ibStyles.addIssue} onClick={() => setShowModal(true)}>Add a new Issue</button>
+            <button className={ibStyles.addIssue} onClick={() => setShowModal(true)}>{type === 'createIssue' ? 'Create issue' : 'Add an issue from suggestions'}</button>
             <Modal
               isOpen={showModal}
               onRequestClose={() => setShowModal(false)}
