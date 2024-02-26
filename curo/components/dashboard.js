@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../styles/Dashboard.module.css';
+import settingsStyles from '../styles/Settings.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -104,47 +105,63 @@ export default function Dashboard() {
     <div>
         <Header title={headerText} />
         <div className={styles.dashboardContent}>
-            <div style={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-            <div className={styles.dashboardInfo}>
-                <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                    <p>You are on report:</p>
-                    <h1>{dashboardInfo.ReportNo}</h1>
-                </div>
-                <div style={{flex: 0.6, display: 'flex', flexDirection:'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding:'3vh'}}>
-                    <div style={{display:'block', marginBottom:'1vh'}}>
-                        <p>Reports completed: <b>{doneList.length}</b></p>
-                        <button onClick={()=>expand('done')} className={styles.expandBtn}>{expandReports.done ? '↑' : '↓'}</button>
-                        <div style={{display: expandReports.done ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
-                            {doneList.map((item, index) => (
-                                <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
-                                   {index===doneList.length-1 ? item : item + ', '}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
-                    <div style={{display:'block'}}>
-                        <p>Reports to complete: <b>{todoList.length}</b></p>
-                        <button onClick={()=>expand('todo')} className={styles.expandBtn}>&darr;</button>
-                        <div style={{display: expandReports.todo ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
-                            {todoList.map((item, index) => (
-                                <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
-                                   {index===todoList.length-1 ? item : item + ', '}
-                                </p>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            
+            
 
-            <div className={styles.membersInfo}>
-                <h1>Members</h1>
-                <p><b>Team Lead: </b></p>
-                <p style={{paddingLeft:'0.8vw'}}>{dashboardInfo.Lead}</p>
-                <p><b>Developers: </b></p>
-                {dashboardInfo.Members.map((member) => (
-                    <p style={{paddingLeft:'0.8vw'}}>{member}</p>
-                ))}
-            </div>
+            <div className={styles.dimensionParentFlex}>
+                <div className={styles.dashboardInfo}>
+                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <p>You are on report:</p>
+                        <h1>{dashboardInfo.ReportNo}</h1>
+                    </div>
+                    <div className={settingsStyles.vl} style={{marginTop:'3vh', marginBottom:'3vh',  marginRight:'0vh', marginLeft:'0vh'}}></div>
+                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <p>Reports Completed:</p>
+                        <h1>{doneList.length}</h1>
+                    </div>
+                    <div className={settingsStyles.vl} style={{marginTop:'3vh',  marginBottom:'3vh', marginRight:'0vh', marginLeft:'0vh'}}></div>
+                    <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                        <p>Reports to do:</p>
+                        <h1>{todoList.length}</h1>
+                    </div>
+                    {/*
+                    <div style={{flex: 0.6, display: 'flex', flexDirection:'column', justifyContent: 'flex-start', alignItems: 'flex-start', padding:'3vh'}}>
+                        <div style={{display:'block', marginBottom:'1vh'}}>
+                            <p>Reports completed: <b>{doneList.length}</b></p>
+                            <button onClick={()=>expand('done')} className={styles.expandBtn}>{expandReports.done ? '↑' : '↓'}</button>
+                            <div style={{display: expandReports.done ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
+                                {doneList.map((item, index) => (
+                                    <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
+                                    {index===doneList.length-1 ? item : item + ', '}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
+                        <div style={{display:'block'}}>
+                            <p>Reports to complete: <b>{todoList.length}</b></p>
+                            <button onClick={()=>expand('todo')} className={styles.expandBtn}>&darr;</button>
+                            <div style={{display: expandReports.todo ? 'block' : 'none', marginLeft:'2vw', marginTop:'0.5vw'}}>
+                                {todoList.map((item, index) => (
+                                    <p key={index} style={{display:'inline', fontSize:'calc(12px + 0.4vw)', color:'#444444'}}>
+                                    {index===todoList.length-1 ? item : item + ', '}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                            */}
+                </div>
+
+                <div className={styles.membersInfo}>
+                    <h1>Members</h1>
+                    <p><b>Team Lead: </b></p>
+                    <p style={{paddingLeft:'0.8vw'}}>{dashboardInfo.Lead}</p>
+                    <p><b>Developers: </b></p>
+                    {dashboardInfo.Members.map((member) => (
+                        <p style={{paddingLeft:'0.8vw'}}>{member}</p>
+                    ))}
+                </div>
             </div>
 
 
@@ -152,9 +169,13 @@ export default function Dashboard() {
                 <DimensionTeaser dimension={'HowTo'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#aeb7fe'}/>
                 <DimensionTeaser dimension={'Economic'} bgUrl={'/images/fuzzy_green.jpeg'} bgColor={'#7282fd'} />
                 <DimensionTeaser dimension={'Individual'} bgUrl={'/images/fuzzy_orange.jpeg'} bgColor={'#d8beeb'}/>
+            </div>
+            <div className={styles.dimensionParentFlex}>
                 <DimensionTeaser dimension={'Environmental'} bgUrl={'/images/fuzzy_pink.jpeg'} bgColor={'#ba8edd'}/>
                 <DimensionTeaser dimension={'Social'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#835ffe'}/>
                 <DimensionTeaser dimension={'Technical'} bgUrl={'/images/fuzzy_green.jpeg'} bgColor={'#aeb7fe'}/>
+            </div>
+            <div className={styles.dimensionParentFlex}>
                 <DimensionTeaser dimension={'SCI'} bgUrl={'/images/fuzzy_orange.jpeg'} bgColor={'#835ffe'}/>
                 <DimensionTeaser dimension={'GHG'} bgUrl={'/images/fuzzy_blue.jpeg'} bgColor={'#3c2198'}/>
             </div>

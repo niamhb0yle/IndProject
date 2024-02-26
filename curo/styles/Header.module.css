@@ -20,15 +20,29 @@
     font-size: calc(40px + 0.8vh);
     font-weight: 900;
     line-height: normal;
+    margin-left: 3vw;
+}
+
+.headerElements {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-right: 1vw;
+    transition: transform 0.3s;
+}
+
+.headerElements:hover {
+    transform: scale(1.2);
+}
+
+.headerElements img {
+    width: auto;
+    height: 100%;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.3);
+    object-fit: cover;
 }
   
-#headerElements {
-    margin: 10px;
-    margin-top: 10px;
-    border-radius: 50px;
-    transition: transform 0.3s;
-  }
-  
-  #headerElements:hover {
-    transform: scale(1.2);
-  }

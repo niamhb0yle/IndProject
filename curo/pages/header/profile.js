@@ -62,15 +62,23 @@ export default function Homepage() {
     if (userSnap.data().photoUrl) {
       setProfilePic(userSnap.data().photoUrl);
       console.log("photoUrl exists")
+    }
+
+    let role = '';
+    if (userSnap.data().userType === 'dev'){
+      role = 'Developer';
+    } else {
+      role = 'Team Lead';
+    }
 
     setUserInfo({
       email: userSnap.data().email,
       name: userSnap.data().username,
       team: teamSnap.data().name,
       lead: teamSnap.data().coach,
-      type: userSnap.data().userType
-    })
-  } 
+      org: teamSnap.data().org,
+      type: role
+    });
 
   }
 
@@ -108,7 +116,7 @@ export default function Homepage() {
   
     const storage = getStorage();
     const fileExtension = file.name.split('.').pop();
-    const storageRef = ref(storage, `profilePics/${auth.currentUser.email}.${fileExtension}`);
+    const storageRef = ref(storage, `profilePics/${auth.currentUser.email}`);
 
     uploadBytes(storageRef, file).then((snapshot) => {
       console.log('Uploaded a blob or file!');
@@ -138,17 +146,20 @@ export default function Homepage() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="User Settings"/>
+            <Header title="Profile"/>
 
             <div className={styles.dashboardContent}>
 
               <div className={settingsStyles.settingsContainer} >
                 
-                <div className={settingsStyles.settingsContentParent}>
-                  <div style={{flex:0.5}}> 
-                  <h1>Profile</h1>
-                  <input type="file" onChange={handleFileChange} />
-                  <img src={profilePic} alt='Profile' width='200' height='200' />
+                <div className={settingsStyles.settingsContentParent} style={{padding:'2vw'}}>
+
+                  <div style={{marginLeft:'2vw', marginRight: '2vw', flex:0.3, display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
+                    <div className={settingsStyles.profilePicContainer}>
+                      <img src={profilePic} alt='Profile'/>
+                    </div>
+                    <h1>{userInfo.name}</h1>
+                    <p style={{marginTop:'0px'}}>{userInfo.type} at {userInfo.org}</p>
                       
                   </div>
                   <Modal
@@ -157,8 +168,9 @@ export default function Homepage() {
                     style={customStyles}
                     contentLabel="Select Next Due Date"
                   >
-                      <h1 className={reportStyles.headingText} style={{marginBottom:'0'}}>Edit team info</h1>
-                      <p>Team name:</p>
+                      <h1 className={reportStyles.headingText} style={{marginBottom:'0'}}>Change User Info</h1>
+                      <p>Please leave any fields you do not wish to change blank!</p>
+                      <p>Display Name:</p>
                       <input
                           value={newUserInfo.name}
                           onChange={(e) => setNewUserInfo({...newUserInfo, name:e.target.value})}
@@ -167,15 +179,8 @@ export default function Homepage() {
                           type="text"
                           placeholder={userInfo.name}
                       />
-                      <p>Organisation:</p>
-                      <input
-                          value={newUserInfo.org}
-                          onChange={(e) => setNewUserInfo({...newUserInfo, org:e.target.value})}
-                          className={reportStyles.inputBoxes}
-                          style={{width: '40%', display: 'inline'}}
-                          type="text"
-                          placeholder={userInfo.org}
-                      />
+                      <p>Change profile picture:</p>
+                      <input type="file" onChange={handleFileChange} />
                       <br></br>
                       <button 
                           className={infoStyles.reportPageBtn} 
@@ -198,8 +203,7 @@ export default function Homepage() {
 
                   <div className={settingsStyles.vl}></div>
 
-                  <div style={{flex:0.5}}>
-                    <h1>Settings</h1>
+                  <div style={{flex:0.5, paddingTop:'2vh'}}>
                     <p><b>Email:</b> {userInfo.email}</p>
                       <p><b>Team:</b> {userInfo.team}</p>
                       <p><b>Organisation:</b> {userInfo.org}</p>

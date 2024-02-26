@@ -32,14 +32,15 @@ padding-bottom: 20px;
 
 .dashboardInfo {
   display:flex;
-  flex:0.7;
+  flex:1;
   flex-direction:row;
   flex-wrap:wrap;
   background:white;
   border-radius:30px;
   box-shadow:2px 2px 10px rgba(100, 55, 254, 0.2);
-  margin-top:2vh;
+  margin: 20px;
   min-height:min-content;
+  padding-right:1vw;
 }
 
 .dashboardInfo p {
@@ -57,16 +58,15 @@ padding-bottom: 20px;
 
 .membersInfo {
   display:flex;
-  flex:0.3;
+  width:30%;
   flex-direction:column;
   flex-wrap:wrap;
   padding: calc(10px + 0.2vw);
   background:#4325a9;
   border-radius:30px;
   box-shadow:2px 2px 10px rgba(100, 55, 254, 0.2);
-  margin-top:2vh;
+  margin: 20px;
   height:calc(180px + 0.8vh);
-  margin:1vw;
   min-height:fit-content;
 }
 
@@ -93,7 +93,7 @@ padding-bottom: 20px;
 }
 
 .dimensionTeaser {
-  width:350px;
+  flex: 0.333;
   height: 250px;
   margin: 20px;
   border-radius: 30px;
