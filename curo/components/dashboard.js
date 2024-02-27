@@ -201,7 +201,7 @@ export default function Dashboard() {
                                 <img src={memberProfiles[email]} alt='Profile' />
                             </div>
                             <h1>{name}</h1>
-                            <p>({email})</p>
+                            
                         </div>
                     ))}
                   </div>

@@ -6,9 +6,11 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import {useState} from 'react';
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from 'next/router'
+import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, arrayRemove } from 'firebase/firestore';
+
 
 export default function LogIn() {
   const [userProfile, setUserProfile] = useState({email:'', password:''});
@@ -20,11 +22,21 @@ export default function LogIn() {
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.uid);
-        router.push('/sidebar/dashboard');
+        checkUserTeam();
       }).catch((error) => {
         setCredentials(false);
       });
   };
+
+  const checkUserTeam = async () => {
+    const userRef = doc(db, "Users", userProfile.email);
+    const userSnap = await getDoc(userRef);
+    if (userSnap.data().Team != '') {
+      router.push('/sidebar/dashboard');
+    } else {
+      router.push('/noTeam');
+    }
+  }
 
   function handleSubmit(e){
     e.preventDefaullt()
@@ -45,7 +57,7 @@ export default function LogIn() {
 
           <div className={styles.inputText}>Email Address</div>
           <input value={userProfile.email} 
-            onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} 
+            onChange={(e) => setUserProfile({...userProfile, email:e.target.value.toLowerCase()})} 
             style={{width: '100%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} 
             >
           </input>

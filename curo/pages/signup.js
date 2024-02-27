@@ -86,7 +86,7 @@ export default function SignUp() {
 
           <div className={styles.inputText}>Email Address</div>
           <input value={userProfile.email} 
-            onChange={(e) => setUserProfile({...userProfile, email:e.target.value})} 
+            onChange={(e) => setUserProfile({...userProfile, email:e.target.value.toLowerCase()})} 
             style={{width: '80%', height: 48, display:'block', borderRadius: 8, border: '1px #CDCDCD solid', marginTop:5, background: '#E8F1FF', fontSize: 16, fontFamily: 'Karla Variable', padding:10}} type='email'>
           </input>
           

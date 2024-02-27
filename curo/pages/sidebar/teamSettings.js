@@ -12,7 +12,7 @@ import settingsStyles from '../../styles/Settings.module.css';
 import dashboardStyles from '../../styles/Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase';
-import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc, updateDoc, arrayRemove } from 'firebase/firestore';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -132,7 +132,27 @@ export default function TeamSettings() {
   }
 
   const handleDelete = async () => {
-    console.log('delete confirmed');
+    console.log('delete confirmed for user: ', removeMember);
+
+    // delete user from team
+    const leadUser = auth.currentUser;
+    const leadRef = doc(db, "Users", leadUser.email);
+    const leadSnap = await getDoc(leadRef);
+
+    const teamRef = leadSnap.data().Team;
+    await updateDoc(teamRef, {
+        Members: arrayRemove(removeMember)
+    });
+
+    //set 'team' field in removed user's document to ''
+    const removedUserRef = doc(db, "Users", removeMember);
+    await updateDoc(removedUserRef, {
+      Team: ''
+    });
+
+    setShowModal2(false);
+    setTeamData();
+    setRemoveMember('');
   }
 
   return (
@@ -244,7 +264,7 @@ export default function TeamSettings() {
                           </div>
                           <h1><b>{name}</b></h1>
                           <p>{email}</p>
-                          <FontAwesomeIcon icon={faTrash} className={settingsStyles.delete} onClick={() => handleDeleteClick(email)}/>
+                          <FontAwesomeIcon icon={faTrash} className={settingsStyles.delete} style={{display: email === auth.currentUser.email ? 'none':'block'}} onClick={() => handleDeleteClick(email)}/>
                         </div>
                     ))
                   }
