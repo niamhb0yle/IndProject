@@ -110,19 +110,20 @@ export default function ViewReport({reportNumber, onCloseReport}) {
 
   return (
     <div>
-      <div className={infoStyles.reportViewContent} style={{paddingRight:'8vw'}}>
+      <div className={reportStyles.reportViewContent} >
         
         <h1>Report {reportNumber}<button className={reportStyles.finishReportBtn} style={{float:'right'}} onClick={() => onCloseReport()}>Close</button></h1>
         <p>Started reporting on: {dates.start}</p>
         <p>Finished report on: {dates.due}</p>
         <p>Number of members: {reportData.memberCount}</p>
 
-        <div>
-          <h1>Social Sustainability</h1>
+        <div className={reportStyles.dimensionContainerFlexParent}>
+          <div className={reportStyles.dimensionContainer}>
+          <h2>Social Sustainability</h2>
           {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
               <div>
                 {Object.entries(socialData.SocialQuant).map(([key, value]) => (
-                  <p key={key}>{`${findQuestionText('Social', key)}: ${value}`}</p>
+                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Social', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -130,12 +131,12 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           )}
         </div>
         
-        <div>
-          <h1>Economic Sustainability</h1>
+        <div className={reportStyles.dimensionContainer}>
+          <h2>Economic Sustainability</h2>
           {econData.EconomicQuant && Object.entries(econData.EconomicQuant).length > 0 ? (
               <div>
                 {Object.entries(econData.EconomicQuant).map(([key, value]) => (
-                  <p key={key}>{`${findQuestionText('Economic', key)}: ${value}`}</p>
+                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Economic', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -143,12 +144,12 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           )}
         </div>
 
-        <div>
-          <h1>Individual Sustainability</h1>
+        <div className={reportStyles.dimensionContainer}>
+          <h2>Individual Sustainability</h2>
           {indData.IndividualQuant && Object.entries(indData.IndividualQuant).length > 0 ? (
               <div>
                 {Object.entries(indData.IndividualQuant).map(([key, value]) => (
-                  <p key={key}>{`${findQuestionText('Individual', key)}: ${value}`}</p>
+                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Individual', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -156,12 +157,12 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           )}
         </div>
 
-        <div>
-          <h1>Technical Sustainability</h1>
+        <div className={reportStyles.dimensionContainer}>
+          <h2>Technical Sustainability</h2>
           {techData.TechnicalQuant && Object.entries(techData.TechnicalQuant).length > 0 ? (
               <div>
                 {Object.entries(techData.TechnicalQuant).map(([key, value]) => (
-                  <p key={key}>{`${findQuestionText('Technical', key)}: ${value}`}</p>
+                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Technical', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -169,18 +170,21 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           )}
         </div>
         
-        <div>
-          <h1>Environmental Sustainability</h1>
+        <div className={reportStyles.dimensionContainer}>
+          <h2>Environmental Sustainability</h2>
           {envData.EnvironmentalQuant && Object.entries(envData.EnvironmentalQuant).length > 0 ? (
               <div>
                 {Object.entries(envData.EnvironmentalQuant).map(([key, value]) => (
-                  <p key={key}>{`${findQuestionText('Environmental', key)}: ${value}`}</p>
+                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Environmental', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
               <p>No Environmental Sustainability Data Available</p>
           )}
         </div>
+        </div>
+
+        
         
     </div>
 

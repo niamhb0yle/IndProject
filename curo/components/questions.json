@@ -62,8 +62,8 @@
     {"Technical": {
         "q1": "Robust software",
         "q1i": "Software developed is robust",
-        "q2i": "Thorough testing before commits",
-        "q2": "Any code I pushed to the SCM was thoroughly tested",
+        "q2": "Testing before committing",
+        "q2i": "Any code I pushed to the SCM was thoroughly tested",
         "q3": "Code reviews",
         "q3i": "I performed regular code reviews",
         "q4": "Code reviews",

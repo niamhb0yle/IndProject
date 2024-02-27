@@ -261,5 +261,95 @@
     width: 1px;
     background-color: black;
     align-self: stretch;
-    align-items: center;
+}
+
+.reportViewContent {
+    margin-left:1vw;
+    margin-right: 1vw;
+    margin-bottom: 4vh;
+    background:#fcfcff;
+    border-radius: 30px;
+    padding-left: 2vw;
+    padding-right: 4vw;
+    padding-top: 2vh;
+    padding-bottom: 4vh;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
+    flex-wrap: wrap;
+}
+
+.reportViewContent h1 {
+    font-family: 'Montserrat';
+    color: #3044e3;
+    font-size: calc(28px + 0.4vw);
+    font-style: normal;
+    font-weight:600;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    margin-bottom: 2vh;
+    display:block;
+}
+
+.reportViewContent h2 {
+    font-family: 'Montserrat';
+    color: #3044e3;
+    font-size: calc(24px + 0.3vw);
+    font-style: normal;
+    font-weight:600;
+    line-height: normal;
+    letter-spacing: 0.3px;
+    margin-bottom: 2vh;
+    display:block;
+}
+
+.dimensionContainer {
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 2vh;
+    background:#eff1ff;
+    border-radius: 30px;
+    padding:2vw;
+    padding-top: 0;
+    width:fit-content;
+    min-width: fit-content;
+}
+
+.dimensionContainer p {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(11px + 0.2vw);
+    font-weight:light;
+    text-align: left;
+}
+
+.dimensionText {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(12px + 0.2vw);
+    font-weight:light;
+    text-align: left;
+    margin-bottom: 0.5vh;
+}
+
+.reportViewContent p {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(14px + 0.3vw);
+    font-weight:light;
+    text-align: left;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+}
+
+.dimensionContainerFlexParent {
+    display: flex;
+    flex:1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 2vh;
+    border-radius: 30px;
+    padding-top: 0;
+    width:fit-content;
+    gap: 2vw;
 }
