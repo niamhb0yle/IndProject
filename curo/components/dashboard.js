@@ -170,7 +170,7 @@ export default function Dashboard() {
                     </div>
 
                     <div style={{display:'flex', flexDirection:'row', flex:1}}>
-                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
+                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)',  marginBottom:'0',}}>
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
                             <div style={{marginBottom:'2vh'}}>
                                 <p style={{display:'inline'}}>{progressView === 'personal' ? 'Your progress: ' : 'Teams progress: '} <FontAwesomeIcon icon={faShuffle} className={styles.shuffle} onClick={triggerProgressView} /></p>
@@ -181,7 +181,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                       </div>
-                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
+                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', marginBottom:'0', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
                           <p style={{marginBottom:'2vh'}}>Whole team progress:</p>
                           <div style={{width:'8vw', height:'8vw'}}>
@@ -193,14 +193,15 @@ export default function Dashboard() {
                     
                   </div>
 
-                  <div style={{display:'flex', flexDirection:'column', flex:0.5, background:'#354CFC', borderRadius:'30px', margin:'20px'}}>
+                  <div style={{display:'flex', flexDirection:'column', flex:0.5, background:'#3044e3', borderRadius:'30px', margin:'20px'}}>
                     <h1 style={{color:'white', fontFamily:'Montserrat', margin:'3vh', marginBottom:'2vh'}}>Members ({Object.keys(dashboardInfo.Members).length})</h1>
                     {dashboardInfo.Members && Object.entries(dashboardInfo.Members).map(([email, name]) => (
                         <div key={email} className={styles.memberContainer}>
                             <div className={styles.memberProfilePics}>
                                 <img src={memberProfiles[email]} alt='Profile' />
                             </div>
-                            <p style={{ marginTop: '0.5vh', marginBottom: '0.5vh', marginLeft: '1vh', color: 'white', display:'inline'}}>{name}</p>
+                            <h1>{name}</h1>
+                            <p>({email})</p>
                         </div>
                     ))}
                   </div>

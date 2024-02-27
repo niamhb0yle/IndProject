@@ -8,6 +8,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandPeace } from '@fortawesome/free-solid-svg-icons';
 
 export default function Header( {title} ) {
   const [profilePic, setProfilePic] = useState('/images/user.png');
@@ -34,7 +36,7 @@ export default function Header( {title} ) {
         <div id={styles.headerTitle}>{title}</div>
         <div className={styles.headerElts}>
           <div className={styles.helloText}>
-            <p>Hey,  {username}!</p>
+          <FontAwesomeIcon icon={faHandPeace} style={{width:'calc(14px + 0.2vw)'}}/><p> Hey,  {username}!</p>
           </div>
           <Link href='/header/profile'>
             <div className={styles.headerElements}>

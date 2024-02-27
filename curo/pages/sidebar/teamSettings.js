@@ -30,7 +30,7 @@ const customStyles = {
 };
 
 
-export default function Homepage() {
+export default function TeamSettings() {
   const [teamInfo, setTeamInfo] = useState({name:'', lead:'', org:'', key:'', members:[], currentReport:{}});
   const [showModal, setShowModal] = useState(false);
   const [newTeamInfo, setNewTeamInfo] = useState({name:'', org:''});
@@ -49,19 +49,39 @@ export default function Homepage() {
   }, [newTeamInfo]);
 
   const setTeamData = async () => {
-    const user = auth.currentUser;
+    const user = auth.getCurrentUser;
     const userRef = doc(db, "Users", user.email);
     const userSnap = await getDoc(userRef);
     const teamRef = userSnap.data().Team;
     const teamSnap = await getDoc(teamRef);
-    setTeamInfo({
-      name: teamSnap.data().name,
-      org: teamSnap.data().org,
-      lead: teamSnap.data().coach,
-      members: teamSnap.data().Members || [],
-      currentReport: teamSnap.data().CurrentReport,
-      key: teamSnap.id,
-    })
+
+    let membersNames = {};
+    let memberProfiles = {};
+
+    await Promise.all(members.map(async (member) => {
+      const memberRef = doc(db, "Users", member);
+      const memberSnap = await getDoc(memberRef);
+      membersNames[member] = memberSnap.data().username;
+      if (memberSnap.data().photoUrl){
+        memberProfiles[member] = memberSnap.data().photoUrl;
+      } else {
+        memberProfiles[member] = '/images/user.png';
+      }
+    }));
+
+    await setMemberProfiles(memberProfiles);
+
+    if (teamSnap.exists()) {
+      setTeamInfo({
+        Team:teamSnap.data().name,
+        Lead:teamSnap.data().coach,
+        Organisation:teamSnap.data().org,
+        ReportNo: teamSnap.data().CurrentReport.number,
+        Members: membersNames,
+      })
+    } else {
+        console.log("No such document!");
+    }
   }
 
   const handleEditTeam = async () => {

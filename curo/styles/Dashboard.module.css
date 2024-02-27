@@ -165,17 +165,38 @@ padding-bottom: 20px;
   display: flex;
   align-items: center;
   margin-bottom: 1vh;
+  border-radius: 30px;
+}
+
+.memberContainer:hover {
+  background: #5d70fd;
+}
+
+.memberContainer h1 {
+  font-family: 'Montserrat';
+  font-size: calc(13px + 0.3vw);
+  color: white;
+  margin: 0;
+  padding: 1vh;
+}
+
+.memberContainer p {
+  font-family: 'Manrope';
+  font-size: calc(11px + 0.2vw);
+  color: white;
+  margin: 0;
 }
 
 .memberProfilePics {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   overflow: hidden;
   display: flex;
   justify-content: center; 
   align-items: center;
   margin-left: 1vw;
+  border:white;
 }
 
 .memberProfilePics img {

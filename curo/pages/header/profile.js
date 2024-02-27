@@ -14,7 +14,7 @@ import { auth, db } from '../../firebase';
 import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore';
 import Modal from 'react-modal';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth, updateProfile, sendPasswordResetEmail } from "firebase/auth";
 
 
 Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
@@ -32,9 +32,10 @@ const customStyles = {
 };
 
 
-export default function Homepage() {
+export default function Profile() {
   const [userInfo, setUserInfo] = useState({name:'', lead:'', org:'', key:'', members:[], currentReport:{}});
-  const [showModal, setShowModal] = useState(false);
+  const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
   const [newUserInfo, setNewUserInfo] = useState({name:'', org:''});
   const [submit, setSubmit] = useState(false);
   const [profilePic, setProfilePic] = useState('/images/user.png');
@@ -105,7 +106,7 @@ export default function Homepage() {
         username: newName
     });
 
-    await setShowModal(false);
+    await setShowModal1(false);
     await setUserData();
   }
 
@@ -133,6 +134,16 @@ export default function Homepage() {
       });
     });
   };
+
+  const handleResetPassword = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, auth.currentUser.email).then(() => {
+      console.log("Password reset email sent!");
+    }).catch((error) => {
+      console.error("Error sending password reset email: ", error);
+    });
+    setShowModal2(true);
+  }
 
   return (
     <div>
@@ -163,8 +174,8 @@ export default function Homepage() {
                       
                   </div>
                   <Modal
-                    isOpen={showModal}
-                    onRequestClose={() => setShowModal(false)}
+                    isOpen={showModal1}
+                    onRequestClose={() => setShowModal1(false)}
                     style={customStyles}
                     contentLabel="Select Next Due Date"
                   >
@@ -185,7 +196,7 @@ export default function Homepage() {
                       <button 
                           className={infoStyles.reportPageBtn} 
                           style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
-                          onClick={() => setShowModal(false)}>
+                          onClick={() => setShowModal1(false)}>
                               Cancel
                       </button>
                       <button 
@@ -201,15 +212,34 @@ export default function Homepage() {
                       </button>
                   </Modal>
 
+                  <Modal 
+                    isOpen={showModal2}
+                    onRequestClose={() => setShowModal2(false)}
+                    style={customStyles}
+                    contentLabel="Select Next Due Date"
+                  >
+                    <p>An email has been sent to reset your password!</p>
+                    <button 
+                          className={infoStyles.reportPageBtn} 
+                          style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
+                          onClick={() => setShowModal2(false)}>
+                              Close
+                      </button>
+                  </Modal>
+
                   <div className={settingsStyles.vl}></div>
 
-                  <div style={{flex:0.5, paddingTop:'2vh'}}>
+                  <div style={{flex:0.6, paddingTop:'2vh'}}>
                     <p><b>Email:</b> {userInfo.email}</p>
                       <p><b>Team:</b> {userInfo.team}</p>
                       <p><b>Organisation:</b> {userInfo.org}</p>
                       <p><b>Team Lead:</b> {userInfo.lead}</p>
                       <p><b>Role:</b> {userInfo.type}</p>
-                      <button className={settingsStyles.settingsBtn} onClick={() => setShowModal(true)}>Edit team info</button>
+                      <div style={{display:'flex', flexDirection:'row'}}>
+                        <button className={settingsStyles.settingsBtn} onClick={() => setShowModal1(true)}>Edit info</button>
+                        <button className={settingsStyles.settingsBtn} onClick={handleResetPassword}>Change Password</button>
+                      </div>
+                      
                   </div>
                 </div>
               </div>
