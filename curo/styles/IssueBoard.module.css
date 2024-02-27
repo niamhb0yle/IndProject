@@ -71,7 +71,7 @@
 .issueDiv {
     width:90%;
     height:fit-content;
-    background:linear-gradient(180deg, #f7f8ff 0%, #f7f8ff 60%, #354cfc 60%, #354cfc 100%);
+    background:linear-gradient(180deg, #f7f8ff 0%, #f7f8ff 60%, #3044e3 60%, #3044e3 100%);
     border-radius:20px;
     margin-bottom: 18px;
     box-shadow: 1px 1px 10px rgba(53, 76, 252, 0.2);
@@ -88,6 +88,7 @@
     font-weight:1000;
     font-size:22px;
     font-family: 'Montserrat';
+    color:black;
 }
 
 .issueDiv p {

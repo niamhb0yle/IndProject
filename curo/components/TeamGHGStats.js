@@ -33,6 +33,8 @@ export default function GHGStats() {
     setscope1data(reportSnap.data().Scope1);
     setscope2data(reportSnap.data().Scope2);
     setscope3data(reportSnap.data().Scope3);
+
+    console.log(scope1data, scope2data, scope3data)
   }
 
   useEffect(() => {

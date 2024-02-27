@@ -117,6 +117,8 @@ export default function ViewReport({reportNumber, onCloseReport}) {
         <p>Finished report on: {dates.due}</p>
         <p>Number of members: {reportData.memberCount}</p>
 
+        <hr style={{borderColor:'#eff1ff'}}></hr>
+
         <div className={reportStyles.dimensionContainerFlexParent}>
           <div className={reportStyles.dimensionContainer}>
           <h2>Social Sustainability</h2>

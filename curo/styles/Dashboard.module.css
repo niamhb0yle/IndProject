@@ -38,9 +38,10 @@ padding-bottom: 20px;
   background:white;
   border-radius:30px;
   box-shadow:2px 2px 10px rgba(100, 55, 254, 0.1);
-  margin: 20px;
+  margin: 15px;
   min-height:min-content;
   padding-right:1vw;
+  height:18vh;
 }
 
 .dashboardInfo p {
@@ -56,6 +57,13 @@ padding-bottom: 20px;
   font-size: calc(40px + 0.4vw);
 }
 
+.dashboardInfo h2 {
+  color: #354CFC;
+  margin:8px;
+  font-size: calc(28px + 0.4vw);
+  font-family: Manrope;
+}
+
 .membersInfo {
   display:flex;
   width:30%;
@@ -66,8 +74,7 @@ padding-bottom: 20px;
   border-radius:30px;
   box-shadow:2px 2px 10px rgba(100, 55, 254, 0.2);
   margin: 20px;
-  height:calc(180px + 0.8vh);
-  min-height:fit-content;
+  height:fit-content;
 }
 
 .membersInfo h1 {
@@ -89,7 +96,8 @@ padding-bottom: 20px;
   flex: 1;
   flex-direction: row;
   flex-wrap:wrap;
-  align-content: flex-start
+  align-content: flex-start;
+  padding-bottom: 0;
 }
 
 .dimensionTeaser {
@@ -196,7 +204,9 @@ padding-bottom: 20px;
   justify-content: center; 
   align-items: center;
   margin-left: 1vw;
-  border:white;
+  border:#c2c9fe;
+  border-width: 2px;
+  border-style:outset;
 }
 
 .memberProfilePics img {
@@ -204,4 +214,5 @@ padding-bottom: 20px;
   height: 100%;
   box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.3);
   object-fit: cover;
+  background-color: white;
 }

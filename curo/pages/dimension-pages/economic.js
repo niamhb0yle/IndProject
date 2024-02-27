@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import infoStyles from '../../styles/Info.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -44,12 +45,31 @@ export default function Ecconomic() {
             <Header title="Economic"/>
 
             <div className={styles.dashboardContent}>
-              <p>In the realm of software sustainability, prioritizing the management of technical debt emerges as a crucial economic strategy. It brings about resource efficiency, long-term cost savings, and boosts developer productivity. Through the cultivation of clean and well-documented code, development teams optimize their human resources, reducing time spent on debugging and problem-solving. This not only maximizes the value of investments in software development but also fortifies economic sustainability.</p>
-              <p>Proactively addressing technical debt leads to substantial long-term cost savings by preventing unforeseen expenses tied to critical issues and system failures. Moreover, fostering a positive work environment through clear code and reduced technical debt promotes developer satisfaction and teamwork, minimizing turnover costs and fostering innovation.</p>
-              <p>Customer satisfaction, a direct outcome of software free from technical debt, contributes to user loyalty and retention, supporting economic sustainability by ensuring a stable user base. Additionally, addressing technical debt positions software systems to be adaptable to change, allowing organizations to stay competitive and respond effectively to evolving business needs.</p>
-              <p>Lastly, considering the environmental impact is not overlooked. Optimized and well-maintained code consumes fewer computational resources, aligning with broader goals of energy efficiency and environmental sustainability in computing. In essence, reducing technical debt is a comprehensive economic strategy that enhances efficiency, reduces costs, and aligns software development practices with broader economic and environmental sustainability goals.</p>
-              
-              <ReportBtn dimension="economic" reportDone={reportDone}/>
+              <div className={infoStyles.nav}>
+                <button className={infoStyles.navElts} >Overview</button>
+                <p className={infoStyles.navEltsBar}>|</p>
+                <Link href='../report-pages/economicReport' className={infoStyles.navElts} title='Only available for team leads'>Start Report &rarr;</Link>  
+              </div>
+
+
+              <div className={infoStyles.infoContent}>
+                <h1>What is Economic sustainability?</h1>
+                <p>In the realm of software sustainability, prioritizing the management of technical debt emerges as a crucial economic strategy. It brings about resource efficiency, long-term cost savings, and boosts developer productivity. Through the cultivation of clean and well-documented code, development teams optimize their human resources, reducing time spent on debugging and problem-solving. This not only maximizes the value of investments in software development but also fortifies economic sustainability.</p>
+                <h1>Why should we care?</h1>
+                <p>Proactively addressing technical debt leads to substantial long-term cost savings by preventing unforeseen expenses tied to critical issues and system failures. Moreover, fostering a positive work environment through clear code and reduced technical debt promotes developer satisfaction and teamwork, minimizing turnover costs and fostering innovation.</p>
+                <p>Customer satisfaction, a direct outcome of software free from technical debt, contributes to user loyalty and retention, supporting economic sustainability by ensuring a stable user base. Additionally, addressing technical debt positions software systems to be adaptable to change, allowing organizations to stay competitive and respond effectively to evolving business needs.</p>
+                <p>Lastly, considering the environmental impact is not overlooked. Optimized and well-maintained code consumes fewer computational resources, aligning with broader goals of energy efficiency and environmental sustainability in computing. In essence, reducing technical debt is a comprehensive economic strategy that enhances efficiency, reduces costs, and aligns software development practices with broader economic and environmental sustainability goals.</p>
+                <h1>What are some key areas to consider?</h1>
+                <p>Economic sustainability covers many facets, but the main ones that Curo is interested in are:</p>
+                <ul>
+                  <li>Reducing technical debt</li>
+                  <li>Job Security and personal advancement opportunities for team members</li>
+                  <li>Working effectively to the project budget</li>
+                  <li>Innovation and contributing to industry competitiveness</li>
+                </ul>
+                
+                <ReportBtn dimension="economic" reportDone={reportDone}/>
+              </div>
 
             </div>
 

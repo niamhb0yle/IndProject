@@ -19,14 +19,17 @@ export default function Reports() {
   const [reportView, setReportView] = useState(false);
   const [selectedReport, setSelectedReport] = useState('');
   const [docCount, setDocCount] = useState(0);
+  const [headerTitle, setHeaderTitle] = useState('Reports');
 
   const handleReportSelect = (reportId) => {
     setSelectedReport(reportId);
     setReportView(true);
+    setHeaderTitle('');
   }
 
   const handleCloseReport = () => {
     setReportView(false);
+    setHeaderTitle('Reports');
   }
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function Reports() {
           <SideBar/>
 
           <div className={styles.dashboard}>
-            <Header title="Reports"/>
+            <Header title={headerTitle}/>
 
             <div className={styles.dashboardContent}>
 

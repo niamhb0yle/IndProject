@@ -36,7 +36,7 @@ export default function GHGOverview() {
         
         <div className={infoStyles.scopeBox}>
             <h1>Scope 2</h1>
-            <p>This scope covers <b><u>'Indirect Emissions'</u></b> from Purchased Electricity purchased by the entity</p>
+            <p>This scope covers <b><u>'Indirect Emissions'</u></b> from electricity purchased by the entity</p>
             <p>These emissions typically stem from electricity used to power computers, lights, and machinery in a facility that the reporting team does not own or control.</p>
         </div>
         

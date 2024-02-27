@@ -11,16 +11,17 @@
     box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.1);
     min-height:calc(70vh - 20px + 0.3vw);
     max-width:80vw;
+    overflow: auto;
 }
 
 .infoContent h1 {
-    font-family: 'Manrope';
-    color: #4325a9;
-    font-size: calc(20px + 0.2vw);
+    font-family: 'Montserrat';
+    color: #354cfc;
+    font-size: calc(22px + 0.3vw);
     font-style: normal;
     font-weight:600;
     line-height: normal;
-    letter-spacing: 0.3px;
+    letter-spacing: 0px;
 }
 
 .infoContent p {
@@ -42,7 +43,7 @@
 
 .infoContent li b {
     font-family: 'Manrope';
-    color: #4325a9;
+    color: #354cfc;
     font-size: calc(16px + 0.1vw);
     margin:1vh;
 }
@@ -117,7 +118,7 @@
 }
 
 .navElts {
-    font-family:'Manrope';
+    font-family:'Montserrat';
     font-weight:bold;
     font-size:calc(20px + 0.3vw);
     border:none;
@@ -128,12 +129,11 @@
     color:black;
     border-radius: 30px;
     padding:0.5vh;
-    letter-spacing: 0.8px;
     display:inline;
 }
 
 .navEltsBar {
-    font-family:'Manrope';
+    font-family:'Montserrat';
     font-weight:bold;
     font-size:calc(20px + 0.3vw);
     border:none;
@@ -154,7 +154,7 @@
 
 .scopeBox{
     font-family: 'Manrope';
-    background: #d1c3ff;
+    background: #ebedff;
     flex:0.33;
     padding:calc(10px + 0.2vw);
     margin:calc(10px + 0.2vw);
@@ -163,13 +163,12 @@
 }
 
 .scopeBox h1 {
-    font-family: 'Manrope';
-    font-size: calc(22px + 0.3vw);
+    font-family: 'Montserrat';
+    font-size: calc(24px + 0.3vw);
     font-weight: bold;
     color: black;
     letter-spacing: 0.5px;
     text-align: center;
-    text-shadow: 2px 2px 40px #1f124b;
 }
 
 .scopeBox p {

@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShuffle } from '@fortawesome/free-solid-svg-icons'
 
 export default function Dashboard() {
-    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:{}, reportNo:''})
+    const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:{}, reportNo:'', Due:''})
     const [progress, setProgress] = useState('');
     const [memberProfiles, setMemberProfiles] = useState({});
     const [teamProgress, setTeamProgress] = useState('');
@@ -109,6 +109,7 @@ export default function Dashboard() {
         let tempTeamProgress = Math.round((tempTotalReportsCompleted/tempTotalReports)*100);
         await setTeamProgress(tempTeamProgress);
         await setMemberProfiles(memberProfiles);
+        let dueDate = new Date(teamSnap.data().CurrentReport.due.toDate()).toLocaleDateString();
 
         if (teamSnap.exists()) {
             setDashboardInfo({
@@ -117,6 +118,7 @@ export default function Dashboard() {
                 Organisation:teamSnap.data().org,
                 ReportNo: teamSnap.data().CurrentReport.number,
                 Members: membersNames,
+                Due: dueDate
             })
         } else {
             console.log("No such document!");
@@ -152,8 +154,8 @@ export default function Dashboard() {
 
                     <div className={styles.dashboardInfo}>
                       <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                          <p>Your team is on report:</p>
-                          <h1>{dashboardInfo.ReportNo}</h1>
+                          <p>Team report due:</p>
+                          <h2>{dashboardInfo.Due}</h2>
                       </div>
                       <div className={settingsStyles.vl} style={{marginTop:'3vh', marginBottom:'3vh',  marginRight:'0vh', marginLeft:'0vh'}}></div>
                       <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
