@@ -275,7 +275,7 @@ export default function CurrentReport() {
           </div>
 
           <div style={{display:'flex', minWidth:'fit-content', flex:0.33,  marginRight:'2vw'}}>
-            <button className={infoStyles.reportPageBtn}
+            <button className={reportStyles.finishReportBtn}
             onClick={handleFinishReport} 
               style={{
               pointerEvents: userType === "lead" && progress === "Complete" ? 'auto' : 'none',

@@ -87,28 +87,6 @@
     margin-top: 1vh;
 }
 
-.pastReportContainer {
-    background: #f0ebff;
-    border-radius: 30px;
-    padding:1.5vw;
-    display:flex;
-    flex:1;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin-bottom: 2vh;
-}
-
-.pastReportElt {
-    display: flex;
-    flex: 0.25;
-    align-items: center;
-    margin-left: 1vw;
-}
-
-.pastReportContainer:hover {
-    background: #e0d7ff;
-}
-
 .reportPageBtn {
     background: #f0ebff;
     border-radius: 30px;

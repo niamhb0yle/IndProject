@@ -190,3 +190,76 @@
     margin-bottom:30px;
     border-radius:20px;
 }
+
+.finishReportBtn {
+    width: fit-content;
+    border-radius: 30px; 
+    background-color: #495efc;
+    font-weight: bold;
+    height:fit-content;
+    font-size: calc(18px + 0.2vw);
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+    border: none;
+    float: right;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.5);
+    transition: transform 0.1s ease-in-out;
+  }
+
+.finishReportBtn:hover {
+    transform: translate(1px, 2px);
+    box-shadow: none;
+}
+
+.viewExportBtn {
+    display: flex;
+    flex: 0.25;
+    align-items: center;
+    margin-left: 1vw;
+    background: none;
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(14px + 0.2vw);
+    font-weight:bold;
+    width: fit-content;
+    border:none;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+    gap:8px;
+}
+
+.viewExportBtn:hover {
+    color: #354cfc;
+    transform: scale(1.02);
+}
+
+.pastReportContainer {
+    background: #ebedff;
+    border-radius: 30px;
+    padding:1.5vw;
+    display:flex;
+    flex:1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 2vh;
+}
+
+.pastReportElt {
+    display: flex;
+    flex: 0.25;
+    align-items: center;
+}
+
+.pastReportContainer:hover {
+    background: #d7dbfe;
+}
+
+.vl {
+    width: 1px;
+    background-color: black;
+    align-self: stretch;
+    align-items: center;
+}

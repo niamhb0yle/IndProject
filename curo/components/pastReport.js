@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import infoStyles from '../styles/Info.module.css';
+import reportStyles from '../styles/Reports.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faFileExport } from '@fortawesome/free-solid-svg-icons';
 
 export default function PastReport({ onSelectReport, reportNumber }) {
   const [dates, setDates] = useState({start:'', due:''})
@@ -36,18 +39,18 @@ export default function PastReport({ onSelectReport, reportNumber }) {
 
   return (
     <div>
-      <div className={infoStyles.pastReportContainer}>
-        <div className={infoStyles.pastReportElt}>
+      <div className={reportStyles.pastReportContainer}>
+        <div className={reportStyles.pastReportElt}>
             <p>Report {reportNumber}</p>
         </div>
-        <div className={infoStyles.pastReportElt}>
+        <div className={reportStyles.pastReportElt}>
             <p>{dates.due}</p>
         </div>
-        <div className={infoStyles.pastReportElt}>
-            <button onClick={() => onSelectReport(reportNumber)}>View report</button>
+        <div className={reportStyles.viewExportBtn}>
+            <div onClick={() => onSelectReport(reportNumber)}>View report </div><FontAwesomeIcon icon={faEye} style={{width:'calc(14px + 0.2vw)'}}/>
         </div>
-        <div className={infoStyles.pastReportElt}>
-            <p>Export report</p>
+        <div className={reportStyles.viewExportBtn}>
+            <>Export report</> <FontAwesomeIcon icon={faFileExport} style={{width:'calc(14px + 0.2vw)'}} />
         </div>
     </div>
 

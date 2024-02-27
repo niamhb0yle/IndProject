@@ -112,7 +112,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
     <div>
       <div className={infoStyles.reportViewContent} style={{paddingRight:'8vw'}}>
         
-        <h1>Report {reportNumber}<button style={{float:'right'}} onClick={() => onCloseReport()}>Close</button></h1>
+        <h1>Report {reportNumber}<button className={reportStyles.finishReportBtn} style={{float:'right'}} onClick={() => onCloseReport()}>Close</button></h1>
         <p>Started reporting on: {dates.start}</p>
         <p>Finished report on: {dates.due}</p>
         <p>Number of members: {reportData.memberCount}</p>
