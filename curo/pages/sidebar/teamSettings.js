@@ -9,10 +9,13 @@ import Header from '../../components/Header';
 import infoStyles from '../../styles/Info.module.css';
 import reportStyles from '../../styles/Reports.module.css';
 import settingsStyles from '../../styles/Settings.module.css';
+import dashboardStyles from '../../styles/Dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase';
 import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc, updateDoc } from 'firebase/firestore';
 import Modal from 'react-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 Modal.setAppElement('#__next'); // lets the DOM know how to manage focus with modal
@@ -31,10 +34,13 @@ const customStyles = {
 
 
 export default function TeamSettings() {
-  const [teamInfo, setTeamInfo] = useState({name:'', lead:'', org:'', key:'', members:[], currentReport:{}});
-  const [showModal, setShowModal] = useState(false);
+  const [teamInfo, setTeamInfo] = useState({name:'', lead:'', org:'', key:'', members:{}, currentReport:{}});
+  const [showModal1, setShowModal1] = useState(false); // this is the modal to edit team info
+  const [showModal2, setShowModal2] = useState(false); // this is the modal to remove a team member
   const [newTeamInfo, setNewTeamInfo] = useState({name:'', org:''});
   const [submit, setSubmit] = useState(false);
+  const [memberProfiles, setMemberProfiles] = useState({});
+  const [removeMember, setRemoveMember] = useState('');
 
   useEffect(() => {
     setTeamData();
@@ -49,14 +55,18 @@ export default function TeamSettings() {
   }, [newTeamInfo]);
 
   const setTeamData = async () => {
-    const user = auth.getCurrentUser;
+    const user = auth.currentUser;
     const userRef = doc(db, "Users", user.email);
     const userSnap = await getDoc(userRef);
     const teamRef = userSnap.data().Team;
     const teamSnap = await getDoc(teamRef);
 
+    console.log(teamSnap.data());
+
     let membersNames = {};
     let memberProfiles = {};
+
+    const members = teamSnap.data().Members;
 
     await Promise.all(members.map(async (member) => {
       const memberRef = doc(db, "Users", member);
@@ -70,14 +80,16 @@ export default function TeamSettings() {
     }));
 
     await setMemberProfiles(memberProfiles);
+    console.log('names: ', membersNames, 'profiles: ', memberProfiles)
 
     if (teamSnap.exists()) {
       setTeamInfo({
-        Team:teamSnap.data().name,
-        Lead:teamSnap.data().coach,
-        Organisation:teamSnap.data().org,
-        ReportNo: teamSnap.data().CurrentReport.number,
-        Members: membersNames,
+        name:teamSnap.data().name,
+        lead:teamSnap.data().coach,
+        org:teamSnap.data().org,
+        key:teamRef.id,
+        currentReport: teamSnap.data().CurrentReport,
+        members: membersNames,
       })
     } else {
         console.log("No such document!");
@@ -110,8 +122,17 @@ export default function TeamSettings() {
         org: newOrg
     });
 
-    await setShowModal(false);
+    await setShowModal1(false);
     await setTeamData();
+  }
+
+  const handleDeleteClick = async (email) => {
+    setShowModal2(true);
+    setRemoveMember(email);
+  }
+
+  const handleDelete = async () => {
+    console.log('delete confirmed');
   }
 
   return (
@@ -137,12 +158,32 @@ export default function TeamSettings() {
                       <p><b>Team name:</b> {teamInfo.name}</p>
                       <p><b>Organisation:</b> {teamInfo.org}</p>
                       <p><b>Team Lead:</b> {teamInfo.lead}</p>
-                      <button className={settingsStyles.settingsBtn} onClick={() => setShowModal(true)}>Edit team info</button>
+                      <button className={settingsStyles.settingsBtn} onClick={() => setShowModal1(true)}>Edit team info</button>
                   </div>
 
                   <Modal
-                    isOpen={showModal}
-                    onRequestClose={() => setShowModal(false)}
+                    isOpen={showModal2}
+                    onRequestClose={() => setShowModal2(false)}
+                    style={customStyles}
+                    contentLabel="Select Next Due Date"
+                  >
+                      <p>Are you sure you want to remove {removeMember} from your Curo team?</p>
+                      <button 
+                          className={infoStyles.reportPageBtn} 
+                          style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
+                          onClick={() => setShowModal2(false)}>
+                            No, take me back
+                      </button>
+                      <button 
+                          className={infoStyles.reportPageBtn}
+                          onClick={handleDelete}>
+                              Yes, remove <b>{removeMember}</b>
+                      </button>
+                  </Modal>
+
+                  <Modal
+                    isOpen={showModal1}
+                    onRequestClose={() => setShowModal1(false)}
                     style={customStyles}
                     contentLabel="Select Next Due Date"
                   >
@@ -169,7 +210,7 @@ export default function TeamSettings() {
                       <button 
                           className={infoStyles.reportPageBtn} 
                           style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
-                          onClick={() => setShowModal(false)}>
+                          onClick={() => setShowModal1(false)}>
                               Cancel
                       </button>
                       <button 
@@ -195,13 +236,18 @@ export default function TeamSettings() {
                 <hr style={{marginTop:'4vh'}}></hr>
                 <h1>Members</h1>
                 <p>Invite or remove team members here:</p>
-                  <ul>
-                  {
-                    teamInfo.members.map((member, index) => (
-                        <li key={index}>{member}</li>
+                  {teamInfo.members &&
+                    Object.entries(teamInfo.members).map(([email, name]) => (
+                        <div className={settingsStyles.memberContainer} key={email}>
+                          <div className={settingsStyles.memberProfilePics}>
+                            <img src={memberProfiles[email]} alt='Profile'/>
+                          </div>
+                          <h1><b>{name}</b></h1>
+                          <p>{email}</p>
+                          <FontAwesomeIcon icon={faTrash} className={settingsStyles.delete} onClick={() => handleDeleteClick(email)}/>
+                        </div>
                     ))
                   }
-                </ul>
               </div>
 
             </div>

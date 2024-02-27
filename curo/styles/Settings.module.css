@@ -114,3 +114,61 @@
     height: 100%;
     object-fit: cover;
 }
+
+.memberContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1vh;
+    border-radius: 30px;
+    gap:8px;
+  }
+  
+  .memberContainer:hover {
+    background: #d7dbfe;
+  }
+  
+  .memberContainer h1 {
+    font-family: 'Montserrat';
+    font-size: calc(13px + 0.3vw);
+    color: black;
+    margin: 0;
+    padding: 1vh;
+  }
+  
+  .memberContainer p {
+    font-family: 'Manrope';
+    font-size: calc(11px + 0.2vw);
+    color: black;
+    margin: 0;
+  }
+  
+  .memberProfilePics {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-left: 1vw;
+    border:white;
+  }
+  
+  .memberProfilePics img {
+    width: auto;
+    height: 100%;
+    box-shadow: 2px 2px 20px rgba(100, 55, 254, 0.3);
+    object-fit: cover;
+  }
+
+  .delete {
+    display: inline;
+    cursor: pointer;
+    width:  calc(13px + 0.3vw);
+    transition: transform 0.1s ease-in-out;
+  }
+  
+  .delete:hover {
+    transform: rotate(10deg);
+    color:#354CFC;
+  }
