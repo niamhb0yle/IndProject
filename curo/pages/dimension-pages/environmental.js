@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
+import infoStyles from '../../styles/Info.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -44,10 +45,55 @@ export default function Environmental() {
             <Header title="Environmental"/>
 
             <div className={styles.dashboardContent}>
-              <p>Environmental page.</p>
-              <ReportBtn dimension={'environmental'} reportDone={reportDone}/>
+              <div className={infoStyles.nav}>
+                <button className={infoStyles.navElts} >Overview</button>
+                <p className={infoStyles.navEltsBar}>|</p>
+                <button className={infoStyles.navElts} >Insights</button>
+                <p className={infoStyles.navEltsBar}>|</p>
+                <ReportBtn dimension="environmental" reportDone={reportDone}/>
+              </div>
+
+
+              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
+                <h1>What is Environmental sustainability?</h1>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div style={{ flex: 1.5 }}>
+                    <p>Environmental sustainability in software development concerns minimizing the environmental impact of software throughout its lifecycle. It involves thoughtful use and stewardship of natural resources, from reducing immediate waste production and energy consumption to considering the long-term effects on local ecosystems and the global climate.</p>
+                    <p>This dimension encourages developers to consider the environmental footprint of their software, including the energy efficiency of data centers, the materials used in hardware, and the overall carbon footprint of operating software systems.</p>
+                  </div>
+                  <div style={{ width: '50%', height: '300px', overflow: 'hidden' }}>
+                    <img src='/images/environmental.png' alt="Environmental Sustainability" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+                  </div>
+                </div>
+                
+                <h1>Why should we care?</h1>
+                  <p>Environmental sustainability is increasingly critical in the context of global climate change and environmental degradation. For software developers, focusing on this dimension means contributing to the reduction of the tech industry's environmental impact, fostering responsible use of resources, and promoting sustainability practices among users and stakeholders.</p>
+                  <p>By developing energy-efficient software, minimizing resource consumption, and using eco-friendly development practices, developers can reduce the environmental footprint of their projects, save costs, and meet the growing demand from consumers, businesses, and governments for green technology solutions.</p>
+                
+                <h1>What are some key areas to consider?</h1>
+                  <p>Here are the key areas you can focus on to improve environmental sustainability in your application:</p>
+                <ul>
+                  <li>
+                    <h1>Energy Efficiency: </h1>
+                    <p>Optimize software for energy efficiency to reduce the energy consumption of servers and devices</p>
+                  </li>
+                  <li>
+                    <h1>Lifecycle Management & Waste: </h1>
+                    <p>Consider the entire lifecycle of software, from development to disposal. Ensure that any hardware being disposed is done so in an environmentally responsible manner</p>
+                  </li>
+                  <li>
+                    <h1>Awareness and Advocacy: </h1>
+                    <p>Team members should be aware of environmental issues regarding software development</p>
+                  </li>
+                  <li>
+                    <h1>Clean Energy: </h1>
+                    <p>Make use of renewable energy where possible! Adopt green technologies into your teams tech stack</p>
+                  </li>
+                </ul>
+              </div>
 
             </div>
+
 
           </div>
         </div>

@@ -33,7 +33,6 @@ export default function GHG() {
     }
   }
 
-  console.log(ghgDone)
 
   useEffect(() => {
     getFirestoreData();

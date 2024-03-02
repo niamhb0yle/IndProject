@@ -9,8 +9,9 @@ import "@fontsource/manrope";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFileLines, faListCheck, faGear, faGaugeHigh, faC, faSeedling, faRightFromBracket} from '@fortawesome/free-solid-svg-icons'
 import Modal from 'react-modal';
-import { useState } from 'react';
-import {auth} from '../firebase';
+import { useState, useEffect } from 'react';
+import {auth, db} from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 
 
@@ -33,7 +34,19 @@ const customStyles = {
 
 export default function SideBar() {
   const [showModal, setShowModal] = useState(false);
+  const [userType, setUserType] = useState('');
   const router = useRouter();
+
+  const getFirestoreData = async () => {
+    const user = auth.currentUser
+    const userRef = doc(db, "Users", user.email);
+    const userSnap = await getDoc(userRef);
+    setUserType(userSnap.data().userType);
+  }
+
+  useEffect(() => {
+    getFirestoreData();
+  }, []);
 
   const handleLogoutClick = () => {
     setShowModal(true);
@@ -60,7 +73,7 @@ export default function SideBar() {
       <Link id={styles.sidebarNavElements} href='/sidebar/reports'>
         <FontAwesomeIcon icon={faFileLines} style={{width:'18px'}}/> Reports
       </Link>
-      <Link id={styles.sidebarNavElements} href='/sidebar/teamSettings'>
+      <Link id={styles.sidebarNavElements} href='/sidebar/teamSettings' hidden={userType!='lead'}>
         <FontAwesomeIcon icon={faGear} style={{width:'18px'}}/> Team Settings
       </Link>
 

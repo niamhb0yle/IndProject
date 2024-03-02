@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Head from 'next/head';
 import styles from '../styles/Reports.module.css';
+import infoStyles from '../styles/Info.module.css';
 import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
@@ -16,13 +17,13 @@ const ReportBtn = ({ dimension, reportDone }) => {
   
   return (
     <button 
-      className={styles.reportBtn} 
+      className={infoStyles.navElts}
       style={{
         pointerEvents: reportDone ? 'none' : 'auto',
         opacity: reportDone ? '0.5' : '1'
       }}
       onClick={handleClick}>
-        Complete report for {dimension} sustainability &rarr;
+        Start report &rarr;
     </button>
   );
 };

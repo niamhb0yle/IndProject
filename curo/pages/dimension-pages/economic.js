@@ -48,27 +48,48 @@ export default function Ecconomic() {
               <div className={infoStyles.nav}>
                 <button className={infoStyles.navElts} >Overview</button>
                 <p className={infoStyles.navEltsBar}>|</p>
-                <Link href='../report-pages/economicReport' className={infoStyles.navElts} title='Only available for team leads'>Start Report &rarr;</Link>  
+                <button className={infoStyles.navElts} >Insights</button>
+                <p className={infoStyles.navEltsBar}>|</p>
+                <ReportBtn dimension="economic" reportDone={reportDone}/>
               </div>
 
 
-              <div className={infoStyles.infoContent}>
+              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
                 <h1>What is Economic sustainability?</h1>
-                <p>In the realm of software sustainability, prioritizing the management of technical debt emerges as a crucial economic strategy. It brings about resource efficiency, long-term cost savings, and boosts developer productivity. Through the cultivation of clean and well-documented code, development teams optimize their human resources, reducing time spent on debugging and problem-solving. This not only maximizes the value of investments in software development but also fortifies economic sustainability.</p>
-                <h1>Why should we care?</h1>
-                <p>Proactively addressing technical debt leads to substantial long-term cost savings by preventing unforeseen expenses tied to critical issues and system failures. Moreover, fostering a positive work environment through clear code and reduced technical debt promotes developer satisfaction and teamwork, minimizing turnover costs and fostering innovation.</p>
-                <p>Customer satisfaction, a direct outcome of software free from technical debt, contributes to user loyalty and retention, supporting economic sustainability by ensuring a stable user base. Additionally, addressing technical debt positions software systems to be adaptable to change, allowing organizations to stay competitive and respond effectively to evolving business needs.</p>
-                <p>Lastly, considering the environmental impact is not overlooked. Optimized and well-maintained code consumes fewer computational resources, aligning with broader goals of energy efficiency and environmental sustainability in computing. In essence, reducing technical debt is a comprehensive economic strategy that enhances efficiency, reduces costs, and aligns software development practices with broader economic and environmental sustainability goals.</p>
-                <h1>What are some key areas to consider?</h1>
-                <p>Economic sustainability covers many facets, but the main ones that Curo is interested in are:</p>
-                <ul>
-                  <li>Reducing technical debt</li>
-                  <li>Job Security and personal advancement opportunities for team members</li>
-                  <li>Working effectively to the project budget</li>
-                  <li>Innovation and contributing to industry competitiveness</li>
-                </ul>
+                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                  <div style={{ flex: 1.5 }}>
+                    <p>Economic sustainability in software development ensures that projects are financially viable, contribute to sustained economic growth, and maintain a competitive edge in the industry. It focuses on creating value that extends beyond immediate profits, emphasizing long-term financial health, innovation, and the economic well-being of all stakeholders involved. </p>
+                    <p>This dimension encompasses a broad spectrum of financial aspects, including capital growth, effective budget management, and the strategic allocation of resources. It advocates for practices that ensure the software not only meets current market demands but also adapts to future economic landscapes.</p>
+                  </div>
+                  <div style={{ width: '50%', height: '300px', overflow: 'hidden' }}>
+                    <img src="/images/economic.png" alt="Economic Sustainability" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
+                  </div>
+                </div>
                 
-                <ReportBtn dimension="economic" reportDone={reportDone}/>
+                <h1>Why should we care?</h1>
+                  <p>Economic sustainability is crucial for the resilience and success of software projects. By emphasizing economic considerations, developers can ensure their projects are not just viable products but also sustainable investments. This approach helps attract and retain talent, secure funding, and foster a culture of innovation.</p>
+                  <p>Moreover, economically sustainable practices contribute to the broader economic ecosystem by supporting job security, offering personal advancement opportunities, and driving industry competitiveness. They ensure that the software industry remains a dynamic and thriving sector, capable of adapting to and shaping future technological and economic trends.</p>
+                
+                <h1>What are some key areas to consider?</h1>
+                  <p>Here are the key areas you can focus on to improve technical sustainability in your application:</p>
+                <ul>
+                  <li>
+                    <h1>Reducing technical debt: </h1>
+                    <p>Reducing technical debt is crucial for ensuring long-term project viability and reducing future costs associated with maintenance and updates</p>
+                  </li>
+                  <li>
+                    <h1>Job Security and Personal Advancement: </h1>
+                    <p>Create opportunities for team members to grow professionally and advance their careers within the project or organization</p>
+                  </li>
+                  <li>
+                    <h1>Working effectively to the project budget: </h1>
+                    <p>Develop and implement strategies for managing project budgets effectively</p>
+                  </li>
+                  <li>
+                    <h1>Innovation and Industry Competitiveness: </h1>
+                    <p>Ensure that your application brings something innovative to an already competitive landscape, and increases industry competitiveness</p>
+                  </li>
+                </ul>
               </div>
 
             </div>
