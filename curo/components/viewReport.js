@@ -125,7 +125,10 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {socialData.SocialQuant && Object.entries(socialData.SocialQuant).length > 0 ? (
               <div>
                 {Object.entries(socialData.SocialQuant).map(([key, value]) => (
-                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Social', key)}: ${value}`}</div>
+                  <div className={reportStyles.dimensionText} key={key}>
+                    <progress value={value} max="5"></progress>
+                    {`${findQuestionText('Social', key)}: ${value}`}
+                  </div>
                 ))}
               </div>
             ) : (
@@ -138,7 +141,9 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {econData.EconomicQuant && Object.entries(econData.EconomicQuant).length > 0 ? (
               <div>
                 {Object.entries(econData.EconomicQuant).map(([key, value]) => (
-                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Economic', key)}: ${value}`}</div>
+                  <div className={reportStyles.dimensionText} key={key}>
+                    <progress value={value} max="5"></progress>
+                    {`${findQuestionText('Economic', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -151,7 +156,9 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {indData.IndividualQuant && Object.entries(indData.IndividualQuant).length > 0 ? (
               <div>
                 {Object.entries(indData.IndividualQuant).map(([key, value]) => (
-                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Individual', key)}: ${value}`}</div>
+                  <div className={reportStyles.dimensionText} key={key}>
+                    <progress value={value} max="5"></progress>
+                    {`${findQuestionText('Individual', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -164,7 +171,9 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {techData.TechnicalQuant && Object.entries(techData.TechnicalQuant).length > 0 ? (
               <div>
                 {Object.entries(techData.TechnicalQuant).map(([key, value]) => (
-                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Technical', key)}: ${value}`}</div>
+                  <div className={reportStyles.dimensionText} key={key}>
+                    <progress value={value} max="5"></progress>
+                    {`${findQuestionText('Technical', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
@@ -177,7 +186,9 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           {envData.EnvironmentalQuant && Object.entries(envData.EnvironmentalQuant).length > 0 ? (
               <div>
                 {Object.entries(envData.EnvironmentalQuant).map(([key, value]) => (
-                  <div className={reportStyles.dimensionText} key={key}>{`${findQuestionText('Environmental', key)}: ${value}`}</div>
+                  <div className={reportStyles.dimensionText} key={key}>
+                    <progress value={value} max="5"></progress>
+                    {`${findQuestionText('Environmental', key)}: ${value}`}</div>
                 ))}
               </div>
             ) : (
