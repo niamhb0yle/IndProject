@@ -38,6 +38,10 @@ export default function LogIn() {
     }
   }
 
+  const goBack = () => {
+    router.push('/');
+  }
+
   function handleSubmit(e){
     e.preventDefaullt()
    };
@@ -69,8 +73,9 @@ export default function LogIn() {
             type='password'>
           </input>
 
-          <div style={{display:'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', marginTop:'50px'}}>
+          <div style={{display:'flex', flexWrap: 'wrap', flexDirection:'row', justifyContent: 'center', alignItems: 'center', marginTop:'50px'}}>
             <button onClick={loginHandler} className={styles.loginButton}>Submit</button>
+            <button onClick={goBack} className={styles.loginButton}>Go back</button>
           </div>
 
         </div>

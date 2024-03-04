@@ -111,13 +111,14 @@ export default function Profile() {
   }
 
   // Profile pic code
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
   
-    const storage = getStorage();
-    const fileExtension = file.name.split('.').pop();
-    const storageRef = ref(storage, `profilePics/${auth.currentUser.email}`);
+    const storage = await getStorage();
+    const userEmail = auth.currentUser.email;
+    console.log(storage);
+    const storageRef = ref(storage, `profilePics/${userEmail}`);
 
     uploadBytes(storageRef, file).then((snapshot) => {
       console.log('Uploaded a blob or file!');
@@ -165,12 +166,12 @@ export default function Profile() {
                 
                 <div className={settingsStyles.settingsContentParent} style={{padding:'2vw'}}>
 
-                  <div style={{marginLeft:'2vw', marginRight: '2vw', flex:0.3, display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
+                  <div style={{marginLeft:'0vw', marginRight: '0vw', flex:0.3, display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
                     <div className={settingsStyles.profilePicContainer}>
                       <img src={profilePic} alt='Profile'/>
                     </div>
                     <h1>{userInfo.name}</h1>
-                    <p style={{marginTop:'0px'}}>{userInfo.type} at {userInfo.org}</p>
+                    <p style={{marginTop:'0px', width:'fit-content'}}>{userInfo.type} at {userInfo.org}</p>
                       
                   </div>
                   <Modal
@@ -197,7 +198,7 @@ export default function Profile() {
                           className={infoStyles.reportPageBtn} 
                           style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
                           onClick={() => setShowModal1(false)}>
-                              Cancel
+                            Cancel
                       </button>
                       <button 
                           className={infoStyles.reportPageBtn} 
@@ -208,7 +209,7 @@ export default function Profile() {
                               opacity: submit ? '1' : '0.5',
                           }} 
                           onClick={handleEditUser}>
-                              Make changes
+                            Make changes
                       </button>
                   </Modal>
 
@@ -229,7 +230,7 @@ export default function Profile() {
 
                   <div className={settingsStyles.vl}></div>
 
-                  <div style={{flex:0.6, paddingTop:'2vh'}}>
+                  <div style={{flex:0.7, paddingTop:'2vh'}}>
                     <p><b>Email:</b> {userInfo.email}</p>
                       <p><b>Team:</b> {userInfo.team}</p>
                       <p><b>Organisation:</b> {userInfo.org}</p>

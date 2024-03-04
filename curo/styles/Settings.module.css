@@ -107,6 +107,8 @@
     align-items: center;
     box-shadow: 2px 2px 10px rgba(42, 61, 202, 0.3);
     object-fit: cover;
+    margin-left: 4vw;
+    margin-right: 4vw;
 }
 
 .profilePicContainer img {
