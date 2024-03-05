@@ -21,6 +21,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
   const [envData, setEnvData] = useState({});
   const [econData, setEconData] = useState({});
   const [ghgData, setGhgData] = useState({});
+  const [sciData, setSciData] = useState({});
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -60,6 +61,14 @@ export default function ViewReport({reportNumber, onCloseReport}) {
       fetchReportData();
     }
   }, [reportNumber, user]); // Make sure to include all dependencies here
+
+  // make it more user friendly - display keys which are displayed as camel case with a space in between
+  function camelCaseToSpaces(str) {
+    return str
+      .replace(/([A-Z])/g, ' $1')
+      .replace(/^./, function(str){ return str.toUpperCase(); })
+  }
+  
   
   
   const processAndCategorizeData = (data) => {
@@ -72,6 +81,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
     const tempEnvData = {};
     const tempEconData = {};
     const tempGhgData = {};
+    const tempSciData = {};
   
     Object.keys(data).forEach((key) => {
       if (key.includes('SocialQuant') || key.includes('SocialQual')) {
@@ -96,7 +106,10 @@ export default function ViewReport({reportNumber, onCloseReport}) {
     setEnvData(tempEnvData);
     setEconData(tempEconData);
     setGhgData(tempGhgData);
+    setSciData(data.SCI);
   };
+
+  console.log(sciData);
 
   // ability to find and display question header instead of random 'q' key
   const findQuestionText = (category, questionKey) => {
@@ -127,7 +140,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                 {Object.entries(socialData.SocialQuant).map(([key, value]) => (
                   <div className={reportStyles.dimensionText} key={key}>
                     <progress value={value} max="5"></progress>
-                    {`${findQuestionText('Social', key)}: ${value}`}
+                    <div>{`${findQuestionText('Social', key)}: ${value}`}</div>
                   </div>
                 ))}
               </div>
@@ -143,7 +156,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                 {Object.entries(econData.EconomicQuant).map(([key, value]) => (
                   <div className={reportStyles.dimensionText} key={key}>
                     <progress value={value} max="5"></progress>
-                    {`${findQuestionText('Economic', key)}: ${value}`}</div>
+                    <div>{`${findQuestionText('Economic', key)}: ${value}`}</div></div>
                 ))}
               </div>
             ) : (
@@ -158,7 +171,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                 {Object.entries(indData.IndividualQuant).map(([key, value]) => (
                   <div className={reportStyles.dimensionText} key={key}>
                     <progress value={value} max="5"></progress>
-                    {`${findQuestionText('Individual', key)}: ${value}`}</div>
+                    <div>{`${findQuestionText('Individual', key)}: ${value}`}</div></div>
                 ))}
               </div>
             ) : (
@@ -173,7 +186,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                 {Object.entries(techData.TechnicalQuant).map(([key, value]) => (
                   <div className={reportStyles.dimensionText} key={key}>
                     <progress value={value} max="5"></progress>
-                    {`${findQuestionText('Technical', key)}: ${value}`}</div>
+                    <div>{`${findQuestionText('Technical', key)}: ${value}`}</div></div>
                 ))}
               </div>
             ) : (
@@ -188,7 +201,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                 {Object.entries(envData.EnvironmentalQuant).map(([key, value]) => (
                   <div className={reportStyles.dimensionText} key={key}>
                     <progress value={value} max="5"></progress>
-                    {`${findQuestionText('Environmental', key)}: ${value}`}</div>
+                    <div>{`${findQuestionText('Environmental', key)}: ${value}`}</div></div>
                 ))}
               </div>
             ) : (
@@ -196,6 +209,92 @@ export default function ViewReport({reportNumber, onCloseReport}) {
           )}
         </div>
         </div>
+
+        <hr></hr>
+
+        <h1>Mini GHG and SCI data</h1>
+
+        <div style={{display:'flex', flexDirection:'row', flex:1}}>
+          <div style={{display:'flex', flex:1.2, flexDirection:'column'}}>
+            <div className={reportStyles.dimensionContainer}>
+              <h2>Scope 1</h2>
+              {ghgData.Scope1 && Object.entries(ghgData.Scope1).length > 0 ? (
+                  <div>
+                    <p style={{fontSize:'17px'}}>Total emissions from team transport: {ghgData.Scope1.TransportEmissions} kg CO2</p>
+                    <p style={{fontSize:'17px'}}>Total emissions from on-site generator: {ghgData.Scope1.GeneratorEmissions} kg CO2</p>
+                    <hr></hr>
+                    <p style={{fontSize:'17px'}}>Breakdown of team's transport modes: </p>
+                    <ul>
+                      {Object.entries(ghgData.Scope1.TransportBreakdown).map(([key, value]) => (
+                        <li key={key}>{`${camelCaseToSpaces(key)}: ${value}`}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <p>No GHG Data Available</p>
+              )}
+            </div>
+
+            <div className={reportStyles.dimensionContainer}>
+              <h2>Scope 2</h2>
+              {ghgData.Scope2 && Object.entries(ghgData.Scope2).length > 0 ? (
+                  <div>
+                    <p style={{fontSize:'17px'}}>Offices Electricity Emissions: {ghgData.Scope2.OfficeEmissions} kg CO2</p>
+                    <hr></hr>
+                    <p style={{fontSize:'17px'}}>Breakdown of team's Offices: </p>
+                    <ul>
+                      {Object.entries(ghgData.Scope2.OfficeBreakdown).map(([key, value]) => (
+                        <li key={key}>{`${camelCaseToSpaces(key)}: ${value}`}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <p>No GHG Data Available</p>
+              )}
+            </div>
+
+            <div className={reportStyles.dimensionContainer}>
+              <h2>Scope 3</h2>
+              {ghgData.Scope3 && Object.entries(ghgData.Scope3).length > 0 ? (
+                  <div>
+                    {Object.entries(ghgData.Scope3).map(([key, value]) => (
+                      <div className={reportStyles.dimensionText} key={key}>
+                        <p style={{fontSize:'17px'}}>{`${camelCaseToSpaces(key)}: ${value}`}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p>No GHG Data Available</p>
+              )}
+            </div>
+          </div>
+
+          <hr style={{marginLeft:'2vw', marginRight:'2vw'}}></hr>
+
+          <div style={{display:'flex', flex:1, flexDirection:'column'}}>
+            <div className={reportStyles.dimensionContainer}>
+              <h2>SCI Score</h2>
+              <div className={reportStyles.dimensionText}>
+                {sciData.SCI && Object.entries(sciData).length > 0 ? (
+                  <div>
+                    <p style={{fontSize:'17px'}}>Energy Consumed by application: {sciData.EnergyConsumed}</p>
+                    <p style={{fontSize:'17px'}}>Embodied Emissions: {sciData.EnergyConsumed}</p>
+                    <p style={{fontSize:'17px'}}>Carbon Intensity: {sciData.CarbonIntensity}</p>
+                    <p style={{fontSize:'17px'}}>Functional Unit: {sciData.FunctionalUnit}</p>
+                    <hr style={{marginTop:'4vh', marginBottom:'4vh'}}></hr>
+                    <p><b>Overall Software Carbon Intensity for your application: </b></p>
+                    <p>{sciData.SCI} kg of CO2 per unit of work</p>
+                  </div>
+                ) : (
+                  <p>No SCI Data Available</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        
 
         
         

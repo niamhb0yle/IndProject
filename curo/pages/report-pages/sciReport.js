@@ -99,7 +99,15 @@ export default function SCIReport() {
   
       await setDoc(userRef, { progress: { SCI: true } }, { merge: true });
   
-      await updateDoc(reportRef, { "SCI": { "SCI": sciScore } });
+      await updateDoc(reportRef, {
+         "SCI": { 
+          "SCI": sciScore,
+          "EnergyConsumed": energyConsumed,
+          "CarbonIntensity": carbonIntensity,
+          "EmbodiedEmissions": embodiedEmissions,
+          "FunctionalUnit": functionalUnit,
+        } 
+      });
   
       console.log("SCI score updated in Firestore successfully.");
       

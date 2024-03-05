@@ -291,6 +291,8 @@
     display:block;
 }
 
+
+
 .reportViewContent h2 {
     font-family: 'Montserrat';
     color: #3044e3;
@@ -313,14 +315,21 @@
     border-radius: 30px;
     padding:2vw;
     padding-top: 0;
-    width:fit-content;
     min-width: fit-content;
 }
 
 .dimensionContainer p {
     font-family: 'Manrope';
     color: black;
-    font-size: calc(11px + 0.2vw);
+    font-size: calc(12px + 0.2vw);
+    font-weight:light;
+    text-align: left;
+}
+
+.dimensionContainer li {
+    font-family: 'Manrope';
+    color: black;
+    font-size: calc(12px + 0.2vw);
     font-weight:light;
     text-align: left;
 }
@@ -328,7 +337,7 @@
 .dimensionText {
     font-family: 'Manrope';
     color: black;
-    font-size: calc(13px + 0.2vw);
+    font-size: calc(14px + 0.2vw);
     font-weight:light;
     text-align: left;
     margin-bottom: 0.5vh;
