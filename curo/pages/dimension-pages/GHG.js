@@ -19,7 +19,7 @@ import GHGStats from '../../components/ghgStats';
 export default function GHG() {
   const [ghgView, setGhgView] = useState('Overview');
   const [userType, setUserType] = useState('');
-  const [ghgDone, setghgDone] = useState(true);
+  const [ghgDone, setghgDone] = useState(false);
   const user = auth.currentUser;
 
   const getFirestoreData = async () => {
@@ -36,6 +36,7 @@ export default function GHG() {
 
   useEffect(() => {
     getFirestoreData();
+    console.log(userType, ghgDone)
   }, []);
 
   return (

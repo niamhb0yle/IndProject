@@ -28,7 +28,6 @@ export default function SCIReport() {
   const [submit, setSubmit] = useState(false);
   const [reportDates, setReportDates] = useState({start:'', due:''});
   const [backToDashboard, setBackToDashboard] = useState(false);
-  const router = useRouter();
 
 
 
@@ -36,7 +35,7 @@ export default function SCIReport() {
     setExpand(!expand);
   }
 
-  useEffect( async () => {
+  const getReportDates = async () => {
     //get report dates from current report
     const user = auth.currentUser;
     const userRef = doc(db, "Users", user.email);
@@ -46,6 +45,12 @@ export default function SCIReport() {
     const start = teamSnap.data().CurrentReport.start.toDate();
     const due = teamSnap.data().CurrentReport.due.toDate();
     setReportDates({start: start.toLocaleDateString(), due: due.toLocaleDateString()});
+  
+  }
+
+  useEffect( () => {
+    //get report dates from current report
+    getReportDates();
   }, [])
 
   const calculateSCI = () => {
@@ -98,8 +103,6 @@ export default function SCIReport() {
   
       console.log("SCI score updated in Firestore successfully.");
       
-      // Redirect to dashboard after successful update
-      router.push('/sidebar/dashboard');
     } catch (error) {
       console.error("Error updating Firestore:", error);
     }
@@ -264,17 +267,17 @@ export default function SCIReport() {
                         </div>
                       </div>
 
-                      <button
-                        onClick={calculateSCI}
-                        className={reportStyles.nextButton}
-                        style={{
-                          pointerEvents: submit ? 'auto' : 'none',
-                          opacity: submit ? '1' : '0.5'
-                        }}>
-                          Calculate
-                      </button>
 
-                      <Link href='/sidebar/dashboard' className={reportStyles.nextButton} hidden={!backToDashboard}>Back to dashboard!</Link>
+                      <Link href='../dimension-pages/SCI' 
+                      className={reportStyles.reportBtn}
+                      onClick={calculateSCI}
+                      style={{
+                        pointerEvents: submit ? 'auto' : 'none',
+                        opacity: submit ? '1' : '0.5'
+                      }}
+                    >
+                      Complete report &rarr;
+                    </Link>
 
                   </div>
               </div>
