@@ -14,7 +14,25 @@ import Header from './Header';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShuffle } from '@fortawesome/free-solid-svg-icons'
+import { faShuffle, faCheck } from '@fortawesome/free-solid-svg-icons'
+import Modal from 'react-modal';
+
+Modal.setAppElement('#__next');
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        minWidth: '400px',
+        width:'fit-content',
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '30px',
+        padding:'2vw',
+        fontFamily: 'Manrope',
+      },
+    };
 
 export default function Dashboard() {
     const [dashboardInfo, setDashboardInfo] = useState({Team:'', Lead:'', Organisation:'', Progress:'', ReportDue:'', Members:{}, reportNo:'', Due:''})
@@ -25,6 +43,8 @@ export default function Dashboard() {
     const [todoList, setTodoList] = useState([]);
     const [doneList, setDoneList] = useState([]);
     const [expandReports, setExpandReports] = useState({todo:false, done:false});
+    const [showModal, setShowModal] = useState(false);
+    const [showTasks, setShowTasks] = useState('');
     const user = auth.currentUser;    
 
     const updateProgress = async (todo, done) => {
@@ -138,6 +158,11 @@ export default function Dashboard() {
         }
     }
 
+    const closeModal = () => {
+        setShowModal(false);
+        setShowTasks('');
+      };
+
     const headerText = `${dashboardInfo.Team} Dashboard`
 
   return (
@@ -147,6 +172,25 @@ export default function Dashboard() {
             
 
             <div className={styles.dimensionParentFlex}>
+            <Modal
+                isOpen={showModal}
+                onRequestClose={closeModal}
+                style={customStyles}
+              >
+                <h1>Tasks {showTasks === 'done' ? 'Completed:' : 'to Complete: '}</h1>
+                {showTasks === 'done' ? 
+                    doneList.map((task, index) => (
+                        <div key={index} className={settingsStyles.taskContainer}>
+                            <p>{task} <FontAwesomeIcon width='18px' icon={faCheck} /></p>
+                        </div>
+                    )) : (
+                        todoList.map((task, index) => (
+                            <div key={index} className={settingsStyles.taskContainer}>
+                                <p>{task}</p>
+                            </div>
+                        ))
+                    )}
+              </Modal>
             <div style={{display:'flex', flexDirection:'row', flex:1, height:'fit-content'}}>
                   <div style={{display:'flex', flexDirection:'column', flex:1, flexWrap:'wrap'}}>
 
@@ -160,12 +204,12 @@ export default function Dashboard() {
                       <div className={settingsStyles.vl} style={{marginTop:'3vh', marginBottom:'3vh',  marginRight:'0vh', marginLeft:'0vh'}}></div>
                       <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                           <p>Your tasks completed:</p>
-                          <h1>{doneList.length}</h1>
+                          <h1 onClick={() => {setShowTasks('done'); setShowModal(true)}}>{doneList.length}</h1>
                       </div>
                       <div className={settingsStyles.vl} style={{marginTop:'3vh',  marginBottom:'3vh', marginRight:'0vh', marginLeft:'0vh'}}></div>
                       <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                           <p>Your tasks to do:</p>
-                          <h1>{todoList.length}</h1>
+                          <h1 onClick={() => setShowTasks('todo')}>{todoList.length}</h1>
                       </div>
                     </div>
 

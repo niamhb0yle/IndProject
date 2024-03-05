@@ -55,6 +55,12 @@ padding-bottom: 20px;
   color: #354CFC;
   margin:0px;
   font-size: calc(40px + 0.4vw);
+  transition: transform 0.1s ease-in-out;
+}
+
+.dashboardInfo h1:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }
 
 .dashboardInfo h2 {

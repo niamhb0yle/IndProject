@@ -8,6 +8,7 @@ import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
+import SCIInsights from '../../components/SCIInsights';
 import { useState, useEffect } from 'react';
 import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
@@ -51,15 +52,15 @@ export default function SCI() {
             <div className={styles.dashboardContent}>
             <div className={styles.dashboardContent}>
               <div className={infoStyles.nav}>
-                <button className={infoStyles.navElts} >Overview</button>
+                <button className={infoStyles.navElts} onClick={() => setView("Overview")} style={{color: view === "Overview" ? "#354cfc" : "black"}}>Overview</button>
                 <p className={infoStyles.navEltsBar}>|</p>
-                <button className={infoStyles.navElts} >Insights</button>
+                <button className={infoStyles.navElts} onClick={() => setView("Insights")} style={{color: view === "Insights" ? "#354cfc" : "black"}}>Insights</button>
                 <p className={infoStyles.navEltsBar}>|</p>
                 <ReportBtn dimension="sci" reportDone={reportDone} style={{pointerEvents: userType === "lead" && reportDone === false ? 'auto' : 'none', opacity: userType === "lead" && reportDone === false ? '1' : '0.5'}} title='Only available for team leads'/>
               </div>
 
 
-              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
+              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw', display: view === "Overview" ? 'block' : 'none'}}>
                 <h1>What is an SCI Score?</h1>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                   <div style={{ flex: 1.5 }}>
@@ -96,6 +97,10 @@ export default function SCI() {
                   <p>The components of an SCI are mostly dependant on your specific application, but the main things you will need to know are some detailed energy usage data, knowledge about the carbon intensity of your energyn sources, and data on the embodied emissions from hardware devices you own. </p>
                   <p>It is important for software developers to be aware of these new sustainability practices, so we urge you to do your own research on any aspects of the SCI you are unsure of.</p>
                   <p>You can find more information about the SCI <a href='https://learn.greensoftware.foundation/measurement/'>here!</a></p>
+              </div>
+
+              <div style={{display: view === "Insights" ? "block" : "none"}}>
+                <SCIInsights/>
               </div>
 
             </div>

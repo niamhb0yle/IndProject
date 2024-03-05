@@ -40,7 +40,6 @@ const DimensionTeaser = ({ dimension, bgUrl, bgColor }) => {
             <Link href={`/dimension-pages/${dimension}`} className={styles.dimensionTeaser} >
                 <div style={{overflow:'auto'}}>
                     <div className={styles.teaserText} style={{background:`${bgColor}`}}><h1>{howTo ? 'How it works...' : dimension}</h1></div>
-                    <img src={reportDone ? '/images/check.png' : '/images/cross.png'} alt='settings icon' width='35px' style={{float:'right', marginRight:'25px', marginTop:'20px', opacity:0.6, display: howTo ? "none" : "block"}} />
                 </div>
             </Link>
     );
