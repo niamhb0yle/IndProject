@@ -7,37 +7,68 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { auth, db } from '../firebase';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell, Tooltip, Legend, } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 
 export default function SCI() {
-  const [view, setView] = useState('Overview');
-  const [userType, setUserType] = useState('');
-  const [reportDone, setReportDone] = useState(false);
-  const user = auth.currentUser;
+    const [sciData, setSciData] = useState(0);
+    const [transportData, setTransportData] = useState({});
+    const [scopeData, setScopeData] = useState([]);
+    const [firstReport, setFirstReport] = useState(false);
+    const colours = ['#9d5dce', '#4627b2', '#354cfc'];
 
-  const getFirestoreData = async () => {
-    const userRef = doc(db, "Users", user.email);
-    const userSnap = await getDoc(userRef);
-    setUserType(userSnap.data().userType);
-    if (userSnap.data().userType === "lead"){
-      if (userSnap.data().progress['SCI'] === true){
-        setReportDone(true);
+    const dummySCIData = [
+        { reportNumber: 'Report 1', sciScore: 120 },
+        { reportNumber: 'Report 2', sciScore: 150 },
+        { reportNumber: 'Report 3', sciScore: 180 },
+        { reportNumber: 'Report 4', sciScore: 165 },
+      ];
+      
+  
+    const readInData = async () => {
+      const user = auth.currentUser;
+      const userRef = doc(db, "Users", user.email);
+      const userSnap = await getDoc(userRef);
+      const teamRef = userSnap.data().Team
+      const teamSnap = await getDoc(teamRef);
+      const reportNumber = String(teamSnap.data().CurrentReport.number - 1);
+      if (reportNumber === "0") {
+        setFirstReport(true);
+        return;
       }
+      const reportRef = doc(teamRef, "Reports", reportNumber);
+      const reportSnap = await getDoc(reportRef);
+      
+  
+      setSciData(reportSnap.data().SCI.SCI);
+
     }
-  }
-
-
-  useEffect(() => {
-    getFirestoreData();
-  }, []);
+  
+    useEffect(() => {
+      readInData();
+    },[]);
 
   return (
     <div>
       
-      <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw', display: view === "Overview" ? 'block' : 'none'}}>
-        <h1>Software Carbon Intensity over your reports:</h1>
+      <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
+        <h1>Your Application's Software Carbon Intensity over time:</h1>
+        <ResponsiveContainer  width="100%" height={400} style={{padding:'2vw'}}>
+          <LineChart
+            width={500}
+            height={300}
+            data={dummySCIData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="reportNumber" />
+            <YAxis label={{ value: 'SCI Score', angle: -90, position: 'insideLeft' }} />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="sciScore" stroke="#8884d8" activeDot={{ r: 8 }} />
+          </LineChart>
+        </ResponsiveContainer>
         
         </div>
 
