@@ -9,7 +9,7 @@ import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import Likert from 'react-likert-scale';
 import { useState } from 'react';
-import { collection, addDoc, doc, updateDoc, setDoc } from 'firebase/firestore';
+import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 import 'firebase/firestore';
 import { db, auth } from "../../firebase";
 import { useRouter } from 'next/router';
@@ -48,10 +48,12 @@ export default function EnvironmentalReport() {
         console.log('Qualitative responses:', qualResponses);
   
         // getting existing document references to update data
-        const userId = user.email; 
-        const reportNumber = "1"; // TODO: Replace with the actual report number
-  
+        const userId = user.email;   
         const userRef = doc(db, "Users", userId);
+        const userSnap = await getDoc(userRef);
+        const teamRef = userSnap.data().Team;
+        const teamSnap = await getDoc(teamRef);
+        const reportNumber = String(teamSnap.data().CurrentReport.number);
         const reportRef = doc(userRef, "Reports", reportNumber);
 
         await updateDoc(reportRef, {

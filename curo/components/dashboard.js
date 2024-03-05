@@ -209,7 +209,7 @@ export default function Dashboard() {
                       <div className={settingsStyles.vl} style={{marginTop:'3vh',  marginBottom:'3vh', marginRight:'0vh', marginLeft:'0vh'}}></div>
                       <div style={{flex: 0.4, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                           <p>Your tasks to do:</p>
-                          <h1 onClick={() => setShowTasks('todo')}>{todoList.length}</h1>
+                          <h1 onClick={() =>{setShowTasks('todo'); setShowModal(true)}}>{todoList.length}</h1>
                       </div>
                     </div>
 

@@ -257,11 +257,9 @@ export default function ViewReport({reportNumber, onCloseReport}) {
               <h2>Scope 3</h2>
               {ghgData.Scope3 && Object.entries(ghgData.Scope3).length > 0 ? (
                   <div>
-                    {Object.entries(ghgData.Scope3).map(([key, value]) => (
-                      <div className={reportStyles.dimensionText} key={key}>
-                        <p style={{fontSize:'17px'}}>{`${camelCaseToSpaces(key)}: ${value}`}</p>
-                      </div>
-                    ))}
+                    <p style={{fontSize:'17px'}}>Region: {ghgData.Scope3.Region}</p>
+                    <p style={{fontSize:'17px'}}>Cloud Emissions: {ghgData.Scope3.CloudEmissions} kg CO2</p>
+                    <p style={{fontSize:'17px'}}>Cloud Provider: {ghgData.Scope3.CloudProvider}</p>
                   </div>
                 ) : (
                   <p>No Scope 3 Available</p>

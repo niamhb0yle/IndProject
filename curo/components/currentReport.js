@@ -134,7 +134,7 @@ const updateCurrentReport = async (teamId, reportNumber, nextDueDate) => {
   })
 }
 
-const resetMembersProgress = async (memberIds) => {
+const resetMembersProgress = async (memberIds, reportNumber) => {
 
   await Promise.all(
     memberIds.map(async (memberId) => {
@@ -143,6 +143,7 @@ const resetMembersProgress = async (memberIds) => {
 
       if (userSnap.exists() && userSnap.data().progress) {
         const currentProgress = userSnap.data().progress;
+        let newReportNumber = parseInt(reportNumber, 10) + 1;
         
         const resetProgress = Object.keys(currentProgress).reduce((acc, key) => {
           acc[key] = false;
@@ -152,6 +153,12 @@ const resetMembersProgress = async (memberIds) => {
         await updateDoc(userRef, {
           progress: resetProgress
         });
+
+        // Initilise new report doc for this user
+        const newUserReportCollectionRef = doc(db, `Users/${memberId}/Reports/${newReportNumber}`);
+        await setDoc(newUserReportCollectionRef, {
+          number: newReportNumber
+        })
       }
     })
   );
@@ -225,7 +232,7 @@ export default function CurrentReport() {
     const processedData = await processReports(reports);
     await uploadReportDataToFirestore(teamRef.id, reportNumber, processedData, memberIds.length);
     await updateCurrentReport(teamRef.id, reportNumber, date);
-    await resetMembersProgress(memberIds);
+    await resetMembersProgress(memberIds, reportNumber);
     router.push('./dashboard');
   };
 
