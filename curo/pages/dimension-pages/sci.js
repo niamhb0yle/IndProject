@@ -13,9 +13,9 @@ import { auth, db } from '../../firebase';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function SCI() {
-  const [ghgView, setGhgView] = useState('Overview');
+  const [view, setView] = useState('Overview');
   const [userType, setUserType] = useState('');
-  const [reportDone, setReportDone] = useState(true);
+  const [reportDone, setReportDone] = useState(false);
   const user = auth.currentUser;
 
   const getFirestoreData = async () => {
@@ -23,8 +23,8 @@ export default function SCI() {
     const userSnap = await getDoc(userRef);
     setUserType(userSnap.data().userType);
     if (userSnap.data().userType === "lead"){
-      if (userSnap.data().progress['GHG'] === true){
-        setghgDone(true);
+      if (userSnap.data().progress['SCI'] === true){
+        setReportDone(true);
       }
     }
   }

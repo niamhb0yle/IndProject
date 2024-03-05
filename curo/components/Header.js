@@ -21,7 +21,6 @@ export default function Header( {title} ) {
     const userSnap = await getDoc(userRef);
     if (userSnap.data().photoUrl) {
       setProfilePic(userSnap.data().photoUrl);
-      console.log("photoUrl exists")
     }
     setUsername(userSnap.data().username);
   };

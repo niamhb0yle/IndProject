@@ -27,7 +27,7 @@
 }
 
 .nextButton {
-    background: #321c7f;
+    background: #354cfc;
     cursor: pointer;
     width: fit-content;
     border-radius: 30px;
@@ -35,9 +35,9 @@
     font-size: 22px;
     color: white;
     padding: 15px;
+    margin: 2vw;
     border: none;
     float: right;
-    box-shadow: 2px 2px 4px rgba(100, 55, 254, 0.5);
     transition: transform 0.1s ease-in-out;
 }
 
@@ -124,13 +124,14 @@
 }
 
 .expand {
-    background-color: #e7e6f7;
+    background-color: #d7dbfe;
     border-radius: 15px;
     padding-top: 0px;
     width: 650px;
     cursor:pointer;
     padding-bottom: 5px;
     margin-bottom: 10px;
+    font-family: Manrope;
 }
 
 .expand h1 {
@@ -139,13 +140,14 @@
     font-family: 'Manrope';
     padding:12px;
     margin-bottom:0px;
-    color: #444444;
+    color: black;
 }
 
 .expand p{
     margin-left: 12px;
     margin-top:0px;
     margin-bottom: 5px;
+    color: black;
 }
 
 .expandContent {

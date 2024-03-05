@@ -144,7 +144,7 @@ export default function Scope3Report() {
       } else if (displayCloudservices === "No"){
         setInputValid(true);
       }
-  })
+    })
 
     return (
     <div>
