@@ -231,7 +231,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                     </ul>
                   </div>
                 ) : (
-                  <p>No GHG Data Available</p>
+                  <p>No Scope 1 Available</p>
               )}
             </div>
 
@@ -249,7 +249,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                     </ul>
                   </div>
                 ) : (
-                  <p>No GHG Data Available</p>
+                  <p>No Scope 2 Available</p>
               )}
             </div>
 
@@ -264,7 +264,7 @@ export default function ViewReport({reportNumber, onCloseReport}) {
                     ))}
                   </div>
                 ) : (
-                  <p>No GHG Data Available</p>
+                  <p>No Scope 3 Available</p>
               )}
             </div>
           </div>

@@ -100,7 +100,7 @@ export default function Scope2Report() {
           let officeBreakdown = validOffices.reduce((acc, office) => {
             // If the country is valid and not empty, add or increment the entry in the accumulator
             if (office.country) {
-              acc[office.country] = (acc[office.country] || 0) + parseFloat(office.activityData);
+              acc[office.country] = (acc[office.country] || 0) + 1;
             }
             return acc;
           }, {});

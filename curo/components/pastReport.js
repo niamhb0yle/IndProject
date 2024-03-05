@@ -44,7 +44,7 @@ export default function PastReport({ onSelectReport, reportNumber }) {
             <p>Report {reportNumber}</p>
         </div>
         <div className={reportStyles.pastReportElt}>
-            <p>{dates.due}</p>
+            <p>Finished: {dates.due}</p>
         </div>
         <div className={reportStyles.viewExportBtn}>
             <div onClick={() => onSelectReport(reportNumber)}>View report </div><FontAwesomeIcon icon={faEye} style={{width:'calc(14px + 0.2vw)'}}/>
