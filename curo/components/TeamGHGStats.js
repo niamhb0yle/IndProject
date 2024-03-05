@@ -17,6 +17,7 @@ export default function GHGStats() {
   const [scope3data, setscope3data] = useState({});
   const [transportData, setTransportData] = useState({});
   const [scopeData, setScopeData] = useState([]);
+  const [firstReport, setFirstReport] = useState(false);
   const colours = ['#9d5dce', '#4627b2', '#354cfc'];
 
   const readInData = async () => {
@@ -25,7 +26,11 @@ export default function GHGStats() {
     const userSnap = await getDoc(userRef);
     const teamRef = userSnap.data().Team
     const teamSnap = await getDoc(teamRef);
-    const reportNumber = String(teamSnap.data().CurrentReport.number);
+    const reportNumber = String(teamSnap.data().CurrentReport.number - 1);
+    if (reportNumber === "0") {
+      setFirstReport(true);
+      return;
+    }
     const reportRef = doc(teamRef, "Reports", reportNumber);
     const reportSnap = await getDoc(reportRef);
     
@@ -64,25 +69,30 @@ export default function GHGStats() {
 
   return (
     <div className={infoStyles.infoContent}>
-        
+      {firstReport ? (
+        <div className={reportStyles.reportCard}>
+          <h1>There are no reports to display yet</h1>
+          <p>Once your team has submitted a report, you will be able to view your team's GHG emissions data here.</p>
+        </div>
+      ) : (
         <div style={{display:'flex', flex:1, flexDirection:'row' }}>
 
-          <div className={infoStyles.statsView} style={{flex:0.6, maxWidth:'800px'}}>
+          <div className={infoStyles.statsView} style={{flex:1.2, maxWidth:'800px'}}>
             <h1>Team Transport Breakdown</h1>
-            <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer  height={300} >
               <BarChart
                 data={transportData}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
-                <YAxis />
+                <YAxis label={{ value: 'No of Employees', angle: -90, position: 'insideLeft', dx: -1, dy: 80 }}/>
                 <Tooltip />
                 <Bar dataKey="count" fill="#8884D8" />
               </BarChart>
             </ResponsiveContainer>
           </div>
 
-          <div className={infoStyles.statsView} style={{flex:0.4}}>
+          <div className={infoStyles.statsView} style={{flex:1}}>
             <h1>GHG Emissions by Scope</h1>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -107,6 +117,8 @@ export default function GHGStats() {
           </div>
         
         </div>
+      )}
+        
 
     </div>
     )
