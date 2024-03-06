@@ -151,7 +151,7 @@ export default function IssueBoard({ issues, setIssues }) {
                 onRequestClose={closeModal}
                 style={customStyles}
               >
-                <h1 className={reportStyles.headingText} style={{margin:'0', background:'#321c7f', color:'white', padding:'2vh'}}>{selectedIssue.title}</h1>
+                <h1 className={reportStyles.headingText} style={{margin:'0', background:'#354cfc', color:'white', padding:'2vh', fontFamily:'Montserrat'}}>{selectedIssue.title}</h1>
                 <div style={{marginRight:'2vh', marginLeft:'2vh'}}>
                   <p style={{fontSize:'20px'}}>{selectedIssue.description}</p>
                   <p>Assignee: {selectedIssue.assignee}</p>

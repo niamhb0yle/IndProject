@@ -67,14 +67,14 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <div className={ibStyles.issueInfoContainer}>
-                <div style={{flex:0.5}}>
+                <div style={{flex:3}}>
                   <p>Use this kanban board to keep on top of your Sustainability goals, big or small. Create your own issue, or select an issue from our suggestions!</p>
                 </div>
                 <div className={ibStyles.vl}></div>
-                <div style={{flex:0.25}}>
+                <div style={{flex:1}}>
                   <AddIssue onIssueAdded={handleIssueAdded} type='createIssue'/>
                 </div>
-                <div style={{flex:0.25}}>
+                <div style={{flex:1.5}}>
                   <AddIssue onIssueAdded={handleIssueAdded} type='fromSuggestions'/>
                 </div>
               </div>

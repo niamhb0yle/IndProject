@@ -30,14 +30,14 @@
     padding-top: 0.5vh;
     padding-bottom: 0.5vh;
     box-shadow: 2px 2px 30px rgba(100, 55, 254, 0.1);
-    background: #1b267e;
+    background: #3044e3;
     display:flex;
     flex-direction: row;
 }
 
 .issueInfoContainer p {
     color: white;
-    font-family: 'Manrope';
+    font-family: 'Montserrat';
     font-size: calc(16px + 0.3vh);
 }
 
@@ -48,8 +48,10 @@
     text-decoration: none;
     border:none;
     color:#354cfc;
-    font-family: 'Manrope';
+    font-family: 'Montserrat';
     font-size: large;
+    height:5vh;
+    font-weight: bold;
     transition: transform 0.3s;
     cursor: pointer;
     padding:1vh;
