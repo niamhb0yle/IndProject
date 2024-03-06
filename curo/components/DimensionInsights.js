@@ -80,7 +80,7 @@ export default function DimensionInsights({dimension}) {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value" fill="#8884D8" /> {/* Adjusted `dataKey` to "value" to match the data structure */}
+                <Bar dataKey="value" fill="#8884D8" /> 
               </BarChart>
             </ResponsiveContainer>
           </>

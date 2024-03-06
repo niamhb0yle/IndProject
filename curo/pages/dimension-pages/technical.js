@@ -8,12 +8,14 @@ import "@fontsource/manrope";
 import SideBar from '../../components/sidebar';
 import Header from '../../components/Header';
 import ReportBtn from '../../components/reportBtn';
+import DimensionInsights from '../../components/DimensionInsights';
 import { auth, db } from '../../firebase';
 import { useState, useEffect } from 'react';
 import { collection, addDoc, doc, updateDoc, setDoc, getDoc } from 'firebase/firestore';
 
 export default function Homepage() {
   const user = auth.currentUser;
+  const [view, setView] = useState('Overview');
   const [reportDone, setReportDone] = useState(false);
   
 
@@ -46,15 +48,15 @@ export default function Homepage() {
 
             <div className={styles.dashboardContent}>
               <div className={infoStyles.nav}>
-                <button className={infoStyles.navElts} >Overview</button>
+              <button className={infoStyles.navElts} onClick={() => setView("Overview")} style={{color: view === "Overview" ? "#354cfc" : "black"}}>Overview</button>
                 <p className={infoStyles.navEltsBar}>|</p>
-                <button className={infoStyles.navElts} >Insights</button>
+                <button className={infoStyles.navElts} onClick={() => setView("Insights")} style={{color: view === "Insights" ? "#354cfc" : "black"}} >Insights</button>
                 <p className={infoStyles.navEltsBar}>|</p>
                 <ReportBtn dimension="technical" reportDone={reportDone}/>
               </div>
 
 
-              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
+              <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw', display: view ==="Overview" ? 'block' : 'none'}}>
                 <h1>What is Technical sustainability?</h1>
                 <div style={{ display: 'flex', flexDirection: 'row' }}>
                   <div style={{ flex: 1.5 }}>
@@ -90,6 +92,10 @@ export default function Homepage() {
                     <p>Implement CI/CD practices to streamline development, testing, and deployment processes, ensuring that software can be updated and improved continuously and efficiently</p>
                   </li>
                 </ul>
+              </div>
+
+              <div style={{display: view === "Insights" ? 'block': 'none'}}>
+                <DimensionInsights dimension="Technical"/>
               </div>
 
             </div>
