@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import ibStyles from '../styles/IssueBoard.module.css';
 import { auth, db } from '../firebase';
 import { collection, query, where, getDocs, doc, getDoc, setDoc, addDoc } from 'firebase/firestore';
+import issueBank from './issueBank.json';
 import Modal from 'react-modal';
 
 
@@ -30,7 +31,10 @@ const customStyles = {
 
 export default function AddView ({ onIssueAdded, type }) {
     const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
     const [assignees, setAssignees] = useState([]);
+    const [selectedDimension, setSelectedDimension] = useState('');
+    const [recommendedIssues, setRecommendedIssues] = useState([]);
     const [issueData, setIssueData] = useState({assignee: '', title: '', description: '', storyPoints: ''});
     const [submit, setSubmit] = useState(false);
     const planningPoker = [1,2,3,5,8,13,21,34];
@@ -43,6 +47,10 @@ export default function AddView ({ onIssueAdded, type }) {
         const teamSnap = await getDoc(teamRef);
         await setAssignees(teamSnap.data().Members || []);
     }
+
+    useEffect(() => {
+        setRecommendedIssues(issueBank[selectedDimension] || [] );
+    }, [selectedDimension])
 
     useEffect(() => {
         getTeamData();
@@ -78,7 +86,15 @@ export default function AddView ({ onIssueAdded, type }) {
 
     return (
         <div>
-            <button className={ibStyles.addIssue} onClick={() => setShowModal(true)}>{type === 'createIssue' ? 'Create issue' : 'Add issue from suggestions'}</button>
+            <button className={ibStyles.addIssue} onClick={() => {
+                if (type === 'createIssue' ) {
+                    setShowModal(true)}
+                else {
+                    setShowModal2(true)
+                }
+                }}>
+                    {type === 'createIssue' ? 'Create issue' : 'Add issue from suggestions'}
+            </button>
             <Modal
               isOpen={showModal}
               onRequestClose={() => setShowModal(false)}
@@ -132,6 +148,73 @@ export default function AddView ({ onIssueAdded, type }) {
                         </option>
                     ))}
                 </select>
+                <button 
+                    className={infoStyles.reportPageBtn} 
+                    style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
+                    onClick={() => setShowModal(false)}>
+                        Cancel
+                </button>
+                <button 
+                    className={infoStyles.reportPageBtn} 
+                    style={{
+                        fontFamily:'Manrope', 
+                        float:'right',
+                        pointerEvents: submit ? 'auto' : 'none',
+                        opacity: submit ? '1' : '0.5',
+                    }} 
+                    onClick={handleAddIssue}>
+                        Add issue
+                </button>
+            </Modal>
+            <Modal
+              isOpen={showModal2}
+              onRequestClose={() => setShowModal2(false)}
+              style={customStyles}
+              contentLabel="Select Next Due Date"
+            >
+                <h1 className={reportStyles.headingText} style={{marginBottom:'0'}}>Add an issue from our suggestions</h1>
+                <p>Please select a dimension you would like to improve:</p>
+                <select 
+                    value={selectedDimension} 
+                    onChange={(e) => setSelectedDimension(e.target.value)}
+                    className={reportStyles.inputBoxes}
+                    style={{width:'90%'}}
+                >
+                    <option value='Economic'>Economic</option>
+                    <option value='Environmental'>Environmental</option>
+                    <option value='Social'>Social</option>
+                    <option value='Technical'>Technical</option>
+                    <option value='Individual'>Individual</option>
+                </select>
+                <p>Select an issue from the recommended issues:</p>
+                <select 
+                    value={issueData.assignee} 
+                    onChange={(e) => setIssueData({...issueData, assignee:e.target.value})}
+                    className={reportStyles.inputBoxes}
+                    style={{width:'90%'}}
+                >
+                    <option value="">Select issue</option>
+                    {recommendedIssues.map((issue, index) => (
+                    <option key={index}>
+                        <p>{issue.title}</p>
+                    </option>
+                    ))}
+                </select>
+                <p>Please select an assignee from your team:</p>
+                <select 
+                    value={issueData.assignee} 
+                    onChange={(e) => setIssueData({...issueData, assignee:e.target.value})}
+                    className={reportStyles.inputBoxes}
+                    style={{width:'90%'}}
+                >
+                    <option value="">Select assignee</option>
+                    {assignees.map((email) => (
+                        <option key={email} value={email}>
+                            {email}
+                        </option>
+                    ))}
+                </select>
+                
                 <button 
                     className={infoStyles.reportPageBtn} 
                     style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
