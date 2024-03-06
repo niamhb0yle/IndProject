@@ -30,21 +30,24 @@ export default function SCI() {
       const user = auth.currentUser;
       const userRef = doc(db, "Users", user.email);
       const userSnap = await getDoc(userRef);
-      const teamRef = userSnap.data().Team
+      const teamRef = userSnap.data().Team;
       const teamSnap = await getDoc(teamRef);
-      const reportNumber = String(teamSnap.data().CurrentReport.number - 1);
-      if (reportNumber === "0") {
-        setFirstReport(true);
-        return;
-      }
-      const reportRef = doc(teamRef, "Reports", reportNumber);
-      const reportSnap = await getDoc(reportRef);
-      
-  
-      setSciData(reportSnap.data().SCI.SCI);
+      const currentReportNumber = teamSnap.data().CurrentReport.number;
+      const reports = [];
 
-    }
-  
+      for (let i = 1; i < currentReportNumber; i++) {
+        const reportNumber = String(i);
+        const reportRef = doc(teamRef, "Reports", reportNumber);
+        const reportSnap = await getDoc(reportRef);
+        const sciScore = reportSnap.data().SCI.SCI;
+        const reportString = "Report " + reportNumber;
+        reports.push({ reportString, sciScore });
+      }
+
+      setSciData(reports);
+      console.log(reports);
+    };
+
     useEffect(() => {
       readInData();
     },[]);
@@ -54,15 +57,15 @@ export default function SCI() {
       
       <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
         <h1>Your Application's Software Carbon Intensity over time:</h1>
-        <ResponsiveContainer  width="100%" height={400} style={{padding:'2vw'}}>
+        <ResponsiveContainer width="100%" height={400} style={{ padding: '2vw' }}>
           <LineChart
             width={500}
             height={300}
-            data={dummySCIData}
+            data={sciData}
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="reportNumber" />
+            <XAxis dataKey="reportString"/>
             <YAxis label={{ value: 'SCI Score', angle: -90, position: 'insideLeft' }} />
             <Tooltip />
             <Legend />
