@@ -153,7 +153,7 @@ export default function EconomicReport() {
                           onClick={handleSubmitNew}
                           className={reportStyles.nextButton}
                           style={{
-                            background: Object.keys(quantResponses).length < 14 ? "gray" : "#18392B",
+                            background: Object.keys(quantResponses).length < 14 ? "gray" : "#354cfc",
                             cursor: Object.keys(quantResponses).length < 14 ? "default" : "pointer",
                           }}>
                           Continue &rarr;

@@ -16,6 +16,7 @@ import DimensionTeaser from '../../components/dimensionTeaser';
 import Header from '../../components/Header';
 import SideBar from '../../components/sidebar';
 import 'react-circular-progressbar/dist/styles.css';
+import DimensionOverview from '../../components/dimensionOverview';
 
 export default function HowTo() {
 

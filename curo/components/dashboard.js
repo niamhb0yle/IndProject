@@ -16,6 +16,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShuffle, faCheck } from '@fortawesome/free-solid-svg-icons'
 import Modal from 'react-modal';
+import DimensionOverview from './dimensionOverview';
 
 Modal.setAppElement('#__next');
 const customStyles = {
@@ -45,12 +46,13 @@ export default function Dashboard() {
     const [expandReports, setExpandReports] = useState({todo:false, done:false});
     const [showModal, setShowModal] = useState(false);
     const [showTasks, setShowTasks] = useState('');
+    const [teamRef, setTeamRef] = useState('');
+    const [reportNo, setReportNo] = useState('');
     const user = auth.currentUser;    
 
     const updateProgress = async (todo, done) => {
         let total = todo.length + done.length;
         let progress = Math.round((done.length/total)*100);
-        console.log(done, todo, total, progress)
 
         setProgress(progress);
     }
@@ -99,7 +101,10 @@ export default function Dashboard() {
         const userRef = doc(db, "Users", user.email);
         const userSnap = await getDoc(userRef);
         const teamRef = userSnap.data().Team;
+        setTeamRef(teamRef);
         const teamSnap = await getDoc(teamRef);
+        const reportNo = teamSnap.data().CurrentReport.number;
+        setReportNo(reportNo);
         const members = teamSnap.data().Members || [];
 
         // calculating the overall team progress
@@ -228,12 +233,7 @@ export default function Dashboard() {
                         </div>
                       </div>
                       <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', marginBottom:'0', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
-                        <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
-                          <p style={{marginBottom:'2vh'}}>Whole team progress:</p>
-                          <div style={{width:'8vw', height:'8vw'}}>
-                              <CircularProgressbar value={teamProgress} text={`${teamProgress}%`} styles={buildStyles({pathColor: `#354CFC`, textColor: '#354CFC',trailColor: '#d6d6d6'})}/>
-                          </div>
-                        </div>
+                          <DimensionOverview teamsDocumentId={teamRef.id} currentReportNumber={reportNo} />
                       </div>
                     </div>
                     
