@@ -13,19 +13,11 @@ import { useEffect, useState } from 'react';
 
 export default function SCI() {
     const [sciData, setSciData] = useState(0);
-    const [transportData, setTransportData] = useState({});
-    const [scopeData, setScopeData] = useState([]);
     const [firstReport, setFirstReport] = useState(false);
-    const colours = ['#9d5dce', '#4627b2', '#354cfc'];
-
-    const dummySCIData = [
-        { reportNumber: 'Report 1', sciScore: 120 },
-        { reportNumber: 'Report 2', sciScore: 150 },
-        { reportNumber: 'Report 3', sciScore: 180 },
-        { reportNumber: 'Report 4', sciScore: 165 },
-      ];
       
-  
+    // reading in all data from past few reports. 
+    // Must be on report 3 at least to view line chart
+    // formatting it to be put into recharts line chart
     const readInData = async () => {
       const user = auth.currentUser;
       const userRef = doc(db, "Users", user.email);
@@ -33,6 +25,9 @@ export default function SCI() {
       const teamRef = userSnap.data().Team;
       const teamSnap = await getDoc(teamRef);
       const currentReportNumber = teamSnap.data().CurrentReport.number;
+      if (currentReportNumber <=2 ) {
+        setFirstReport(true);
+      }
       const reports = [];
 
       for (let i = 1; i < currentReportNumber; i++) {
@@ -56,22 +51,31 @@ export default function SCI() {
     <div>
       
       <div className={infoStyles.infoContent} style={{maxWidth:'90vw', padding: '2vw'}}>
-        <h1>Your Application's Software Carbon Intensity over time:</h1>
-        <ResponsiveContainer width="100%" height={400} style={{ padding: '2vw' }}>
-          <LineChart
-            width={500}
-            height={300}
-            data={sciData}
-            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="reportString"/>
-            <YAxis label={{ value: 'SCI Score', angle: -90, position: 'insideLeft' }} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="sciScore" stroke="#8884d8" activeDot={{ r: 8 }} />
-          </LineChart>
-        </ResponsiveContainer>
+        {firstReport ? (
+          <div>
+            <h1>No data available</h1>
+            <p>Complete your first couple reports as a team to view the progression of your SCI!</p>
+          </div>
+        ) : (
+          <div>
+            <h1>Your Application's Software Carbon Intensity over time:</h1>
+            <ResponsiveContainer width="100%" height={400} style={{ padding: '2vw' }}>
+              <LineChart
+                width={500}
+                height={300}
+                data={sciData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="reportString"/>
+                <YAxis label={{ value: 'SCI Score', angle: -90, position: 'insideLeft' }} />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="sciScore" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
         
         </div>
 
