@@ -35,8 +35,10 @@ export default function AddView ({ onIssueAdded, type }) {
     const [assignees, setAssignees] = useState([]);
     const [selectedDimension, setSelectedDimension] = useState('');
     const [recommendedIssues, setRecommendedIssues] = useState([]);
+    const [selectedIssue, setSelectedIssue] = useState({});
     const [issueData, setIssueData] = useState({assignee: '', title: '', description: '', storyPoints: ''});
     const [submit, setSubmit] = useState(false);
+    const [submitSuggestion, setSubmitSuggestion] = useState(false);
     const planningPoker = [1,2,3,5,8,13,21,34];
 
     const getTeamData = async () => {
@@ -47,6 +49,10 @@ export default function AddView ({ onIssueAdded, type }) {
         const teamSnap = await getDoc(teamRef);
         await setAssignees(teamSnap.data().Members || []);
     }
+
+    useEffect(() => {   
+        console.log(selectedIssue)
+    }, [selectedIssue])
 
     useEffect(() => {
         setRecommendedIssues(issueBank[selectedDimension] || [] );
@@ -83,6 +89,26 @@ export default function AddView ({ onIssueAdded, type }) {
         setShowModal(false);
         onIssueAdded();
     }
+
+    const handleAddSuggestedIssue = async () => {
+        const user = auth.currentUser;
+        const userRef = doc(db, "Users", user.email);
+        const userSnap = await getDoc(userRef);
+        const teamRef = userSnap.data().Team;
+        const issuesRef = collection(teamRef, "Issues");
+    
+        await addDoc(issuesRef, {
+            Title: issueData.title,
+            Description: issueData.description,
+            Assignee: issueData.assignee,
+            StoryPoints: 8,
+            Status: 'To Do'
+        });
+    
+        setShowModal2(false);
+        onIssueAdded();
+    };
+    
 
     return (
         <div>
@@ -188,16 +214,20 @@ export default function AddView ({ onIssueAdded, type }) {
                 </select>
                 <p>Select an issue from the recommended issues:</p>
                 <select 
-                    value={issueData.assignee} 
-                    onChange={(e) => setIssueData({...issueData, assignee:e.target.value})}
                     className={reportStyles.inputBoxes}
                     style={{width:'90%'}}
+                    onChange={(e) => {
+                        const issueIndex = e.target.value;
+                        const issue = recommendedIssues[issueIndex];
+                        setSelectedIssue(issue);
+                        setIssueData(prev => ({...prev, title: issue.title, description: issue.description}));
+                    }}
                 >
                     <option value="">Select issue</option>
                     {recommendedIssues.map((issue, index) => (
-                    <option key={index}>
-                        <p>{issue.title}</p>
-                    </option>
+                        <option key={index} value={index}>
+                            {issue.title}
+                        </option>
                     ))}
                 </select>
                 <p>Please select an assignee from your team:</p>
@@ -218,18 +248,16 @@ export default function AddView ({ onIssueAdded, type }) {
                 <button 
                     className={infoStyles.reportPageBtn} 
                     style={{fontFamily:'Manrope', float:'right', marginLeft:0}} 
-                    onClick={() => setShowModal(false)}>
+                    onClick={() => setShowModal2(false)}>
                         Cancel
                 </button>
                 <button 
                     className={infoStyles.reportPageBtn} 
                     style={{
                         fontFamily:'Manrope', 
-                        float:'right',
-                        pointerEvents: submit ? 'auto' : 'none',
-                        opacity: submit ? '1' : '0.5',
+                        float:'right'
                     }} 
-                    onClick={handleAddIssue}>
+                    onClick={handleAddSuggestedIssue}>
                         Add issue
                 </button>
             </Modal>

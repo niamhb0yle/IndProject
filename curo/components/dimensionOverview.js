@@ -8,13 +8,15 @@ const DimensionOverview = ({ teamsDocumentId, currentReportNumber }) => {
   const [dimensionData, setDimensionData] = useState([]);
   const [firstReport, setFirstReport] = useState(false);
 
-  useEffect(() => {
-    if (currentReportNumber > 1) {
+useEffect(() => {
+    console.log(parseInt(currentReportNumber) > 1)
+    if (parseInt(currentReportNumber) > 1) {
         fetchDimensionData();
-    } else {
+        setFirstReport(false);
+    } else if (parseInt(currentReportNumber) === 1){
         setFirstReport(true);
     }
-  }, [teamsDocumentId, currentReportNumber]);
+}, [teamsDocumentId, currentReportNumber]);
 
   const fetchDimensionData = async () => {
     const teamRef = doc(db, "Teams", String(teamsDocumentId));
@@ -25,7 +27,6 @@ const DimensionOverview = ({ teamsDocumentId, currentReportNumber }) => {
     if (reportData) {
         calculateAverageScores(reportData);
     }
-
     };
 
     const calculateAverageScores = (reportData) => {

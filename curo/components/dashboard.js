@@ -221,7 +221,7 @@ export default function Dashboard() {
                     </div>
 
                     <div style={{display:'flex', flexDirection:'row', flex:1}}>
-                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)',  marginBottom:'0',}}>
+                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)',  marginBottom:'0', padding:'1vh'}}>
                         <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding:'2vw'}}>
                             <div style={{marginBottom:'2vh'}}>
                                 <p style={{display:'inline'}}>{progressView === 'personal' ? 'Your progress: ' : 'Teams progress: '} <FontAwesomeIcon icon={faShuffle} className={styles.shuffle} onClick={triggerProgressView} /></p>
@@ -232,7 +232,7 @@ export default function Dashboard() {
                             </div>
                         </div>
                       </div>
-                      <div style={{flex:1, height:'fit-content', background:'white', margin:'20px', marginBottom:'0', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)'}}>
+                      <div style={{flex:1.6, height:'fit-content', background:'white', margin:'20px', marginBottom:'0', borderRadius:'30px', boxShadow:'2px 2px 10px rgba(100, 55, 254, 0.1)', padding:'1vh'}}>
                           <DimensionOverview teamsDocumentId={teamRef.id} currentReportNumber={reportNo} />
                       </div>
                     </div>
