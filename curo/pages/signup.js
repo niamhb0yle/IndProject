@@ -59,11 +59,7 @@ export default function SignUp() {
             }
           });
         }
-        
-
-        // create a subcollection named 'Reports' for first report
-        const reportRef = doc(userDocRef, 'Reports', '1');
-        await setDoc(reportRef, {});
+      
       
       } catch (e) {
         console.error("Error adding document: ", e);

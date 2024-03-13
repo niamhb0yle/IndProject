@@ -5,7 +5,7 @@ import "@fontsource/montserrat";
 import '@fontsource-variable/karla';
 import "@fontsource/manrope";
 import { useState } from 'react';
-import { doc, getDoc, arrayUnion, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, arrayUnion, updateDoc, setDoc } from 'firebase/firestore';
 import { db, auth } from "../firebase";
 
 export default function SignUpDev() {
@@ -20,6 +20,12 @@ export default function SignUpDev() {
     // checking to find team on firestore
     const teamRef = doc(db, "Teams", teamID);
     const teamSnap = await getDoc(teamRef);
+    const currentReportNumber = teamSnap.data().CurrentReport.number
+    const userRef = doc(db, "Users", user.email);
+
+    // create a subcollection named 'Reports' for first report
+    const reportRef = doc(userRef, 'Reports', currentReportNumber.toString());
+    await setDoc(reportRef, {});
 
     if (teamSnap.exists() && teamID!="") {
       setTeamData({name: teamSnap.data().name, org: teamSnap.data().org, teamLead: teamSnap.data().coach, id: teamID});
