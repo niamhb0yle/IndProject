@@ -379,4 +379,77 @@
 
 * *6 hours* a lot of trial and error with integrating an existing api for cloud computing carbon emission estimates, finally got it working (https://www.cloudcarbonfootprint.org/docs)
 
+#### 24/01/24
+
+* *1 hour* prep & meeting with peggy
+* *3 hours* collating sources and lit reviews for background
+
+#### 25/01/2024
+
+* *2 hours* Drafting introduction
+
+#### 26/01/2024
+
+* *1 hour* Finish intro
+* *1 hour* GHG research
+
+#### 28/01/2024
+
+* *3 hours* Drafting up plans for scope 3 and how to measure emissions
+* *2 hours* Specific research into generator fuel types and gathering research papers
+
+## Week 14
+
+#### 29/01/2024
+
+* *6 hours* creating and finishing up basic scope 3 page, 'cloud computing' report
+
+#### 30/01/2024
+
+* *3 hours* Debugging the scope 3 report
+* *2 hours* wireframing and more planning for implementation of all 3 scopes
+* *1 hour* VERY Basic layout for scope 1 form
+
+#### 31/01/2024
+
+* *1 hour* meeting prep
+* *1 hour* meeting with peggy
+
+#### 01/02/2024
+
+* *4 hours* Working on scope 1 report, created a new stylesheet and made form responsive
+
+#### 02/02/2024
+
+* *3 hours* adding calculations for vehicles, worked the emission factors for vehicle types in
+
+#### 03/02/2024
+
+* *3.5 hours* adding calculations for generators, worked the emission factors in
+
+## Week 13
+
+#### 05/02/2024
+
+* *4 hours* getting electricity grid emissions - getting nowhere
+
+#### 06/02/2024
+
+* *2 hours* Finishing up scope 1 implementation, sending to backend
+* *1 hour* Sending scope 3 data to backend
+
+#### 07/02/2024
+
+* *2 hours* working on issue board
+* *1 hour* meeting prep
+* *0.5 hour* meeting with peggy
+
+#### 09/02/2024
+
+* *4 hours* fixing bugs on scope 1 and 3
+* *1 hour* drafting an evaluation plan
+
+#### 10/02/2024
+
+* 
 
