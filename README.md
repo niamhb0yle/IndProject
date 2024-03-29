@@ -18,3 +18,17 @@ After you're in the curo directory, install all the apps dependencies, and then 
 npm install
 npm run dev
 ```
+
+To use the Cloud Carbon Footprint API, go back to root (out of curo) and then cd into the cloud-carbon-footprint directory. Your path should look like IndProject/cloud-carbon-footprint. Then run the following command:
+
+```
+cd cloud-carbon-footprint
+yarn start-api
+```
+
+If successful, your terminal should look like this:
+![image](https://github.com/niamhb0yle/IndProject/assets/98156653/62d9ac28-f961-4f43-ba18-64721d26b920)
+
+If the two lines with green 'info' on them do not appear, the apps will not communicate with one another. Try restarting your CCF app, or simply hitting enter/refreshing the terminal its running on.
+
+
