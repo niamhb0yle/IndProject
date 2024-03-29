@@ -379,4 +379,272 @@
 
 * *6 hours* a lot of trial and error with integrating an existing api for cloud computing carbon emission estimates, finally got it working (https://www.cloudcarbonfootprint.org/docs)
 
+#### 24/01/24
 
+* *1 hour* prep & meeting with peggy
+* *3 hours* collating sources and lit reviews for background
+
+#### 25/01/2024
+
+* *2 hours* Drafting introduction
+
+#### 26/01/2024
+
+* *1 hour* Finish intro
+* *1 hour* GHG research
+
+#### 28/01/2024
+
+* *3 hours* Drafting up plans for scope 3 and how to measure emissions
+* *2 hours* Specific research into generator fuel types and gathering research papers
+
+## Week 14
+
+#### 29/01/2024
+
+* *6 hours* creating and finishing up basic scope 3 page, 'cloud computing' report
+
+#### 30/01/2024
+
+* *3 hours* Debugging the scope 3 report
+* *2 hours* wireframing and more planning for implementation of all 3 scopes
+* *1 hour* VERY Basic layout for scope 1 form
+
+#### 31/01/2024
+
+* *1 hour* meeting prep
+* *1 hour* meeting with peggy
+
+#### 01/02/2024
+
+* *4 hours* Working on scope 1 report, created a new stylesheet and made form responsive
+
+#### 02/02/2024
+
+* *3 hours* adding calculations for vehicles, worked the emission factors for vehicle types in
+
+#### 03/02/2024
+
+* *3.5 hours* adding calculations for generators, worked the emission factors in
+
+## Week 13
+
+#### 05/02/2024
+
+* *4 hours* getting electricity grid emissions and implementing basic scope 2 report
+* *3 hours* Linked up issue board to firebase
+
+#### 06/02/2024
+
+* *2 hours* Finishing up scope 1 implementation, sending to backend
+* *1 hour* Sending scope 3 data to backend
+
+#### 07/02/2024
+
+* *2 hours* working on issue board
+* *1 hour* meeting prep
+* *0.5 hour* meeting with peggy
+
+#### 09/02/2024
+
+* *4 hours* fixing bugs on scope 1 and 3
+* *1 hour* drafting an evaluation plan
+
+#### 10/02/2024
+
+* *2 hours* Implementayion work on scope 2
+* *2 hours* Input validation done for scopes 1 and 2
+
+## Week 16
+
+#### 12/02/2024
+
+* *2 hours* Input validation done for scope 3
+* *2 hours* Dashboard work
+
+#### 13/02/2024
+
+* *2 hours* Compiling ghg research and adding to page
+* *3 hours* Debugging
+
+#### 14/02/2024
+
+* *1 hour* meeting prep
+* *0.5 hour* meeting with peggy
+
+#### 15/02/2024
+
+* *2 hours* wireframing for reports page
+
+#### 17/02/2024
+
+* *2 hours* wireframing for settings and profile
+* *3 hours* implementing basic profile page
+
+#### 18/02/2024
+
+* *3 hours* implementing basic team settings page
+* *1 hours* debugging scope 3
+
+## Week 17
+
+#### 19/02/2024
+
+* *6 hours* Issue board functionality for add issue done and input validated
+
+#### 20/02/2024
+
+* *5 hours* worked on profile and settings, looking better, new stylesheet
+* *2 hours* Profile pic functionality, set up backend
+
+#### 21/02/2024
+
+* *2 hours* Styling
+* *2 hours* re-wireframing dashboard
+
+#### 22/02/2024
+
+* *6 hours* Finishing touches to GHG page - adding navbar and basic insights
+* *1 hour* do password change functionality
+
+#### 23/02/2024
+
+* *2 hours* finalising profile page - profile pic funcitonality 
+* *7 hours* report compilation functionality done
+
+#### 24/02/2024
+
+* *4 hours* debugging report compilation functionality, adding input validation
+
+#### 25/02/2024
+
+* *3 hours* Remove team member functionality
+* *1.5 hours* handle scenario where team member logs in but has been removed from team
+* *6 hours* Report page implementation
+
+## Week 18
+
+#### 26/02/2024
+
+* *5 hours* view past Report functionality
+
+#### 27/02/2024
+
+* *3 hours* Export markdown file functionality
+* *4 hours* More dashboard styling
+
+#### 28/02/2024
+
+* *0.5 hours* meeting prep
+* *0.5 hours* meeting
+* *6 hours* adding information to each of the sustainability dimension pages
+
+#### 29/02/2024
+
+* *4 hours* adding recharts visualisations
+* *2 hours* SCI information on page, adding more to sustainability dimension pages
+
+#### 01/03/2024
+
+* *4 hours* Visualisation stuff add to sustainability dimension pages
+
+#### 02/03/2024
+
+* *3 hours* Drafting up user evaluation
+
+## Week 19
+
+#### 04/03/2024
+
+* *2 hours* pilot study and consolidating plan
+
+#### 05/03/2024
+
+* *4 hours* Finshing a lot of styling
+* *1 hour* diss outline completed
+
+#### 06/03/2024
+
+* *4 hours* Added the 'use issue from our suggestions' functionality
+* *2 hours* fixing the styling on 'view report'
+* *1 hour* meeting prep + meeting
+
+#### 07/03/2024
+
+* *3 hours* adding modals for certain input validators
+* *2 hours* adding final component to dashboard (sustainable score summary)
+
+#### 09/03/2024
+
+* *2 hours* plan for background
+* *2 hours* basic analysis plan
+
+#### 10/03/2024
+
+* *3 hours* Completed 3 user evaluations
+
+
+#### 11/03/2024
+
+* *4 hours* Writing lit review
+
+#### 12/03/2024
+
+* *2.5 hours* Completed another 3 user evals
+* *4 hours* debugging
+
+#### 13/03/2024
+
+* *2 hours* First draft of 'existing bodies section
+
+#### 15/03/2024
+
+* *1.5 hours* meeting with peggy
+* *4 hours* Completed 4 user evaluations
+
+#### 16/03/2024
+
+* *10 hours* finishing background and analysis, starting design
+
+#### 17/03/2024
+
+* *10 hours* writing design
+
+#### 18/03/2024
+
+* *2 hours* finishing design
+* *7 hours* implementation and evalutaiton draft
+
+#### 19/03/2024
+
+* *1 hour* meeting with peggy
+* *10 hours* implementation
+
+#### 20/03/2024
+
+* *9 hours* re-read and re do
+* *1 hour* fixing citations and references in text
+
+#### 21/03/2024
+
+* *10 hours* Implementation and design re-work
+
+#### 22/03/2024
+
+* *10 hours* Writing up evaluation results and formatting
+
+#### 23/03/2024
+
+* *10 hours* reworking
+
+#### 24/03/2024
+
+* *8 hours* finishing touches
+
+#### 26/03/2024
+
+* *10 hours* creating vudeo slides, conclusion draft
+
+#### 27/03/2024
+
+* *7 hours* reworking

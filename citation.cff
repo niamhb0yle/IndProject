@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Boyle
+    given-names: Niamh
+title: "Curo - A sustainability tool for software development teams"
+version: 1.0.0
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.1234
+date-released: 2024-03-20
