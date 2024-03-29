@@ -120,7 +120,7 @@ export default function SignUp() {
             className={styles.signupButton}
             onClick={() => handleRoleClick('sm')}
             style={{ background: role === 'sm' ? '#CEDCFA' : '#DBE9FF' }}
-          >Scrum Master</button>
+          >Team Lead</button>
 
           <div style={{textAlign: 'right', marginTop:'50px'}}>
             <Link onClick={onSubmit} href={role === 'dev' ? '/signupDev' : '/signupScrum'} className={styles.continue}>Continue &rarr;</Link>

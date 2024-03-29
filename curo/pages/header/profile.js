@@ -166,7 +166,7 @@ export default function Profile() {
                 
                 <div className={settingsStyles.settingsContentParent} style={{padding:'2vw'}}>
 
-                  <div style={{marginLeft:'0vw', marginRight: '0vw', flex:0.3, display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
+                  <div style={{marginLeft:'0vw', marginRight: '0vw', flex:0.5, display: 'flex', flexDirection:'column', alignItems: 'center', justifyContent: 'center'}}>
                     <div className={settingsStyles.profilePicContainer}>
                       <img src={profilePic} alt='Profile'/>
                     </div>
@@ -230,7 +230,7 @@ export default function Profile() {
 
                   <div className={settingsStyles.vl}></div>
 
-                  <div style={{flex:0.7, paddingTop:'2vh'}}>
+                  <div style={{flex:0.6, paddingTop:'2vh'}}>
                     <p><b>Email:</b> {userInfo.email}</p>
                       <p><b>Team:</b> {userInfo.team}</p>
                       <p><b>Organisation:</b> {userInfo.org}</p>

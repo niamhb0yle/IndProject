@@ -31,11 +31,11 @@ useEffect(() => {
 
     const calculateAverageScores = (reportData) => {
         const dimensionData = {
-            economic: reportData.EconomicQuant,
             environmental: reportData.EnvironmentalQuant,
-            social: reportData.SocialQuant,
+            economic: reportData.EconomicQuant,
             individual: reportData.IndividualQuant,
             technical: reportData.TechnicalQuant,
+            social: reportData.SocialQuant,
           };
       
           // for each dimension, take an average score of their quantitative data 
@@ -67,7 +67,7 @@ useEffect(() => {
                             margin={{ top: 15, right: 30,  left:0, bottom: 2 }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
+                            <XAxis dataKey="name" interval={0} tick={{ fontSize: '12px', textAnchor: 'end' }}/>
                             <YAxis />
                             <Tooltip />
                             <Bar dataKey="avgScore" fill="#8884d8" />

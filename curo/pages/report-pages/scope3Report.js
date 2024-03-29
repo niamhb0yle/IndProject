@@ -186,7 +186,7 @@ export default function Scope3Report() {
                             value={selectedProvider}
                             onChange={(e) => setSelectedProvider(e.target.value)}
                             className={reportStyles.inputBoxes}
-                            style={{width:'50%'}}
+                            style={{width:'50%', marginBottom:'1vh'}}
                         >
                             <option value="">Select a provider</option>
                             {Object.keys(providerRegions).map((provider, index) => (

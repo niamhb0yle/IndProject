@@ -13,7 +13,7 @@ const proxy = createProxyMiddleware({
   pathRewrite: {
     '^/api': '/',
   },
-  logLevel: 'debug', // Optional: For debugging purposes
+  logLevel: 'debug',
 });
 
 export default function (req, res) {

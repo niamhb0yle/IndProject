@@ -247,8 +247,7 @@ export default function Scope1Report() {
 
               <div>
                 <div className={reportStyles.headingText2}>On site Generators</div>
-                <p style={{color:'black'}}>Emissions from generators used owned and used directly by your team/company count towards scope 1 emissions.</p>
-                <p style={{color:'black'}}> Does your team own/use a generator?</p>
+                <p style={{color:'black'}}>Emissions from generators used owned and used directly by your team/company count towards scope 1 emissions. Does your team own/use a generator?</p>
                 <select 
                   value={displayGenerators} 
                   onChange={(e) => setDisplayGenerators(e.target.value)}

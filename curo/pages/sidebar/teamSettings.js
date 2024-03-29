@@ -26,7 +26,7 @@ const customStyles = {
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    width:'500px',
+    width:'600px',
     transform: 'translate(-50%, -50%)',
     borderRadius: '30px',
   },
@@ -213,7 +213,7 @@ export default function TeamSettings() {
                           value={newTeamInfo.name}
                           onChange={(e) => setNewTeamInfo({...newTeamInfo, name:e.target.value})}
                           className={reportStyles.inputBoxes}
-                          style={{width: '40%', display: 'inline'}}
+                          style={{width: '80%', display: 'inline'}}
                           type="text"
                           placeholder={teamInfo.name}
                       />
@@ -222,7 +222,7 @@ export default function TeamSettings() {
                           value={newTeamInfo.org}
                           onChange={(e) => setNewTeamInfo({...newTeamInfo, org:e.target.value})}
                           className={reportStyles.inputBoxes}
-                          style={{width: '40%', display: 'inline'}}
+                          style={{width: '80%', display: 'inline'}}
                           type="text"
                           placeholder={teamInfo.org}
                       />
@@ -255,7 +255,7 @@ export default function TeamSettings() {
                 </div>
                 <hr style={{marginTop:'4vh'}}></hr>
                 <h1>Members</h1>
-                <p>Invite or remove team members here:</p>
+                <p>Remove team members here:</p>
                   {teamInfo.members &&
                     Object.entries(teamInfo.members).map(([email, name]) => (
                         <div className={settingsStyles.memberContainer} key={email}>
